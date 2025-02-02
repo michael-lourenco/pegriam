@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import { GeminiService } from "@/services/gemini/GeminiService";
 
-function extractTitle(htmlString: string) {
-  const match = htmlString.match(/<h2>(.*?)<\/h2>/i);
-  return match ? match[1] : "sem titulo";
+function extractTitle(htmlString:string): string {
+  // Regex para encontrar o conteúdo entre as tags h2, considerando múltiplas linhas
+  const h2Regex = /<h2[^>]*>([\s\S]*?)<\/h2>/;
+  
+  // Procura pelo match no htmlString
+  const match = htmlString.match(h2Regex);
+  
+  // Retorna o conteúdo encontrado (removendo espaços extras) ou string vazia se não encontrar
+  return match ? match[1].trim() : '';
 }
+
 export function useGemini(prompt: string, generateContent?: boolean) {
   const [response, setResponse] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);

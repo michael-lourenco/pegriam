@@ -18,15 +18,65 @@ export default function StoryPage() {
   const [generateContent, setGenerateContent] = useState<boolean>(false);
   const [localContent, setLocalContent] = useState<boolean>(false);
 
-  function extractTitle(htmlString: string) {
-    const match = htmlString.match(/<h2>(.*?)<\/h2>/i);
-    return match ? match[1] : "sem titulo";
+
+
+  function extractTitle(htmlString:string): string {
+    // Regex para encontrar o conteúdo entre as tags h2, considerando múltiplas linhas
+    const h2Regex = /<h2[^>]*>([\s\S]*?)<\/h2>/;
+    
+    // Procura pelo match no htmlString
+    const match = htmlString.match(h2Regex);
+    
+    // Retorna o conteúdo encontrado (removendo espaços extras) ou string vazia se não encontrar
+    return match ? match[1].trim() : '';
   }
 
   const { user, loading, status, handleLogin, handleLogout } = useAuth();
 
-  const prompt = "Crie uma história curta e envolvente, com no máximo 2000 caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser mágica, aconchegante e transmitir uma mensagem positiva, como coragem, amizade ou gentileza. O tom deve ser leve e encantador, adequado para crianças pequenas. Inclua um protagonista carismático, um pequeno desafio e um final feliz que deixe uma sensação de conforto e alegria.Retorne o texto formatado em HTML puro, com tags <h2> para o título, <p> para os parágrafos e <strong> para palavras importantes. Não inclua código React, JSX ou scripts, apenas o HTML da história.";
+  const prompt = `
+  Crie uma história curta e envolvente, com no máximo 2000 caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser mágica, aconchegante e transmitir uma mensagem positiva sobre [tema específico].
+
+Retorne o texto formatado em HTML com a seguinte estrutura e classes Tailwind:
+
+<article class="space-y-6">
+    <h2 class="text-2xl font-bold text-primary text-center">[Título da História]</h2>
+    
+    <div class="space-y-4">
+        <!-- Introdução -->
+        <p class="text-lg text-foreground">[Texto introdutório]</p>
+
+        <!-- Diálogos -->
+        <p class="text-lg text-primary pl-4 border-l-2 border-primary">[Diálogos dos personagens]</p>
+
+        <!-- Descrições -->
+        <p class="text-lg text-foreground">[Descrições de cenário ou ações]</p>
+
+        <!-- Momentos especiais -->
+        <p class="text-lg text-accent font-medium">[Momentos mágicos ou importantes]</p>
+
+        <!-- Final -->
+        <p class="text-lg text-primary font-medium">[Conclusão da história]</p>
+    </div>
+
+    <!-- Moral ou mensagem -->
+    <div class="mt-6 p-4 bg-card rounded-lg border border-border">
+        <p class="text-lg text-primary italic">[Moral ou mensagem da história]</p>
+    </div>
+</article>
+
+A história deve conter:
+1. Um título cativante
+2. Uma introdução que estabeleça o cenário
+3. Um protagonista carismático
+4. Um desafio ou conflito leve
+5. Elementos mágicos ou fantásticos
+6. Um final feliz e reconfortante
+7. Uma moral ou lição sutilmente apresentada
+8. Retorne o HTML diretamente, sem formatação adicional. O conteúdo deve começar imediatamente com <article> e terminar com </article>.
+`;
+
   const { response, title } = useGemini(prompt, generateContent);
+
 
   const endRead = useCallback(() => {
     queueMicrotask(async () => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { UserData } from "@/application/entities/User";
 import { Icon } from "./icons";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface StoryInfoProps {
   prompt: string | null;
@@ -12,15 +13,22 @@ interface StoryInfoProps {
   handleLogout: () => void;
 }
 
-
-export const StoryInfo: React.FC<StoryInfoProps> = ({ prompt, response, title,  handleLogin,
-  handleLogout, user }) => {
-  const [safeResponse, setSafeResponse] = useState<string>("A estória de hoje será sensacional!");
+export const StoryInfo: React.FC<StoryInfoProps> = ({
+  prompt,
+  response,
+  title,
+  handleLogin,
+  handleLogout,
+  user,
+}) => {
+  const [safeResponse, setSafeResponse] = useState<string>(
+    "A história de hoje será sensacional!"
+  );
 
   const localStorageUser =
-  typeof window !== "undefined" && localStorage.getItem("user") !== null
-    ? JSON.parse(localStorage.getItem("user") || "{}")
-    : null;
+    typeof window !== "undefined" && localStorage.getItem("user") !== null
+      ? JSON.parse(localStorage.getItem("user") || "{}")
+      : null;
 
   useEffect(() => {
     if (response) {
@@ -31,26 +39,27 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({ prompt, response, title,  
       } else if (response instanceof HTMLCollection) {
         setSafeResponse(Array.from(response).map((el) => el.outerHTML).join(""));
       } else {
-        setSafeResponse(String(response)); // Fallback
+        setSafeResponse(String(response));
       }
     }
   }, [response]);
-  
 
   return (
     <>
-      {user || (localStorageUser && localStorage.getItem("user") != null)  ?  (
-        <Card className="mb-4 bg-background text-primary">
-          <CardContent>
-            <h2 className="text-xl font-bold">
+      {user || (localStorageUser && localStorage.getItem("user") != null) ? (
+        <Card className="mb-4 bg-background">
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-bold text-primary mb-6 text-center">
               {title}
             </h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: safeResponse,
-              }}
-              className="mt-2"
-            />
+            <ScrollArea className="h-[60vh] rounded-md border border-border">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: safeResponse,
+                }}
+                className="p-6 space-y-4"
+              />
+            </ScrollArea>
           </CardContent>
         </Card>
       ) : (
