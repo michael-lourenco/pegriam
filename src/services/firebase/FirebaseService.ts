@@ -1,4 +1,4 @@
-import { collection, getFirestore, doc, getDoc, getDocs, setDoc, updateDoc, Firestore, DocumentSnapshot, DocumentData } from "firebase/firestore";
+import { arrayUnion, collection, getFirestore, doc, getDoc, getDocs, setDoc, updateDoc, Firestore, DocumentSnapshot, DocumentData } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence, Auth } from "firebase/auth";
 import axios from "axios";
@@ -477,6 +477,31 @@ async function updateStory(
     throw error;
   }
 }
+
+
+async function saveTemplate(  email: string,
+  templateData: any,
+  db: Firestore) {
+  console.log("templateData", templateData)
+  const userRef = doc(db, process.env.NEXT_PUBLIC_USERS_COLLECTION!, email);
+
+  const userDoc = await getDoc(userRef)
+
+  if (userDoc.exists()) {
+    await setDoc(
+      userRef,
+      {
+        templates: arrayUnion(templateData),
+      },
+      { merge: true },
+    )
+  } else {
+    await setDoc(userRef, {
+      templates: [templateData],
+    })
+  }
+}
+
 function displayUserInfo(user: UserData): void {
   console.log(
     `User: ${user.displayName}, Best Score: ${user.best_score.value}, Currency: ${user.currency.value}, Total Games: ${user.total_games.value}, Photo URL: ${user.photoURL}`
@@ -490,6 +515,7 @@ export {
   fetchUserData,
   initFirebase,
   initUserFirebase,
+  saveTemplate,
   sendLeaderboardToGamification,
   updateStory,
   updateUserBestScore,
