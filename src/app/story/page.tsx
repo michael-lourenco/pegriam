@@ -172,11 +172,14 @@ A história deve conter:
           <Footer />
         </div>
       ) : (
+        <>
         <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
           <div className="grid grid-cols-[1fr,auto] items-center gap-2">
             <Button onClick={handleLogin} variant="default">Sign in with Google</Button>
           </div>
         </div>
+        <Footer />
+      </>
       )}
     </>
   );
