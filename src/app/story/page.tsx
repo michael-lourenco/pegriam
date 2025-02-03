@@ -91,7 +91,10 @@ A história deve conter:
   }, [prompt, response, user]);
 
   const handleSaveClick = useCallback(() => {
-    endRead();
+    console.log('TAMANHO DA RESPOSTA ', response?.length)
+    if(response && response.length > 300) {
+      endRead();
+    }
   }, [endRead]);
 
   const handleGenerateStory = useCallback(() => {

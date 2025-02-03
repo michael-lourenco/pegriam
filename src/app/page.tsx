@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Play, HelpCircle, Heart } from "lucide-react";
 import { Icon } from "@/components/icons";
 import { LeaderboardByOwnerAndDate } from "@/components/leaderboard/Leaderboard";
-import { HomeUserInfo } from "@/components/HomeUserInfo";
+import { UserInfo } from "@/components/UserInfo";
 import { useNavigation } from "@/hooks/useNavigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Footer } from "@/components/Footer";
@@ -33,7 +33,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
         {/* User Info Section */}
         {status !== "loading" && (
-          <HomeUserInfo
+          <UserInfo
             user={user}
             handleLogin={handleLogin}
             handleLogout={handleLogout}
@@ -43,7 +43,7 @@ export default function Home() {
         {/* Main Game Section */}
         <Card className="bg-background border-none shadow-none">
           <CardHeader className="space-y-2">
-            <CardTitle className="text-4xl font-bold text-center bg-gradient-to-r from-chart-2 to-green-500 text-transparent bg-clip-text">
+            <CardTitle className="text-4xl font-bold text-center">
               Pegriam
             </CardTitle>
           </CardHeader>
