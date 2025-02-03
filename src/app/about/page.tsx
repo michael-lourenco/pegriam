@@ -34,15 +34,15 @@ export default function About() {
             handleLogin={handleLogin}
             handleLogout={handleLogout}
           />
-          <Card className="w-full max-w-3xl bg-background border-none shadow-none">
-            <CardHeader>
-              <CardTitle className="text-center text-2xl font-bold text-foreground">
+          <Card className="bg-background border-none shadow-none">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-4xl font-bold text-center">
                 Pegriam, o Bardo
               </CardTitle>
             </CardHeader>
             <CardContent>
 
-              <div className="w-full mb-8">
+            <div className="flex flex-col justify-center items-center">
                 <Image 
                   src="/images/pegriam/pegriam-avatar.png" 
                   alt="Avatar Pegriam" 
