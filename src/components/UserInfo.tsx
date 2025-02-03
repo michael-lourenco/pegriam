@@ -30,7 +30,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
               <Icon
-                name="PiTarget"
+                name="PiBookOpen"
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
               <span className="text-primary">
