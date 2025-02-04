@@ -37,5 +37,5 @@ export function useGemini(prompt: string, generateContent?: boolean) {
     fetchData();
   }, [prompt, generateContent]);
 
-  return { response, title };
+  return { response, setResponse, title };
 }

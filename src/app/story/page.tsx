@@ -1,24 +1,23 @@
-"use client";
+"use client"
 
-import React, { useState, useCallback } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useGemini } from "@/hooks/useGemini";
-import { UserInfo } from "@/components/UserInfo";
-import { Story, StoryData } from "@/components/story/Story";
-import { updateStory, updateUserCredits, dbFirestore } from "@/services/firebase/FirebaseService";
-import { Card, CardContent } from "@/components/ui/card";
-import { Footer } from "@/components/Footer";
-import { StoryInfo } from "@/components/StoryInfo";
-import { StoryControls } from "@/components/StoryControls";
-import { Button } from "@/components/ui/button";
-import { HelpCircle } from "lucide-react";
-import { StoryGeneratorModal } from '@/components/StoryGeneratorModal'
-import { TemplateSelector } from '@/components/TemplateSelector'
-import { Template } from '@/types/template';
+import { useState, useCallback } from "react"
+import { useAuth } from "@/hooks/useAuth"
+import { useGemini } from "@/hooks/useGemini"
+import { UserInfo } from "@/components/UserInfo"
+import { Story, type StoryData } from "@/components/story/Story"
+import { updateStory, updateUserCredits, dbFirestore } from "@/services/firebase/FirebaseService"
+import { Card, CardContent } from "@/components/ui/card"
+import { Footer } from "@/components/Footer"
+import { StoryInfo } from "@/components/StoryInfo"
+import { StoryControls } from "@/components/StoryControls"
+import { Button } from "@/components/ui/button"
+import { StoryGeneratorModal } from "@/components/StoryGeneratorModal"
+import { TemplateSelector } from "@/components/TemplateSelector"
+import type { Template } from "@/types/template"
 export default function StoryPage() {
-  const [selectedStory, setSelectedStory] = useState<StoryData | null>(null);
-  const [generateContent, setGenerateContent] = useState<boolean>(false);
-  const [localContent, setLocalContent] = useState<boolean>(false);
+  const [selectedStory, setSelectedStory] = useState<StoryData | null>(null)
+  const [generateContent, setGenerateContent] = useState<boolean>(false)
+  const [localContent, setLocalContent] = useState<boolean>(false)
   const [prompt, setPrompt] = useState<string>(`
   Crie uma história curta e envolvente, com no máximo 2000 caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser mágica, aconchegante e transmitir uma mensagem positiva sobre [tema específico].
 
@@ -61,9 +60,10 @@ A história deve conter:
 8. Retorne o HTML diretamente, sem formatação adicional. O conteúdo deve começar imediatamente com <article> e terminar com </article>.
 `)
 
-const handlePrompt = (template: Template) => {
-  // Aqui você pode manipular o template para criar o prompt
-  const promptText = `
+
+  const handlePrompt = (template: Template) => {
+    // Aqui você pode manipular o template para criar o prompt
+    const promptText = `
     Crie uma história curta e envolvente, com no máximo ${template.storyLength == "curta" ? "2000" : template.storyLength == "média" ? "3000" : template.storyLength == "longa" ? "4000" : "2000"} caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser aconchegante e transmitir uma mensagem positiva sobre ${template.themes.join(", ")}.
 
 Retorne o texto formatado em HTML com a seguinte estrutura e classes Tailwind:
@@ -103,53 +103,62 @@ A história deve conter:
 6. Uma moral ou lição sutilmente apresentada
 7. Retorne o HTML diretamente, sem formatação adicional. O conteúdo deve começar imediatamente com <article> e terminar com </article>.
   `
-  setPrompt(promptText)
-}
-
-
-  function extractTitle(htmlString:string): string {
-    // Regex para encontrar o conteúdo entre as tags h2, considerando múltiplas linhas
-    const h2Regex = /<h2[^>]*>([\s\S]*?)<\/h2>/;
-    
-    // Procura pelo match no htmlString
-    const match = htmlString.match(h2Regex);
-    
-    // Retorna o conteúdo encontrado (removendo espaços extras) ou string vazia se não encontrar
-    return match ? match[1].trim() : '';
+    setPrompt(promptText)
   }
 
-  const { user, loading, status, handleLogin, handleLogout } = useAuth();
+  function extractTitle(htmlString: string): string {
+    // Regex para encontrar o conteúdo entre as tags h2, considerando múltiplas linhas
+    const h2Regex = /<h2[^>]*>([\s\S]*?)<\/h2>/
+
+    // Procura pelo match no htmlString
+    const match = htmlString.match(h2Regex)
+
+    // Retorna o conteúdo encontrado (removendo espaços extras) ou string vazia se não encontrar
+    return match ? match[1].trim() : ""
+  }
+
+  const { user, loading, status, handleLogin, handleLogout } = useAuth()
 
 
-  const { response, title } = useGemini(prompt, generateContent);
+  const [userCredits, setUserCredits] = useState(user?.credits.value || 0)
 
+  const { response, setResponse, title } = useGemini(prompt, generateContent)
 
   const endRead = useCallback(() => {
     queueMicrotask(async () => {
-      if (!user) return;
-      const title = response ? extractTitle(response) : "Sem titulo";
-      const now = new Date();
-      if (user.credits.value > 0) {
-        await updateStory(user.email, { date: now, prompt: prompt, title: title, story: response || "Sem resposta" }, dbFirestore);
-        await updateUserCredits(user.email, -1, dbFirestore);
+      if (!user) return
+      const title = response ? extractTitle(response) : "Sem titulo"
+      const now = new Date()
+      if (userCredits > 0) {
+        await updateStory(
+          user.email,
+          { date: now, prompt: prompt, title: title, story: response || "Sem resposta" },
+          dbFirestore,
+        )
+        await updateUserCredits(user.email, -1, dbFirestore)
+        setUserCredits((prevCredits) => prevCredits - 1)
       }
-    });
-  }, [prompt, response, user]);
+    })
+  }, [prompt, response, user, userCredits])
 
   const handleSaveClick = useCallback(() => {
-    console.log('TAMANHO DA RESPOSTA ', response?.length)
-    if(response && response.length > 300) {
-      endRead();
+    console.log("TAMANHO DA RESPOSTA ", response?.length)
+    if (response && response.length > 300) {
+      endRead()
     }
-  }, [endRead]);
+  }, [endRead])
 
   const handleGenerateStory = useCallback(() => {
-    setLocalContent(false);
-    setGenerateContent(true);
-  }, [generateContent]);
+    setLocalContent(false)
+    setGenerateContent(true)
+  }, [generateContent])
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><p>Carregando...</p></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Carregando...</p>
+      </div>
+    )
   }
 
   return (
@@ -158,36 +167,51 @@ A história deve conter:
         <div className="flex flex-col min-h-screen bg-background text-primary">
           <main className="flex-grow flex flex-col items-center justify-start pt-4">
             <div className="max-w-4xl mx-auto relative">
-              <UserInfo user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
-              {user.credits.value > 0 ? (
-                !localContent && !selectedStory && (
+              <UserInfo
+                user={{ ...user, credits: { value: userCredits, updatedAt: user.credits.updatedAt } }}
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}
+              />
+              {userCredits > 0 ? (
+                !localContent &&
+                !selectedStory && (
                   <>
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-                      <StoryGeneratorModal user = {user} />
-                      <TemplateSelector user = {user} onTemplateSelect={handlePrompt}/>
+                      <StoryGeneratorModal user={user} />
+                      <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
                     </div>
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-                      <Button variant="outline" className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary" onClick={handleGenerateStory}>Conte uma história</Button>
+                      <Button className="bg-chart-2 hover:bg-lime-600 text-primary" onClick={handleGenerateStory}>
+                        Conte uma história
+                      </Button>
                     </div>
-                    <StoryInfo prompt={prompt} response={response} title={title} user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
-                    <StoryControls handleSaveClick={handleSaveClick} />
+                    <StoryInfo
+                      prompt={prompt}
+                      response={response}
+                      title={title}
+                      user={user}
+                      handleLogin={handleLogin}
+                      handleLogout={handleLogout}
+                    />
+                    {response && response.length > 300 ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
                   </>
                 )
               ) : (
                 <></>
               )}
 
-              {user.credits.value <= 0 ? (
+              {userCredits <= 0 ? (
                 <>
                   <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
                     <div className="grid grid-cols-[1fr,auto] items-center gap-2">
                       <Button
-                        onClick={() =>
-                          updateUserCredits(user.email, 1, dbFirestore)
-                        }
+                        onClick={async () => {
+                          await updateUserCredits(user.email, 1, dbFirestore)
+                          setUserCredits((prevCredits) => prevCredits + 1)
+                        }}
                         variant="default"
                       >
-                        Insira créditos para ler novas estórias
+                        Insira créditos para ler novas histórias
                       </Button>
                     </div>
                   </div>
@@ -198,12 +222,25 @@ A história deve conter:
 
               {selectedStory && (
                 <>
-                  <StoryInfo prompt="local" response={selectedStory.story} title={selectedStory.title} user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+                  <StoryInfo
+                    prompt="local"
+                    response={selectedStory.story}
+                    title={selectedStory.title}
+                    user={user}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                  />
                   <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-                    <Button variant="outline" className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary" onClick={() => { 
-                      setLocalContent(false)
-                      setSelectedStory(null)}
-                    }>Nova história</Button>
+                    <Button
+                      className="bg-chart-2 hover:bg-lime-600 text-primary"
+                      onClick={() => {
+                        setLocalContent(false)
+                        setSelectedStory(null)
+                        setResponse(null)
+                      }}
+                    >
+                      Conte uma nova história
+                    </Button>
                   </div>
                 </>
               )}
@@ -213,7 +250,16 @@ A história deve conter:
                   {status === "loading" ? (
                     <p>Loading...</p>
                   ) : (
-                    <Story storyData={user?.story?.map(story => ({ ...story, id: story.id, date: story.date instanceof Date ? story.date.toISOString() : story.date })) || null} onRowClick={setSelectedStory} />
+                    <Story
+                      storyData={
+                        user?.story?.map((story) => ({
+                          ...story,
+                          id: story.id,
+                          date: story.date instanceof Date ? story.date.toISOString() : story.date,
+                        })) || null
+                      }
+                      onRowClick={setSelectedStory}
+                    />
                   )}
                 </CardContent>
               </Card>
@@ -223,14 +269,17 @@ A história deve conter:
         </div>
       ) : (
         <>
-        <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
-          <div className="grid grid-cols-[1fr,auto] items-center gap-2">
-            <Button onClick={handleLogin} variant="default">Sign in with Google</Button>
+          <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
+            <div className="grid grid-cols-[1fr,auto] items-center gap-2">
+              <Button onClick={handleLogin} variant="default">
+                Sign in with Google
+              </Button>
+            </div>
           </div>
-        </div>
-        <Footer />
-      </>
+          <Footer />
+        </>
       )}
     </>
-  );
+  )
 }
+

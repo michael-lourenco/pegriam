@@ -73,7 +73,7 @@ export default function Home() {
             <div className="space-y-4">
               {/* How to Play */}
               <Button
-                onClick={handleNavigation("/how_to_play")}
+                onClick={handleNavigation("/about")}
                 variant="ghost"
                 className="w-full group transition-all duration-300 hover:bg-background"
               >

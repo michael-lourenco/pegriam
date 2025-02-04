@@ -22,7 +22,7 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({
   user,
 }) => {
   const [safeResponse, setSafeResponse] = useState<string>(
-    "A história de hoje será sensacional!"
+    "Clique no botão 'Conte uma história' para eu buscar uma nas minhas lembranças."
   );
 
   const localStorageUser =
@@ -49,9 +49,9 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({
       {user || (localStorageUser && localStorage.getItem("user") != null) ? (
         <Card className="mb-4 bg-background">
           <CardContent className="p-6">
-            <h2 className="text-2xl font-bold text-primary mb-6 text-center">
+            {/* <h2 className="text-2xl font-bold text-primary mb-6 text-center">
               {title}
-            </h2>
+            </h2> */}
             <ScrollArea className="h-[60vh] rounded-md border border-border">
               <div
                 dangerouslySetInnerHTML={{
