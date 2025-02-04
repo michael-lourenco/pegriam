@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { UserData } from "@/application/entities/User";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { MultiSelect } from "@/components/ui/multi-select"
+import { Icon } from "@/components/icons"
 import {
     fetchUserData,
     initUserFirebase,
@@ -62,7 +63,10 @@ const localStorageUser =
     {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">Criar Template de História</Button>
+            <Button variant="outline">
+                  <Icon name="LuPlus" className="h-5 w-5" />
+                  <span className="text-xs font-medium">Criar Template </span>
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>

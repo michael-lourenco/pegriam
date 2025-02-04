@@ -165,7 +165,9 @@ A história deve conter:
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
                       <StoryGeneratorModal user = {user} />
                       <TemplateSelector user = {user} onTemplateSelect={handlePrompt}/>
-                      <Button variant="outline" className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary" onClick={handleGenerateStory}>me conte uma história</Button>
+                    </div>
+                    <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
+                      <Button variant="outline" className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary" onClick={handleGenerateStory}>Conte uma história</Button>
                     </div>
                     <StoryInfo prompt={prompt} response={response} title={title} user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
                     <StoryControls handleSaveClick={handleSaveClick} />
@@ -201,7 +203,7 @@ A história deve conter:
                     <Button variant="outline" className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary" onClick={() => { 
                       setLocalContent(false)
                       setSelectedStory(null)}
-                    }>nova história</Button>
+                    }>Nova história</Button>
                   </div>
                 </>
               )}
