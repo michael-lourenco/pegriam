@@ -34,29 +34,53 @@ export default function About() {
             handleLogin={handleLogin}
             handleLogout={handleLogout}
           />
-          <Card className="bg-background border-none shadow-none">
+          <Card className="bg-background border-none shadow-none max-w-4xl mx-auto">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-4xl font-bold text-center">
-                Pegriam, o Bardo
-              </CardTitle>
+              <CardTitle className="text-3xl md:text-4xl font-bold text-center">Pegriam, o Bardo</CardTitle>
             </CardHeader>
-            <CardContent>
-
-            <div className="flex flex-col justify-center items-center">
-                <Image 
-                  src="/images/pegriam/pegriam-avatar.png" 
-                  alt="Avatar Pegriam" 
-                  width={300} 
-                  height={300} 
-                  className="mt-4"
+            <CardContent className="space-y-8">
+              <div className="flex justify-center">
+                <Image
+                  src="/images/pegriam/pegriam-avatar.png"
+                  alt="Avatar Pegriam"
+                  width={200}
+                  height={200}
+                  className="rounded-full"
                 />
               </div>
 
-              <p className="text-lg mb-8">
-                Bem-vindo ao meu mundo. Sou Pegriam, o bardo. Como já viajei por inúmeras realidades, posso contar de histórias de emocionantes para as crianças de todos os níveis. Esta experiência incentiva as crianças a se tornarem leitores apaixonados, criando memórias inesquecíveis com suas famílias.
-              </p>
-              
+              <article className="text-base md:text-lg space-y-4">
+                <p>
+                  Olá! Sou Pegriam, o bardo viajante de múltiplas realidades. Em cada uma delas, assumo uma forma diferente:
+                  homem, mulher, gato ou até mesmo criaturas além da sua imaginação.
+                </p>
+                <p>
+                  Minha missão? Contar histórias fantásticas para crianças de todas as idades, incentivando a leitura e
+                  criando memórias inesquecíveis em família.
+                </p>
+              </article>
 
+              <div className="flex justify-center">
+                <Image
+                  src="/images/michael/michael.jpeg"
+                  alt="Michael Lourenco"
+                  width={150}
+                  height={150}
+                  className="rounded-full"
+                />
+              </div>
+
+              <article className="text-base md:text-lg space-y-4">
+                <h2 className="text-2xl text-center font-bold">Michael Lourenço</h2>
+                <p>
+                  Como criador deste projeto, desenvolvo todas as suas facetas. As histórias são geradas com o auxílio de
+                  inteligência artificial, proporcionando uma experiência única a cada vez.
+                </p>
+                <p>
+                  Estou constantemente explorando e aprimorando as capacidades de Pegriam. Espero que você aprecie tudo o que
+                  ele tem a oferecer!
+                </p>
+              </article>
             </CardContent>
           </Card>
         </div>
