@@ -63,14 +63,14 @@ const localStorageUser =
           ))}
         </SelectContent>
       </Select>
-      {selectedTemplate && (
+      {/* {selectedTemplate && (
         <div className="p-4 border rounded-md">
           <h3 className="font-bold mb-2">{selectedTemplate.name}</h3>
           <p>Tamanho: {selectedTemplate.storyLength}</p>
           <p>Temas: {selectedTemplate.themes.join(", ")}</p>
           <p>Idade recomendada: {selectedTemplate.age}</p>
         </div>
-      )}
+      )} */}
     </div>): (<></>)}
     </>
   )
