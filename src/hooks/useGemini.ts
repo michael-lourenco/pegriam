@@ -20,8 +20,7 @@ export function useGemini(prompt: string, generateContent?: boolean) {
     const fetchData = async () => {
       if (prompt && generateContent == true) {
         try {
-          console.log("PROMPT PARA GEMINI"  , prompt);
-          const intermediateResponse = "Lembrando a história...";
+          const intermediateResponse = "Deixe-me ver... a história era assim...";
           setResponse(intermediateResponse);
           const promptData = await GeminiService(prompt);
           const title = extractTitle(promptData);
