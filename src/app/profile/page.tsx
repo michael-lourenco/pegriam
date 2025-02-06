@@ -36,7 +36,7 @@ export default function ProfileDashboard() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-primary">
       <main className="flex-grow flex flex-col items-center justify-start pt-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative">
           <UserInfo
             user={user}
             handleLogin={handleLogin}

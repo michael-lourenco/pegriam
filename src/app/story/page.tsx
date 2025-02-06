@@ -178,8 +178,8 @@ A história deve conter:
                 !selectedStory && (
                   <>
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-                      <StoryGeneratorModal user={user} />
                       <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
+                      <StoryGeneratorModal user={user} />
                     </div>
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
                       <Button className="bg-chart-2 hover:bg-lime-600 text-primary" onClick={handleGenerateStory}>
@@ -288,8 +288,7 @@ A história deve conter:
                 </>
               )}
 
-              <Card className="bg-background border-none shadow-none">
-                <CardContent className="border-none shadow-none">
+ 
                   {status === "loading" ? (
                     <p>Loading...</p>
                   ) : (
@@ -304,8 +303,6 @@ A história deve conter:
                       onRowClick={setSelectedStory}
                     />
                   )}
-                </CardContent>
-              </Card>
             </div>
           </main>
           <Footer />

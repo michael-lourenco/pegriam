@@ -44,7 +44,6 @@ const localStorageUser =
 
   const onSubmit = async (data: TemplateData) => {
     try {
-      console.log("TEM EMAIL?", user?.email)
       if (user && user.email){
         await saveTemplate(user.email, data, dbFirestore)
       }
@@ -65,7 +64,6 @@ const localStorageUser =
           <DialogTrigger asChild>
             <Button variant="outline">
                   <Icon name="LuPlus" className="h-5 w-5" />
-                  <span className="text-xs font-medium">Criar Pergaminho </span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">

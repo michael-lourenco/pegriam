@@ -32,9 +32,9 @@ export default function Home() {
           {status !== "loading" && <UserInfo user={user} handleLogin={handleLogin} handleLogout={handleLogout} />}
 
           {/* Main Game Section */}
-          <Card className="bg-background border-none shadow-none">
+          <Card className="bg-background border-none shadow-none max-w-4xl mx-auto">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-4xl font-bold text-center">Pegriam</CardTitle>
+              <CardTitle className="text-3xl md:text-4xl font-bold text-center">Pegriam</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-8">
