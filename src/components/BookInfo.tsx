@@ -14,7 +14,7 @@ interface BookInfoProps {
 
 export const BookInfo: React.FC<BookInfoProps> = ({ prompt, response,   handleLogin,
   handleLogout, user }) => {
-  const [safeResponse, setSafeResponse] = useState<string>("Lembrando a história ...");
+  const [safeResponse, setSafeResponse] = useState<string>("Deixe-me ver... a história era assim ...");
 
   const localStorageUser =
   typeof window !== "undefined" && localStorage.getItem("user") !== null

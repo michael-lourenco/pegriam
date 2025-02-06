@@ -22,7 +22,10 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({
   user,
 }) => {
   const [safeResponse, setSafeResponse] = useState<string>(
-    "Clique no botão 'Conte uma história' para eu buscar uma nas minhas lembranças."
+    `Leia histórias infantis incríveis em um clique! 
+    Não perca mais tempo pensando em ideias para suas histórias!
+    Deixe eu contar uma história incrível pra você!
+    Clique no botão 'Conte uma história' para eu buscar uma nas minhas lembranças.`
   );
 
   const localStorageUser =
