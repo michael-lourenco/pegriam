@@ -65,16 +65,16 @@ const localStorageUser =
           <DialogTrigger asChild>
             <Button variant="outline">
                   <Icon name="LuPlus" className="h-5 w-5" />
-                  <span className="text-xs font-medium">Criar Template </span>
+                  <span className="text-xs font-medium">Criar Pergaminho </span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Criar Template de História Infantil</DialogTitle>
+              <DialogTitle>Criar Pergaminho de História Infantil</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <Label htmlFor="name">Nome do Template</Label>
+                <Label htmlFor="name">Nome do Pergaminho</Label>
                 <Input id="name" {...register("name", { required: true })} />
               </div>
               <div>
@@ -120,7 +120,7 @@ const localStorageUser =
                 <Label htmlFor="age">Idade Recomendada</Label>
                 <Input type="number" id="age" {...register("age", { required: true, min: 1, max: 12 })} />
               </div>
-              <Button type="submit">Salvar Template</Button>
+              <Button type="submit">Salvar Pergaminho</Button>
             </form>
           </DialogContent>
         </Dialog>): (<></>)}

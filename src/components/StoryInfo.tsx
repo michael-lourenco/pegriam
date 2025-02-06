@@ -22,10 +22,7 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({
   user,
 }) => {
   const [safeResponse, setSafeResponse] = useState<string>(
-    `Leia histórias infantis incríveis em um clique! 
-    Não perca mais tempo pensando em ideias para suas histórias!
-    Deixe eu contar uma história incrível pra você!
-    Clique no botão 'Conte uma história' para eu buscar uma nas minhas lembranças.`
+    `O pergaminho está em branco, pronto para receber uma nova história...`
   );
 
   const localStorageUser =
@@ -55,7 +52,7 @@ export const StoryInfo: React.FC<StoryInfoProps> = ({
             {/* <h2 className="text-2xl font-bold text-primary mb-6 text-center">
               {title}
             </h2> */}
-            <ScrollArea className="h-[60vh] rounded-md border border-border">
+            <ScrollArea className="h-auto rounded-md border border-border">
               <div
                 dangerouslySetInnerHTML={{
                   __html: safeResponse,

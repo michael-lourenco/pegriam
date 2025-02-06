@@ -15,7 +15,7 @@ export const StoryControls: React.FC<StoryControlsProps> = ({
       className="bg-chart-2 hover:bg-lime-600 text-primary"
       onClick={handleSaveClick}
     >
-      Salvar história
+      Guardar na Biblioteca
     </Button>
   </div>
   </>

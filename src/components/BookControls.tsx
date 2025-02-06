@@ -17,7 +17,7 @@ export const BookControls: React.FC<BookControlsProps> = ({
       className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
       onClick={handleSaveClick}
     >
-      Salvar história
+      Guardar na Biblioteca
     </Button>
   </div>
   </>

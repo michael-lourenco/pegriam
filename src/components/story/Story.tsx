@@ -42,7 +42,7 @@ export const Story: React.FC<StoryProps> = ({ storyData, onRowClick }) => {
         <Card className="bg-background text-primary">
           <CardHeader className="bg-background text-primary">
             <CardTitle className="bg-background text-primary">
-              Suas histórias
+              Biblioteca
             </CardTitle>
           </CardHeader>
           <CardContent>

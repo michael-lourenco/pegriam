@@ -103,6 +103,7 @@ A história deve conter:
 6. Uma moral ou lição sutilmente apresentada
 7. Retorne o HTML diretamente, sem formatação adicional. O conteúdo deve começar imediatamente com <article> e terminar com </article>.
   `
+    setGenerateContent(false)
     setPrompt(promptText)
   }
 
@@ -237,6 +238,48 @@ A história deve conter:
                         setLocalContent(false)
                         setSelectedStory(null)
                         setResponse(null)
+                        setGenerateContent(false)
+                        setPrompt(`
+  Crie uma história curta e envolvente, com no máximo 2000 caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser mágica, aconchegante e transmitir uma mensagem positiva sobre [tema específico].
+
+Retorne o texto formatado em HTML com a seguinte estrutura e classes Tailwind:
+
+<article class="space-y-6">
+    <h2 class="text-2xl font-bold text-primary text-center">[Título da História]</h2>
+    
+    <div class="space-y-4">
+        <!-- Introdução -->
+        <p class="text-lg text-foreground">[Texto introdutório]</p>
+
+        <!-- Diálogos -->
+        <p class="text-lg text-primary pl-4 border-l-2 border-primary">[Diálogos dos personagens]</p>
+
+        <!-- Descrições -->
+        <p class="text-lg text-foreground">[Descrições de cenário ou ações]</p>
+
+        <!-- Momentos especiais -->
+        <p class="text-lg text-accent font-medium">[Momentos mágicos ou importantes]</p>
+
+        <!-- Final -->
+        <p class="text-lg text-primary font-medium">[Conclusão da história]</p>
+    </div>
+
+    <!-- Moral ou mensagem -->
+    <div class="mt-6 p-4 bg-card rounded-lg border border-border">
+        <p class="text-lg text-primary italic">[Moral ou mensagem da história]</p>
+    </div>
+</article>
+
+A história deve conter:
+1. Um título cativante
+2. Uma introdução que estabeleça o cenário
+3. Um protagonista carismático
+4. Um desafio ou conflito leve
+5. Elementos mágicos ou fantásticos
+6. Um final feliz e reconfortante
+7. Uma moral ou lição sutilmente apresentada
+8. Retorne o HTML diretamente, sem formatação adicional. O conteúdo deve começar imediatamente com <article> e terminar com </article>.
+`)
                       }}
                     >
                       Conte uma nova história
