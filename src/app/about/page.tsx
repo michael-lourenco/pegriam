@@ -11,11 +11,11 @@ import Image from "next/image";
 import { LoadingDefault } from "@/components/LoadingDefault";
 
 export default function About() {
-  const { user, loading, status, handleLogin, handleLogout } = useAuth();
+  const { user, loading: authLoading, status, handleLogin, handleLogout } = useAuth();
 
   const navigationService = useNavigation();
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <LoadingDefault />

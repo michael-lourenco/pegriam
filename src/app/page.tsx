@@ -11,15 +11,15 @@ import { LoadingDefault } from "@/components/LoadingDefault"
 
 export default function Home() {
   const navigationService = useNavigation()
-  const { user, loading, status, handleLogin, handleLogout } = useAuth()
+  const { user, loading: authLoading, status, handleLogin, handleLogout } = useAuth()
 
   const handleNavigation = (path: string) => () => {
     navigationService.navigateTo(path)
   }
 
-  if (loading) {
+  if (authLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-background">
+      <div className="flex justify-center items-center h-screen">
         <LoadingDefault />
         <div className="animate-pulse text-primary">Carregando...</div>
       </div>

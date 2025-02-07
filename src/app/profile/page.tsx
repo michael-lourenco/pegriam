@@ -24,9 +24,9 @@ const formatDate = (date: Date): string => {
 
 export default function ProfileDashboard() {
 
-  const { user, loading, status, handleLogin, handleLogout } = useAuth();
+  const { user, loading: authLoading, status, handleLogin, handleLogout } = useAuth();
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <LoadingDefault />

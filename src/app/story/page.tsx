@@ -190,7 +190,12 @@ A história deve conter:
                         Conte uma história
                       </Button>
                     </div>
-                    {loading && <Loading />}
+                      {loading && (
+                        <div className="flex justify-center items-center max-w-full">
+                          <Loading />
+                        </div>
+                      )}
+                        
                     {error && <p className="text-red-500">{error}</p>}
                     <StoryInfo
                       prompt={prompt}
