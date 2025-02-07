@@ -1,20 +1,26 @@
-"use client"
+"use client";
 
-import React from 'react';
-import Lottie from 'lottie-react';
-import loadingDefaultAnimation from "../../public/images/animations/loader_book.json"
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 
-const LoadingDefault: React.FC = () => {
+// Importação dinâmica do Lottie, garantindo que seja carregado apenas no client-side
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
+export function LoadingDefault() {
+  const [animationData, setAnimationData] = useState(null);
+
+  useEffect(() => {
+    fetch("/animations/loader_book.json")
+      .then((res) => res.json())
+      .then((data) => setAnimationData(data))
+      .catch((err) => console.error("Erro ao carregar JSON:", err));
+  }, []);
+
+  if (!animationData) return <p>Carregando...</p>;
+
   return (
-    <div className="flex items-center justify-center p-4">
-      <div className="w-24 h-24">
-        <Lottie
-          animationData={loadingDefaultAnimation}
-          loop={true}
-        />
-      </div>
+    <div className="w-40 h-40">
+      <Lottie animationData={animationData} loop autoplay />
     </div>
   );
-};
-
-export { LoadingDefault }
+}
