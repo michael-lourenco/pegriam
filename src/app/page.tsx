@@ -7,6 +7,7 @@ import { useNavigation } from "@/hooks/useNavigation"
 import { useAuth } from "@/hooks/useAuth"
 import { Footer } from "@/components/Footer"
 import Image from "next/image"
+import { LoadingDefault } from "@/components/LoadingDefault"
 
 export default function Home() {
   const navigationService = useNavigation()
@@ -19,6 +20,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-background">
+        <LoadingDefault />
         <div className="animate-pulse text-primary">Carregando...</div>
       </div>
     )

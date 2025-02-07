@@ -4,6 +4,8 @@ import { useState, useCallback } from "react"
 import { useAuth } from "@/hooks/useAuth"
 import { useGemini } from "@/hooks/useGemini"
 import { UserInfo } from "@/components/UserInfo"
+import { Loading } from "@/components/Loading"
+import { LoadingDefault } from "@/components/LoadingDefault"
 import { Story, type StoryData } from "@/components/story/Story"
 import { updateStory, updateUserCredits, dbFirestore } from "@/services/firebase/FirebaseService"
 import { Card, CardContent } from "@/components/ui/card"
@@ -118,12 +120,12 @@ A história deve conter:
     return match ? match[1].trim() : ""
   }
 
-  const { user, loading, status, handleLogin, handleLogout } = useAuth()
+  const { user, loading: authLoading, status, handleLogin, handleLogout } = useAuth()
 
 
   const [userCredits, setUserCredits] = useState(user?.credits.value || 0)
 
-  const { response, setResponse, title } = useGemini(prompt, generateContent)
+  const { response, setResponse, title, loading, error } = useGemini(prompt, generateContent);
 
   const endRead = useCallback(() => {
     queueMicrotask(async () => {
@@ -154,9 +156,10 @@ A história deve conter:
     setGenerateContent(true)
   }, [generateContent])
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
+        <LoadingDefault />
         <p>Carregando...</p>
       </div>
     )
@@ -173,6 +176,7 @@ A história deve conter:
                 handleLogin={handleLogin}
                 handleLogout={handleLogout}
               />
+
               {userCredits > 0 ? (
                 !localContent &&
                 !selectedStory && (
@@ -186,6 +190,8 @@ A história deve conter:
                         Conte uma história
                       </Button>
                     </div>
+                    {loading && <Loading />}
+                    {error && <p className="text-red-500">{error}</p>}
                     <StoryInfo
                       prompt={prompt}
                       response={response}

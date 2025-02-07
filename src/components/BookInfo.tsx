@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { UserData } from "@/application/entities/User";
 import { Icon } from "./icons";
+import { Loading } from "@/components/Loading";
 
 
 interface BookInfoProps {
   prompt: string | null;
-  response: string | null | HTMLElement | HTMLCollection;
+  response: string | null | HTMLElement | HTMLCollection | JSX.Element;
   user: UserData | null;
   handleLogin: () => void;
   handleLogout: () => void;
@@ -14,7 +15,7 @@ interface BookInfoProps {
 
 export const BookInfo: React.FC<BookInfoProps> = ({ prompt, response,   handleLogin,
   handleLogout, user }) => {
-  const [safeResponse, setSafeResponse] = useState<string>("Deixe-me ver... a história era assim...");
+  const [safeResponse, setSafeResponse] = useState<string | JSX.Element>(<Loading />);
 
   const localStorageUser =
   typeof window !== "undefined" && localStorage.getItem("user") !== null

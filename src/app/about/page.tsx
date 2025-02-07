@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icon } from "@/components/icons";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
+import { LoadingDefault } from "@/components/LoadingDefault";
 
 export default function About() {
   const { user, loading, status, handleLogin, handleLogout } = useAuth();
@@ -17,6 +18,7 @@ export default function About() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
+        <LoadingDefault />
         <p>Carregando...</p>
       </div>
     );

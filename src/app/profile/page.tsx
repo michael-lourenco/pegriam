@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
 import { UserLogout } from "@/components/UserLogout";
+import { LoadingDefault } from "@/components/LoadingDefault";
 
 const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
@@ -28,6 +29,7 @@ export default function ProfileDashboard() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
+        <LoadingDefault />
         <p>Carregando...</p>
       </div>
     );
@@ -45,7 +47,7 @@ export default function ProfileDashboard() {
           <Card className="bg-background border-none shadow-none">
             <CardContent className="border-none shadow-none">
               {status === "loading" ? (
-                <p>Loading...</p>
+                <LoadingDefault />
               ) : (
                 <>
                   <UserStatistics
