@@ -4,7 +4,7 @@ import { Icon } from "./icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface StoryInfoProps {
+interface StoryReaderProps {
   prompt: string | null;
   response: string | null | HTMLElement | HTMLCollection;
   title: string | null;
@@ -13,7 +13,7 @@ interface StoryInfoProps {
   handleLogout: () => void;
 }
 
-export const StoryInfo: React.FC<StoryInfoProps> = ({
+export const StoryReader: React.FC<StoryReaderProps> = ({
   prompt,
   response,
   title,

@@ -30,15 +30,15 @@ const headerItems = [
   { icon: "LuTimer", label: "Duração", mobileLabel: "T(s)" },
 ];
 
-interface StoryProps {
-  storyData: StoryData[] | null;
+interface StoriesProps {
+  storiesData: StoryData[] | null;
   onRowClick: (story: StoryData) => void; 
 }
 
-export const Story: React.FC<StoryProps> = ({ storyData, onRowClick }) => {
+export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => {
   return (
     <>
-      {storyData ? (
+      {storiesData ? (
         <Card className="bg-background text-primary">
           <CardHeader className="bg-background text-primary">
             <CardTitle className="bg-background text-primary">
@@ -65,19 +65,19 @@ export const Story: React.FC<StoryProps> = ({ storyData, onRowClick }) => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {storyData.map((match, index) => (
+                  {storiesData.map((story, index) => (
                     <TableRow
                       key={index}
                       className="border-y-dashed border-primary border-dashed hover:bg-popover-foreground hover:text-secondary cursor-pointer"
-                      onClick={() => onRowClick(match)}
+                      onClick={() => onRowClick(story)}
                     >
                       <TableCell className="p-2 sm:p-4 text-left">
-                        {formatDate(match.date)}
+                        {formatDate(story.date)}
                       </TableCell>
                       <TableCell className="p-2 sm:p-4 text-center">
-                        {match.title.length > 20
-                          ? `${match.title.slice(0, 30)}...`
-                          : match.title}
+                        {story.title.length > 20
+                          ? `${story.title.slice(0, 30)}...`
+                          : story.title}
                       </TableCell>
                       <TableCell className="p-2 sm:p-4 text-center">""</TableCell>
                     </TableRow>

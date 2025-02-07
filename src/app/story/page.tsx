@@ -6,11 +6,11 @@ import { useGemini } from "@/hooks/useGemini"
 import { UserInfo } from "@/components/UserInfo"
 import { Loading } from "@/components/Loading"
 import { LoadingDefault } from "@/components/LoadingDefault"
-import { Story, type StoryData } from "@/components/story/Story"
+import { Stories, type StoryData } from "@/components/story/Stories"
 import { updateStory, updateUserCredits, dbFirestore } from "@/services/firebase/FirebaseService"
 import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/Footer"
-import { StoryInfo } from "@/components/StoryInfo"
+import { StoryReader } from "@/components/StoryReader"
 import { StoryControls } from "@/components/StoryControls"
 import { Button } from "@/components/ui/button"
 import { StoryGeneratorModal } from "@/components/StoryGeneratorModal"
@@ -197,7 +197,7 @@ A história deve conter:
                       )}
                         
                     {error && <p className="text-red-500">{error}</p>}
-                    <StoryInfo
+                    <StoryReader
                       prompt={prompt}
                       response={response}
                       title={title}
@@ -234,7 +234,7 @@ A história deve conter:
 
               {selectedStory && (
                 <>
-                  <StoryInfo
+                  <StoryReader
                     prompt="local"
                     response={selectedStory.story}
                     title={selectedStory.title}
@@ -303,8 +303,8 @@ A história deve conter:
                   {status === "loading" ? (
                     <p>Loading...</p>
                   ) : (
-                    <Story
-                      storyData={
+                    <Stories
+                      storiesData={
                         user?.story?.map((story) => ({
                           ...story,
                           id: story.id,
