@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from "react";
 import { UserData } from "@/application/entities/User";
 import { Card, CardContent } from "@/components/ui/card";
-import { Story, StoryData } from "@/components/story/Story";
+import { Stories, StoryData } from "@/components/story/Stories";
 interface StoriesListProps {
   user: UserData | null;
   status: "authenticated" | "loading" | "unauthenticated";
@@ -30,7 +30,7 @@ export const StoriesList: React.FC<StoriesListProps> = ({
             {status === "loading" ? (
               <p>Loading...</p>
             ) : (
-              <Story storyData={user?.story?.map(story => ({ ...story, id: story.id, date: story.date instanceof Date ? story.date.toISOString() : story.date })) || null} onRowClick={setSelectedStory} />
+              <Stories storiesData={user?.story?.map(story => ({ ...story, id: story.id, date: story.date instanceof Date ? story.date.toISOString() : story.date })) || null} onRowClick={setSelectedStory} />
             )}
           </CardContent>
         </Card>
