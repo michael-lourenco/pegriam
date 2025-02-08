@@ -1,13 +1,13 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { HelpCircle, Heart, BookOpen } from "lucide-react"
 import { UserInfo } from "@/components/UserInfo"
 import { useNavigation } from "@/hooks/useNavigation"
 import { useAuth } from "@/hooks/useAuth"
 import { Footer } from "@/components/Footer"
 import Image from "next/image"
 import { LoadingDefault } from "@/components/LoadingDefault"
+import { Icon, type IconName } from "@/components/icons"
 
 export default function Home() {
   const navigationService = useNavigation()
@@ -40,8 +40,10 @@ export default function Home() {
             </CardHeader>
 
             <CardContent className="space-y-8">
+
               {/* Play Button - Featured */}
               <div className="flex flex-col justify-center items-center">
+                <p>Ah, viajante! Tenho histórias de todos os cantos do mundo… Mas me diga, que tipo de história você quer ouvir hoje?</p>
                 <Image
                   src="/images/pegriam/pegriam-avatar.png"
                   alt="Avatar Pegriam"
@@ -55,22 +57,13 @@ export default function Home() {
                   className="bg-chart-2 hover:bg-lime-600 text-primary mt-8 px-8 py-6 text-xl font-bold rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl animate-pulse"
                   size="lg"
                 >
-                  <BookOpen className="w-6 h-6 mr-2" />
+                  <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
                   Ler uma história
                 </Button>
               </div>
 
               {/* Secondary Actions */}
               <div className="space-y-4 mt-12">
-                {/* How to Play */}
-                <Button
-                  onClick={handleNavigation("/about")}
-                  variant="ghost"
-                  className="w-full group transition-all duration-300 hover:bg-background"
-                >
-                  <HelpCircle className="w-5 h-5 mr-2 text-primary group-hover:text-chart-2" />
-                  <span className="text-primary group-hover:text-chart-2">Quem é Pegriam?</span>
-                </Button>
 
                 {/* Support Button */}
                 <Button
@@ -78,7 +71,7 @@ export default function Home() {
                   variant="outline"
                   className="w-full border-chart-4/50 text-purple-400 hover:bg-chart-4/10 hover:border-purple-400 group transition-all duration-300"
                 >
-                  <Heart className="w-5 h-5 mr-2 text-chart-4 group-hover:text-purple-400" />
+                  <Icon name="LuHeart" className="w-5 h-5 mr-2 text-chart-4 group-hover:text-purple-400" />                  
                   <span>Apoiar o Projeto</span>
                 </Button>
               </div>

@@ -52,10 +52,12 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <Icon name="LuLibrary" className="mr-2 h-4 w-4" />
-          Abrir Biblioteca
-        </Button>
+        <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
+          <Button variant="outline">
+            <Icon name="LuLibrary" className="mr-2 h-4 w-4" />
+            Explorar o Livro das Memórias
+          </Button>
+        </div>
       </DialogTrigger>
       <AnimatePresence>
         {isOpen && (
@@ -71,7 +73,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
               className="h-full flex flex-col"
             >
               <DialogHeader className="p-6 pb-2">
-                <DialogTitle>Biblioteca</DialogTitle>
+                <DialogTitle>Livro das Memórias</DialogTitle>
               </DialogHeader>
               <Card className="flex-grow overflow-hidden">
                 <CardContent className="p-0">

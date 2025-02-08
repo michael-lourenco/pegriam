@@ -16,6 +16,9 @@ import { Button } from "@/components/ui/button"
 import { StoryGeneratorModal } from "@/components/StoryGeneratorModal"
 import { TemplateSelector } from "@/components/TemplateSelector"
 import type { Template } from "@/types/template"
+import { Icon, type IconName } from "@/components/icons"
+import LoginComponent from "@/components/LoginComponent"
+
 export default function StoryPage() {
   const [selectedStory, setSelectedStory] = useState<StoryData | null>(null)
   const [generateContent, setGenerateContent] = useState<boolean>(false)
@@ -187,7 +190,8 @@ A história deve conter:
                     </div>
                     <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
                       <Button className="bg-chart-2 hover:bg-lime-600 text-primary" onClick={handleGenerateStory}>
-                        Conte uma história
+                        <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
+                        Conte uma nova história
                       </Button>
                     </div>
                       {loading && (
@@ -293,6 +297,7 @@ A história deve conter:
 `)
                       }}
                     >
+                      <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
                       Conte uma nova história
                     </Button>
                   </div>
@@ -320,14 +325,14 @@ A história deve conter:
         </div>
       ) : (
         <>
-          <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
-            <div className="grid grid-cols-[1fr,auto] items-center gap-2">
-              <Button onClick={handleLogin} variant="default">
-                Sign in with Google
-              </Button>
-            </div>
+          <div className="flex flex-col min-h-screen bg-background text-primary">
+            <main className="flex-grow flex flex-col items-center justify-start pt-4">
+              <div className="max-w-4xl mx-auto relative">
+                <LoginComponent />
+              </div>
+            </main>
+            <Footer />
           </div>
-          <Footer />
         </>
       )}
     </>
