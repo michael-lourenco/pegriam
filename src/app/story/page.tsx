@@ -23,6 +23,7 @@ export default function StoryPage() {
   const [selectedStory, setSelectedStory] = useState<StoryData | null>(null)
   const [generateContent, setGenerateContent] = useState<boolean>(false)
   const [localContent, setLocalContent] = useState<boolean>(false)
+  const [showSaveButton, setShowSaveButton] = useState<boolean>(false)
   const [prompt, setPrompt] = useState<string>(`
   Crie uma história curta e envolvente, com no máximo 2000 caracteres, perfeita para um pai ou mãe ler para seu filho antes de dormir. A história deve ser mágica, aconchegante e transmitir uma mensagem positiva sobre [tema específico].
 
@@ -143,9 +144,10 @@ A história deve conter:
         )
         await updateUserCredits(user.email, -1, dbFirestore)
         setUserCredits((prevCredits) => prevCredits - 1)
+        setShowSaveButton(false)
       }
     })
-  }, [prompt, response, user, userCredits])
+  }, [prompt, response, user, userCredits, showSaveButton])
 
   const handleSaveClick = useCallback(() => {
     console.log("TAMANHO DA RESPOSTA ", response?.length)
@@ -157,7 +159,8 @@ A história deve conter:
   const handleGenerateStory = useCallback(() => {
     setLocalContent(false)
     setGenerateContent(true)
-  }, [generateContent])
+    setShowSaveButton(true)
+  }, [generateContent, showSaveButton])
 
   if (authLoading) {
     return (
@@ -173,7 +176,7 @@ A história deve conter:
       {user ? (
         <div className="flex flex-col min-h-screen bg-background text-primary">
           <main className="flex-grow flex flex-col items-center justify-start pt-4">
-            <div className="max-w-4xl mx-auto relative">
+            <div className="max-w-4xl relative">
               <UserInfo
                 user={{ ...user, credits: { value: userCredits, updatedAt: user.credits.updatedAt } }}
                 handleLogin={handleLogin}
@@ -184,32 +187,23 @@ A história deve conter:
                 !localContent &&
                 !selectedStory && (
                   <>
-                    <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
+                    <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden">
                       <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
                       <StoryGeneratorModal user={user} />
                     </div>
-                    <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
+                    <div className="flex justify-center items-center max-w-full overflow-hidden p-4">
                       <Button className="bg-chart-2 hover:bg-lime-600 text-primary" onClick={handleGenerateStory}>
                         <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
                         Conte uma nova história
                       </Button>
                     </div>
-                      {loading && (
-                        <div className="flex justify-center items-center max-w-full">
-                          <Loading />
-                        </div>
-                      )}
+                    {loading && (
+                      <div className="flex justify-center items-center max-w-full">
+                        <Loading />
+                      </div>
+                    )}
                         
                     {error && <p className="text-red-500">{error}</p>}
-                    <StoryReader
-                      prompt={prompt}
-                      response={response}
-                      title={title}
-                      user={user}
-                      handleLogin={handleLogin}
-                      handleLogout={handleLogout}
-                    />
-                    {response && response.length > 300 ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
                   </>
                 )
               ) : (
@@ -218,7 +212,7 @@ A história deve conter:
 
               {userCredits <= 0 ? (
                 <>
-                  <div className="flex flex-col text-primary mb-4 p-4 bg-baclkground rounded-lg">
+                  <div className="flex flex-col text-primary mb-4 bg-baclkground rounded-lg">
                     <div className="grid grid-cols-[1fr,auto] items-center gap-2">
                       <Button
                         onClick={async () => {
@@ -236,6 +230,26 @@ A história deve conter:
                 <> </>
               )}
 
+            {!localContent &&
+                !selectedStory ? (
+                  <>
+                    <StoryReader
+                      prompt={prompt}
+                      response={response}
+                      title={title}
+                      user={user}
+                      handleLogin={handleLogin}
+                      handleLogout={handleLogout}
+                    />
+                    {response && response.length > 300 && showSaveButton ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
+                  </>
+                ) : (
+                <></>
+              )}
+
+
+
+
               {selectedStory && (
                 <>
                   <StoryReader
@@ -246,7 +260,7 @@ A história deve conter:
                     handleLogin={handleLogin}
                     handleLogout={handleLogout}
                   />
-                  <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
+                  <div className="flex justify-center items-center max-w-full overflow-hidden">
                     <Button
                       className="bg-chart-2 hover:bg-lime-600 text-primary"
                       onClick={() => {

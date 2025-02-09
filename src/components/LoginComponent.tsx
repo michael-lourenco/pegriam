@@ -13,7 +13,7 @@ export default function LoginComponent() {
       <div className="max-w-md w-full space-y-8">
         <div className="space-y-4">
           <Icon name="LuScroll" className="mx-auto h-16 w-16 text-primary" />
-          <h2 className="text-2xl font-bold text-primary">Mensagem de Login</h2>
+          <h2 className="text-2xl font-bold text-primary">Entre no nosso mundo!</h2>
           <p className="text-muted-foreground">
             Ah, viajante! Para que eu possa lembrar das histórias que você já ouviu e encontrar contos ainda mais
             incríveis para você, preciso saber quem é você. Não se preocupe, seu nome ficará seguro nos pergaminhos do
@@ -25,9 +25,9 @@ export default function LoginComponent() {
           onClick={handleLogin}
           variant="default"
           size="lg"
-          className="w-full text-lg py-6 bg-blue-600 hover:bg-blue-700 transition-colors"
+          className="w-full text-lg py-6 bg-blue-600 text-white hover:bg-blue-700 transition-colors"
         >
-          <Icon name="LuLogIn" className="mr-2 h-5 w-5" />
+          <Icon name="PiGoogleLogoBold" className="mr-2 h-5 w-5" />
           Continuar com Google
         </Button>
 
