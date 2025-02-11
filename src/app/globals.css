@@ -73,7 +73,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-lilita;
   }
   body {
     @apply bg-background text-foreground;

@@ -4,6 +4,14 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { AuthProvider } from "./auth-provider";
 
+import { Lilita_One } from 'next/font/google'
+
+const lilitaOne = Lilita_One({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-lilita-one', // Isso é importante para o Tailwind
+})
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -27,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${lilitaOne.variable}`}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-primary`}
       >

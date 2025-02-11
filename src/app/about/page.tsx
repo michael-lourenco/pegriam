@@ -38,7 +38,7 @@ export default function About() {
           />
           <Card className="bg-background border-none shadow-none max-w-4xl mx-auto">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-3xl md:text-4xl font-bold text-center">Pegriam, o Bardo</CardTitle>
+              <CardTitle className="text-3xl md:text-4xl font-bold text-center">PEGRIAM, O BARDO</CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
               <div className="flex justify-center">
@@ -73,7 +73,7 @@ export default function About() {
               </div>
 
               <article className="text-base md:text-lg space-y-4">
-                <h2 className="text-2xl text-center font-bold">Michael Lourenço</h2>
+                <h2 className="text-2xl text-center font-bold">MICHAEL LOURENÇO</h2>
                 <p>
                   Como criador deste projeto, desenvolvo todas as suas facetas. As histórias são geradas com o auxílio de
                   inteligência artificial, proporcionando uma experiência única a cada vez.
