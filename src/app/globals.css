@@ -14,26 +14,26 @@ body {
 
 @layer base {
   :root {
-    --slate-900: #f0f0f0;
-    --background: #f0f0f0;
-    --foreground: #020617;
+    --slate-900: #2C3037;
+    --background: #2C3037;
+    --foreground: #F0F0F0;
     --card: #f1f5f9;
-    --card-foreground: #020617;
+    --card-foreground: #F0F0F0;
     --popover: #f1f5f9;
-    --popover-foreground: #020617;
-    --primary: #1e1e1e;
-    --primary-foreground: #020617;
+    --popover-foreground: #F0F0F0;
+    --primary: #f0f0f0;
+    --primary-foreground: #F0F0F0;
     --secondary: #cbd5e1;
-    --secondary-foreground: #020617;
+    --secondary-foreground: #F0F0F0;
     --muted: #e2e8f0;
-    --muted-foreground: #475569;
-    --accent: #475569;
-    --accent-foreground: #020617;
+    --muted-foreground: #F0F0F0;
+    --accent: #F0F0F0;
+    --accent-foreground: #F0F0F0;
     --destructive: #ef4444;
-    --destructive-foreground: #f0f0f0;
+    --destructive-foreground: #2C3037;
     --border: #cbd5e1;
     --input: #cbd5e1;
-    --ring: #020617;
+    --ring: #F0F0F0;
     --radius: 0.5rem;
     --chart-1: #93c5fd;
     --chart-2: #84cc16;
@@ -43,25 +43,25 @@ body {
   }
 
   .dark {
-    --slate-900: #020617;
-    --background: #020617;
-    --foreground: #f0f0f0;
+    --slate-900: #F0F0F0;
+    --background: #F0F0F0;
+    --foreground: #2C3037;
     --card: #1e293b;
-    --card-foreground: #f0f0f0;
+    --card-foreground: #2C3037;
     --popover: #1e293b;
-    --popover-foreground: #f0f0f0;
-    --primary: #1e1e1e;
-    --primary-foreground: #f0f0f0;
-    --secondary: #475569;
-    --secondary-foreground: #f0f0f0;
-    --muted: #475569;
+    --popover-foreground: #2C3037;
+    --primary: #f0f0f0;
+    --primary-foreground: #2C3037;
+    --secondary: #F0F0F0;
+    --secondary-foreground: #2C3037;
+    --muted: #F0F0F0;
     --muted-foreground: #cbd5e1;
-    --accent: #475569;
-    --accent-foreground: #f0f0f0;
+    --accent: #F0F0F0;
+    --accent-foreground: #2C3037;
     --destructive: #b91c1c;
-    --destructive-foreground: #f0f0f0;
-    --border: #475569;
-    --input: #475569;
+    --destructive-foreground: #2C3037;
+    --border: #F0F0F0;
+    --input: #F0F0F0;
     --ring: #94a3b8;
     --chart-1: #60a5fa;
     --chart-2: #4ade80;

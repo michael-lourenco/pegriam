@@ -36,7 +36,7 @@ export default function Home() {
           {/* Main Game Section */}
           <Card className="bg-background border-none shadow-none max-w-4xl mx-auto">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-3xl md:text-4xl font-bold text-center">PEGRIAM</CardTitle>
+              <CardTitle className="text-3xl md:text-4xl font-bold text-center text-stroke-1 text-stroke-black tracking-tighter drop-shadow-custom">PEGRIAM</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-8">
@@ -54,11 +54,16 @@ export default function Home() {
 
                 <Button
                   onClick={handleNavigation("/story")}
-                  className="bg-chart-2 hover:bg-lime-600 text-primary mt-8 px-8 py-6 text-xl font-bold rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl animate-pulse"
-                  size="lg"
+                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl animate-pulse"
+                  
                 >
-                  <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
-                  Ler uma história
+                  <Image
+                    src="/images/buttons/iniciar.png"
+                    alt="Play"
+                    width={188}
+                    height={92}
+                    className="mt-4"
+                  />
                 </Button>
               </div>
 

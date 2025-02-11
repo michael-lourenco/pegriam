@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { UserData } from "@/application/entities/User";
 import { Icon } from "./icons";
 import { Heart } from "lucide-react";
+import Image from "next/image"
 
 interface UserInfoProps {
   user: UserData | null;
@@ -41,9 +42,12 @@ export const UserInfo: React.FC<UserInfoProps> = ({
                 className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
               />
               <span className="text-primary">{user?.currency?.value ?? 0}</span>
-              <Icon
-                name="PiStar"
-                className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
+              <Image
+                src="/images/label-items/coin.png"
+                alt="Coins"
+                width={24}
+                height={24}
+                className="mx-2 flex-shrink-0"
               />
               <span className="text-primary">
                 {user?.credits?.value ?? 0}
