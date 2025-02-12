@@ -18,7 +18,7 @@ export function Footer() {
 
   return (
     <TooltipProvider>
-      <footer className="sticky bottom-0 w-full bg-background border-dashed border-t ">
+      <footer className="sticky bottom-0 w-full bg-footer-background border-dashed border-t ">
         <nav className="max-w-md mx-auto px-0 py-0">
           <div className="flex justify-between items-center">
             {menuItems.map((item) => {
@@ -28,7 +28,7 @@ export function Footer() {
                   <TooltipTrigger asChild>
                     <Button
                       asChild
-                      variant={isActive ? "secondary" : "default"}
+                      variant={isActive ? "default" : "ghost"}
                       className="flex-1 flex flex-col items-center justify-center h-16 space-y-1 rounded-none"
                     >
                       <Link href={item.href}>

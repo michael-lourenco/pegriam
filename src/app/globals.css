@@ -16,7 +16,9 @@ body {
   :root {
     --slate-900: #2C3037;
     --background: #2C3037;
+    --footer-background: #12172b;
     --foreground: #F0F0F0;
+    --ghost: #2C3037;
     --card: #f1f5f9;
     --card-foreground: #F0F0F0;
     --popover: #f1f5f9;
@@ -45,7 +47,9 @@ body {
   .dark {
     --slate-900: #F0F0F0;
     --background: #F0F0F0;
+    --footer-background: #12172b;
     --foreground: #2C3037;
+    --ghost: #2C3037;
     --card: #1e293b;
     --card-foreground: #2C3037;
     --popover: #1e293b;

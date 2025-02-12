@@ -233,6 +233,7 @@ A história deve conter:
             {!localContent &&
                 !selectedStory ? (
                   <>
+                    {response && response.length > 300 && showSaveButton ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
                     <StoryReader
                       prompt={prompt}
                       response={response}
@@ -241,7 +242,7 @@ A história deve conter:
                       handleLogin={handleLogin}
                       handleLogout={handleLogout}
                     />
-                    {response && response.length > 300 && showSaveButton ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
+                    
                   </>
                 ) : (
                 <></>

@@ -30,16 +30,22 @@ export const UserInfo: React.FC<UserInfoProps> = ({
         <div className="flex flex-col text-primary mb-4 p-4 bg-background rounded-sm">
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
-              <Icon
-                name="PiBookOpen"
-                className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
+              <Image
+                src="/images/label-items/bounty.png"
+                alt="Gems"
+                width={24}
+                height={24}
+                className="mx-2 flex-shrink-0"
               />
               <span className="text-primary">
                 {user?.best_score?.value ?? 0}
               </span>
-              <Icon
-                name="PiCoin"
-                className="w-6 h-6 text-green-500 mx-2 flex-shrink-0"
+              <Image
+                src="/images/label-items/bling.png"
+                alt="Blings"
+                width={24}
+                height={24}
+                className="mx-2 flex-shrink-0"
               />
               <span className="text-primary">{user?.currency?.value ?? 0}</span>
               <Image

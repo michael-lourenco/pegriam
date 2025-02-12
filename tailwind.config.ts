@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   darkMode: ["class"],
@@ -10,20 +9,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      textStroke: {
-        '1': '1px',
-      },
-      textStrokeColor: {
-        'black': '#000000',
-      },
-      dropShadow: {
-        'custom': '0 4px 4px rgba(0, 0, 0, 0.25)',
-      },
       colors: {
         slate: {
           900: "var(--slate-900)",
         },
         background: "var(--background)",
+        footer:{ 
+          background: "var(--footer-background)"
+        },
+        ghost: "var(--ghost)",
         foreground: "var(--foreground)",
         card: {
           DEFAULT: "var(--card)",
@@ -125,18 +119,5 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    plugin(function ({ addUtilities }) {
-      const newUtilities = {
-        '.text-stroke-1': {
-          '-webkit-text-stroke-width': '2px',
-        },
-        '.text-stroke-black': {
-          '-webkit-text-stroke-color': '#000000',
-        },
-      }
-      addUtilities(newUtilities)
-    }),
-  ],
 };
 export default config;

@@ -36,13 +36,13 @@ export default function Home() {
           {/* Main Game Section */}
           <Card className="bg-background border-none shadow-none max-w-4xl mx-auto">
             <CardHeader className="space-y-2">
-              <CardTitle className="text-3xl md:text-4xl font-bold text-center text-stroke-1 text-stroke-black tracking-tighter drop-shadow-custom">PEGRIAM</CardTitle>
+              <CardTitle className="text-3xl md:text-4xl font-bold text-center">PEGRIAM</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-8">
 
               {/* Play Button - Featured */}
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col justify-center items-center text-center">
                 <p>Ah, viajante! Tenho histórias de todos os cantos do mundo… Mas me diga, que tipo de história você quer ouvir hoje?</p>
                 <Image
                   src="/images/pegriam/pegriam-avatar.png"
@@ -54,7 +54,7 @@ export default function Home() {
 
                 <Button
                   onClick={handleNavigation("/story")}
-                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl animate-pulse"
+                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 animate-pulse hover:scale-105 hover:shadow-xl animate-pulse"
                   
                 >
                   <Image
@@ -68,9 +68,9 @@ export default function Home() {
               </div>
 
               {/* Secondary Actions */}
-              <div className="space-y-4 mt-12">
+              {/* <div className="space-y-4 mt-12">
 
-                {/* Support Button */}
+                
                 <Button
                   onClick={() => window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank")}
                   variant="outline"
@@ -79,7 +79,7 @@ export default function Home() {
                   <Icon name="LuHeart" className="w-5 h-5 mr-2 text-chart-4 group-hover:text-purple-400" />                  
                   <span>Apoiar o Projeto</span>
                 </Button>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </div>
