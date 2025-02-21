@@ -227,7 +227,13 @@ A história deve conter:
                         }}
                         variant="default"
                       >
-                        Insira créditos para ler novas histórias
+                        <Image
+                          src='/images/buttons/btn_new_story_buy_coins.png'
+                          alt="Coins"
+                          width={277}
+                          height={87}
+                          className=""
+                        />
                       </Button>
                     </div>
                   </div>

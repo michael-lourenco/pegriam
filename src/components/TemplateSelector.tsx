@@ -53,7 +53,7 @@ const localStorageUser =
     <div className="space-y-4">
       <Select onValueChange={handleTemplateChange}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Selecione um Pergaminho" />
+          <SelectValue placeholder="Selecione um Modelo" />
         </SelectTrigger>
         <SelectContent>
           {templates.map((template) => (

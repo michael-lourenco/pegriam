@@ -76,11 +76,11 @@ const localStorageUser =
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Criar Pergaminho de História Infantil</DialogTitle>
+              <DialogTitle>Criar Modelo de História Infantil</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <Label htmlFor="name">Nome do Pergaminho</Label>
+                <Label htmlFor="name">Nome do Modelo</Label>
                 <Input id="name" {...register("name", { required: true })} />
               </div>
               <div>
