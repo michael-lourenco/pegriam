@@ -3,6 +3,7 @@ import { UserData } from "@/services/auth/NextAuthenticationService";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Trophy, Coins, GamepadIcon, StarsIcon, BookA } from "lucide-react";
+import Image from "next/image"
 
 interface UserStatisticsProps {
   user: UserData | null;
@@ -32,14 +33,26 @@ export const UserStatistics: React.FC<UserStatisticsProps> = ({
     }
   }, [user]);
 
-  const StatCard = ({ title, value, icon: Icon, color }: { title: string; value: number; icon: any; color: string }) => (
+  const images ={
+    bling: "/images/label-items/bling.png",
+    bounty: "/images/label-items/bounty.png",
+    coin: "/images/label-items/coin.png",
+    gem: "/images/label-items/gem.png",
+  }
+  const StatCard = ({ title, value, image, color }: { title: string; value: number; image: any; color: string }) => (
     <Card className="bg-background border-none hover:bg-background transition-all duration-300">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-primary">
           {title}
         </CardTitle>
         <div className={`p-2 rounded-lg ${color}`}>
-          <Icon className="h-5 w-5" />
+          <Image
+            src={image}
+            alt="Play"
+            width={24}
+            height={24}
+            className=""
+          />
         </div>
       </CardHeader>
       <CardContent>
@@ -88,20 +101,20 @@ export const UserStatistics: React.FC<UserStatisticsProps> = ({
               <StatCard
                 title="Estrelas"
                 value={user?.credits?.value ?? 0}
-                icon={StarsIcon}
-                color="bg-amber-500/10 text-amber-500"
+                image={images.bling}
+                color=""
               />
               <StatCard
                 title="Moedas"
                 value={user?.currency?.value ?? 0}
-                icon={Coins}
-                color="bg-emerald-500/10 text-emerald-500"
+                image={images.coin}
+                color=""
               />
               <StatCard
-                title="Histórias"
+                title="Favoritas"
                 value={user?.story?.length ?? 0}
-                icon={BookA}
-                color="bg-blue-500/10 text-blue-500"
+                image={images.bounty}
+                color=""
               />
             </div>
           </div>

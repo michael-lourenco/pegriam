@@ -54,7 +54,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-          <Button variant="outline">
+          <Button variant="default" className="hover:text-ghost hover:bg-secondary">
             <Image
               src="/images/label-items/bounty.png"
               alt="Gems"

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
+import Image from "next/image"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -62,8 +63,15 @@ const localStorageUser =
     {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">
-                  <Icon name="LuPlus" className="h-5 w-5" />
+            <Button variant="default">
+                  {/* <Icon name="LuPlus" className="h-5 w-5" /> */}
+                <Image
+                  src="/images/buttons/btn_plus.png"
+                  alt="Gems"
+                  width={40}
+                  height={40}
+                  className="flex-shrink-0"
+                />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -118,7 +126,7 @@ const localStorageUser =
                 <Label htmlFor="age">Idade Recomendada</Label>
                 <Input type="number" id="age" {...register("age", { required: true, min: 1, max: 12 })} />
               </div>
-              <Button type="submit">Salvar Pergaminho</Button>
+              <Button type="submit">Salvar</Button>
             </form>
           </DialogContent>
         </Dialog>): (<></>)}
