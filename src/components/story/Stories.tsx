@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -54,8 +55,14 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
       <DialogTrigger asChild>
         <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
           <Button variant="outline">
-            <Icon name="LuLibrary" className="mr-2 h-4 w-4" />
-            Histórias Favoritas
+            <Image
+              src="/images/label-items/bounty.png"
+              alt="Gems"
+              width={24}
+              height={24}
+              className="mx-2 flex-shrink-0"
+            />
+              Favoritas
           </Button>
         </div>
       </DialogTrigger>
@@ -91,7 +98,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
                           ))}
                         </TableRow>
                       </TableHeader>
-                      <TableBody>
+                      <TableBody className="bg-background text-primary">
                         {storiesData.map((story) => (
                           <TableRow
                             key={story.id}

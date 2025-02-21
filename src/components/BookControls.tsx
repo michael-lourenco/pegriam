@@ -14,8 +14,8 @@ export const BookControls: React.FC<BookControlsProps> = ({
   <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
 
     <Button
-      variant="outline"
-      className="border-chart-2 text-chart-2 hover:bg-chart-2 hover:text-primary"
+      variant="default"
+      className=""
       onClick={handleSaveClick}
     >
       <Image

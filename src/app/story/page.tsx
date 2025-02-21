@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import Image from "next/image"
 import { useAuth } from "@/hooks/useAuth"
 import { useGemini } from "@/hooks/useGemini"
 import { UserInfo } from "@/components/UserInfo"
@@ -191,10 +192,15 @@ A história deve conter:
                       <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
                       <StoryGeneratorModal user={user} />
                     </div>
-                    <div className="flex justify-center items-center max-w-full overflow-hidden p-4">
-                      <Button className="bg-chart-2 hover:bg-lime-600 text-primary" onClick={handleGenerateStory}>
-                        <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
-                        Conte uma nova história
+                    <div className="flex justify-center items-center max-w-full m-10">
+                      <Button className="text-primary" onClick={handleGenerateStory}>
+                        <Image
+                          src="/images/buttons/new_story.png"
+                          alt="Play"
+                          width={277}
+                          height={87}
+                          className="mt-4"
+                        />
                       </Button>
                     </div>
                     {loading && (
@@ -263,7 +269,7 @@ A história deve conter:
                   />
                   <div className="flex justify-center items-center max-w-full overflow-hidden">
                     <Button
-                      className="bg-chart-2 hover:bg-lime-600 text-primary"
+                      className="m-5"
                       onClick={() => {
                         setLocalContent(false)
                         setSelectedStory(null)
@@ -312,8 +318,13 @@ A história deve conter:
 `)
                       }}
                     >
-                      <Icon name="LuBookOpen" className="w-6 h-6 mr-2" />
-                      Conte uma nova história
+                      <Image
+                        src="/images/buttons/new_story.png"
+                        alt="Play"
+                        width={188}
+                        height={92}
+                        className="mt-4"
+                      />
                     </Button>
                   </div>
                 </>

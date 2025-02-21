@@ -13,7 +13,7 @@ export const StoryControls: React.FC<StoryControlsProps> = ({
   <div className="flex justify-center items-center max-w-full overflow-hidden">
 
     <Button
-      className="bg-chart-2 hover:bg-lime-600 text-primary"
+      className=""
       onClick={handleSaveClick}
     >
       <Image
