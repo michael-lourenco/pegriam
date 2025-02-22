@@ -8,9 +8,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 const menuItems = [
   { icon: "LuHouse", label: "Home", href: "/" },
-  { icon: "LuCircleHelp", label: "Pegriam", href: "/about" },
   { icon: "LuBook", label: "Histórias", href: "/story" },
-  { icon: "LuUser", label: "Perfil", href: "/profile" },
+  { icon: "LuCircleHelp", label: "Pegriam", href: "/about" },
+  // { icon: "LuUser", label: "Perfil", href: "/profile" },
 ] as const
 
 export function Footer() {
