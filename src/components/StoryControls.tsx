@@ -33,7 +33,7 @@ export const StoryControls: React.FC<StoryControlsProps> = ({ handleSaveClick })
   };
 
   return (
-    <div className="flex justify-center items-center max-w-full overflow-hidden">
+    <div className="flex justify-center items-center mt-4 p-4 max-w-full">
       <Button
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}

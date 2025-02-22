@@ -54,7 +54,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden p-4">
-          <Button variant="default" className="hover:text-ghost hover:bg-secondary">
+          <Button variant="default" className="text-ghost bg-primary hover:bg-secondary hover:scale-110 hover:animate-pulse  active:scale-95">
             <Image
               src="/images/label-items/bounty.png"
               alt="Gems"
@@ -62,7 +62,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
               height={24}
               className="mx-2 flex-shrink-0"
             />
-              Favoritas
+              FAVORITAS
           </Button>
         </div>
       </DialogTrigger>

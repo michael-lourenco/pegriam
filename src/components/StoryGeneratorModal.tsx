@@ -63,7 +63,7 @@ const localStorageUser =
     {user || (localStorageUser && localStorage.getItem("user") != null)  ? (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button variant="default">
+            <Button variant="default" className="hover:scale-110 hover:animate-pulse  active:scale-95">
                   {/* <Icon name="LuPlus" className="h-5 w-5" /> */}
                 <Image
                   src="/images/buttons/btn_plus.png"

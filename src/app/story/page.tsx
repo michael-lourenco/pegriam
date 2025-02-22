@@ -132,36 +132,44 @@ A história deve conter:
 
   const { response, setResponse, title, loading, error } = useGemini(prompt, generateContent);
 
-  const endRead = useCallback(() => {
+  const saveStory = useCallback(() => {
     queueMicrotask(async () => {
       if (!user) return
       const title = response ? extractTitle(response) : "Sem titulo"
       const now = new Date()
-      if (userCredits > 0) {
-        await updateStory(
-          user.email,
-          { date: now, prompt: prompt, title: title, story: response || "Sem resposta" },
-          dbFirestore,
-        )
-        await updateUserCredits(user.email, -1, dbFirestore)
-        setUserCredits((prevCredits) => prevCredits - 1)
-        setShowSaveButton(false)
-      }
+      await updateStory(
+        user.email,
+        { date: now, prompt: prompt, title: title, story: response || "Sem resposta" },
+        dbFirestore,
+      )
+      setShowSaveButton(false)
     })
   }, [prompt, response, user, userCredits, showSaveButton])
+
+  const endRead = useCallback(() => {
+    queueMicrotask(async () => {
+      if (!user) return
+      const now = new Date()
+      if (userCredits > 0) {
+        await updateUserCredits(user.email, -1, dbFirestore)
+        setUserCredits((prevCredits) => prevCredits - 1)
+      }
+    })
+  }, [prompt, response, user, userCredits])
 
   const handleSaveClick = useCallback(() => {
     console.log("TAMANHO DA RESPOSTA ", response?.length)
     if (response && response.length > 300) {
-      endRead()
+      saveStory()
     }
-  }, [endRead])
+  }, [saveStory])
 
   const handleGenerateStory = useCallback(() => {
     setLocalContent(false)
     setGenerateContent(true)
     setShowSaveButton(true)
-  }, [generateContent, showSaveButton])
+    endRead()
+  }, [generateContent, localContent, showSaveButton])
 
   if (authLoading) {
     return (
@@ -185,24 +193,26 @@ A história deve conter:
               />
 
               {userCredits > 0 ? (
-                !localContent &&
-                !selectedStory && (
                   <>
-                    <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden">
-                      <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
-                      <StoryGeneratorModal user={user} />
-                    </div>
-                    <div className="flex justify-center items-center max-w-full m-10">
-                      <Button className="text-primary hover:scale-110 hover:animate-pulse  active:scale-95" onClick={handleGenerateStory}>
-                        <Image
-                          src="/images/buttons/new_story.png"
-                          alt="Play"
-                          width={277}
-                          height={87}
-                          className="mt-4"
-                        />
-                      </Button>
-                    </div>
+                    {!loading &&(
+                      <>
+                        <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden">
+                          <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
+                          <StoryGeneratorModal user={user} />
+                        </div>
+                        <div className="flex justify-center items-center max-w-full m-10">
+                          <Button className="text-primary hover:scale-110 hover:animate-pulse  active:scale-95" onClick={handleGenerateStory}>
+                            <Image
+                              src="/images/buttons/new_story.png"
+                              alt="Play"
+                              width={277}
+                              height={87}
+                              className="mt-4"
+                            />
+                          </Button>
+                        </div>
+                      </>
+                    )}
                     {loading && (
                       <div className="flex justify-center items-center max-w-full">
                         <Loading />
@@ -211,12 +221,12 @@ A história deve conter:
                         
                     {error && <p className="text-red-500">{error}</p>}
                   </>
-                )
+                
               ) : (
                 <></>
               )}
 
-              {userCredits <= 0 ? (
+              {userCredits <= 0 && !loading ? (
                 <>
                   <div className="flex flex-col text-primary mb-4 bg-baclkground rounded-lg">
                     <div className="grid grid-cols-[1fr,auto] items-center gap-2">
@@ -274,7 +284,7 @@ A história deve conter:
                     handleLogin={handleLogin}
                     handleLogout={handleLogout}
                   />
-                  <div className="flex justify-center items-center max-w-full overflow-hidden">
+                  {/* <div className="flex justify-center items-center max-w-full overflow-hidden">
                     <Button
                       className="m-5"
                       onClick={() => {
@@ -333,7 +343,7 @@ A história deve conter:
                         className="mt-4"
                       />
                     </Button>
-                  </div>
+                  </div> */}
                 </>
               )}
 
