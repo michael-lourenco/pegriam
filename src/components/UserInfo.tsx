@@ -28,13 +28,15 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin }) => {
           <div className="grid grid-cols-[1fr,auto,auto] items-center gap-2">
             <div className="flex items-center text-lg font-semibold truncate">
               <Button asChild variant="default" className="p-1">
-                <Link href="/profile">
+                <Link href="/" draggable={false} className="m-3 flex w-auto transition-transform hover:scale-110 active:scale-95">
                   <Image
                     src="/images/profile-images/2.png"
                     alt="Profile"
-                    width={36}
-                    height={36}
-                    className=""
+                    width={40}
+                    height={40}
+                    draggable={false}
+                    style={{ objectFit: "contain" }}
+                    className="select-none"
                   />
                 </Link>
               </Button>

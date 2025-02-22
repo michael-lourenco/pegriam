@@ -37,7 +37,7 @@ export function Footer() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="top">
-                    <p className="font-lilita">{item.label}</p>
+                    <p className="font-lilita-one">{item.label}</p>
                   </TooltipContent>
                 </Tooltip>
               )

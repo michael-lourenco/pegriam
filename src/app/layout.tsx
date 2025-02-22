@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lilitaOne.variable}`}>
       <body
-        className={`${lilitaOne.variable} antialiased bg-slate-900 text-primary`}
+        className={`${lilitaOne.variable} antialiased bg-slate-900 font-lilita-one text-shadow-outline text-center text-white text-balance`}
       >
         <AuthProvider>
           <Providers>{children}</Providers>

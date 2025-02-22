@@ -73,8 +73,14 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // fontFamily: {
+      //   'lilita': ['var(--font-lilita-one)'],
+      // },
       fontFamily: {
-        'lilita': ['var(--font-lilita-one)'],
+        'lilita-one': 'Lilita One'
+      },
+      textShadow: {
+        'outline': '-1px -1px black, 0px -1px black, 1px -1px black, 1px 0px black, 1px 1px black, 0px 1px black, -1px 1px black, -1px 0px black, 0px 2.5px black'
       },
       keyframes: {
         "accordion-down": {
