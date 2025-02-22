@@ -193,7 +193,7 @@ A história deve conter:
                       <StoryGeneratorModal user={user} />
                     </div>
                     <div className="flex justify-center items-center max-w-full m-10">
-                      <Button className="text-primary" onClick={handleGenerateStory}>
+                      <Button className="text-primary hover:scale-110 hover:animate-pulse  active:scale-95" onClick={handleGenerateStory}>
                         <Image
                           src="/images/buttons/new_story.png"
                           alt="Play"
@@ -226,6 +226,7 @@ A história deve conter:
                           setUserCredits((prevCredits) => prevCredits + 1)
                         }}
                         variant="default"
+                        className="hover:scale-110 hover:animate-pulse  active:scale-95"
                       >
                         <Image
                           src='/images/buttons/btn_new_story_buy_coins.png'

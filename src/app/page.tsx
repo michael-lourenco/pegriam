@@ -54,7 +54,7 @@ export default function Home() {
 
                 <Button
                   onClick={handleNavigation("/story")}
-                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 animate-pulse hover:scale-105 hover:shadow-xl animate-pulse"
+                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 animate-pulse hover:scale-105 hover:shadow-xl hover:shadow-chart-4/50"
                   
                 >
                   <Image
