@@ -76,15 +76,15 @@ const localStorageUser =
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Criar Modelo de História Infantil</DialogTitle>
+              <DialogTitle>NOVO MODELO DE HISTÓRIA</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <Label htmlFor="name">Nome do Modelo</Label>
+                <Label htmlFor="name">NOME</Label>
                 <Input id="name" {...register("name", { required: true })} />
               </div>
               <div>
-                <Label>Tamanho da História</Label>
+                <Label>TAMANHO</Label>
                 <Controller
                   name="storyLength"
                   control={control}
@@ -108,7 +108,7 @@ const localStorageUser =
                 />
               </div>
               <div>
-                <Label>Temas</Label>
+                <Label>TEMAS</Label>
                 <Controller
                   name="themes"
                   control={control}
@@ -123,10 +123,19 @@ const localStorageUser =
                 />
               </div>
               <div>
-                <Label htmlFor="age">Idade Recomendada</Label>
+                <Label htmlFor="age">IDADE (1 a 12 anos)</Label>
                 <Input type="number" id="age" {...register("age", { required: true, min: 1, max: 12 })} />
               </div>
-              <Button type="submit">Salvar</Button>
+              <Button type="submit" variant="default">
+                  {/* <Icon name="LuPlus" className="h-5 w-5" /> */}
+                <Image
+                  src="/images/buttons/btn_save.png"
+                  alt="Gems"
+                  width={150}
+                  height={87}
+                  className="mx-0"
+                />
+            </Button>
             </form>
           </DialogContent>
         </Dialog>): (<></>)}

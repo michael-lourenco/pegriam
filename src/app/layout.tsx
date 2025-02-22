@@ -6,9 +6,9 @@ import { AuthProvider } from "./auth-provider";
 
 import { Lilita_One } from 'next/font/google'
 
-const lilitaOne = Lilita_One({
-  weight: '400',
-  subsets: ['latin'],
+const lilitaOne = localFont({
+  src: "./fonts/LilitaOne-Regular.ttf",
+  weight: '100 900',
   variable: '--font-lilita-one', // Isso é importante para o Tailwind
 })
 
@@ -24,6 +24,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+
 export const metadata: Metadata = {
   title: "Pegriam ",
   description: "Histórias encantadas",
@@ -37,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lilitaOne.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-primary`}
+        className={`${lilitaOne.variable} antialiased bg-slate-900 text-primary`}
       >
         <AuthProvider>
           <Providers>{children}</Providers>

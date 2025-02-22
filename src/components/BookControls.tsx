@@ -19,7 +19,7 @@ export const BookControls: React.FC<BookControlsProps> = ({
       onClick={handleSaveClick}
     >
       <Image
-        src="/images/label-items/bounty-unselected.png"
+        src="/images/label-items/bounty_stroke.png"
         alt="Gems"
         width={24}
         height={24}
