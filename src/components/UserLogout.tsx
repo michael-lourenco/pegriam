@@ -32,9 +32,9 @@ export const UserLogout: React.FC<UserLogoutProps> = ({
               onClick={handleLogout}
               variant="destructive"
               size="sm"
-              className="whitespace-nowrap"
+              className="whitespace-nowrap text-primary"
             >
-              Logout
+              LOGOUT
             </Button>
           </div>
         </div>
