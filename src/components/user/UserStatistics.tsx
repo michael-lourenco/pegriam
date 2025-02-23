@@ -51,7 +51,7 @@ export const UserStatistics: React.FC<UserStatisticsProps> = ({
             alt="Play"
             width={24}
             height={24}
-            className=""
+            className="w-auto h-auto"
           />
         </div>
       </CardHeader>
@@ -79,7 +79,7 @@ export const UserStatistics: React.FC<UserStatisticsProps> = ({
                 <div className="relative mx-auto">
                   <Avatar className="w-24 h-24 border-4 border-background">
                     <AvatarImage
-                      src={avatarUrl || "/api/placeholder/150/150"}
+                      src={avatarUrl || "/images/profile-images/2.png"}
                       alt="User avatar" 
                       className="object-cover"
                     />

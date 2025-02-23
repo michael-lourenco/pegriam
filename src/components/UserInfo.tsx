@@ -36,7 +36,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin }) => {
                     height={40}
                     draggable={false}
                     style={{ objectFit: "contain" }}
-                    className="select-none"
+                    className="select-none w-auto h-auto"
                   />
                 </Link>
               </Button>
@@ -45,7 +45,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin }) => {
                 alt="Gems"
                 width={24}
                 height={24}
-                className="mx-2 flex-shrink-0"
+                className="mx-2 flex-shrink-0 w-auto h-auto"
               />
               <span className="text-primary">{user?.story?.length ?? 0}</span>
               <Image
@@ -53,7 +53,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin }) => {
                 alt="Blings"
                 width={24}
                 height={24}
-                className="mx-2 flex-shrink-0"
+                className="mx-2 flex-shrink-0 w-auto h-auto"
               />
               <span className="text-primary">{user?.currency?.value ?? 0}</span>
               <Image
@@ -61,7 +61,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, handleLogin }) => {
                 alt="Coins"
                 width={24}
                 height={24}
-                className="mx-2 flex-shrink-0"
+                className="mx-2 flex-shrink-0 w-auto h-auto"
               />
               <span className="text-primary">{user?.credits?.value ?? 0}</span>
             </div>

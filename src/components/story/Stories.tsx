@@ -60,7 +60,7 @@ export const Stories: React.FC<StoriesProps> = ({ storiesData, onRowClick }) => 
               alt="Gems"
               width={24}
               height={24}
-              className="mx-2 flex-shrink-0"
+              className="mx-2 w-auto h-auto flex-shrink-0"
             />
               FAVORITAS
           </Button>

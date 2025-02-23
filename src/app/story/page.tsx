@@ -132,6 +132,13 @@ A história deve conter:
 
   const { response, setResponse, title, loading, error } = useGemini(prompt, generateContent);
 
+  const [showTemplateSelector, setShowTemplateSelector] = useState<boolean>(true)
+  const [showNewStoryButton, setShowNewStoryButton] = useState<boolean>(true)
+  const [showAddCreditsButton, setShowAddCreditsButton] = useState<boolean>(true)
+  const [showLoading, setShowLoading] = useState<boolean>(false)
+  const [showReader, setShowReader] = useState<boolean>(false)
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
+
   const saveStory = useCallback(() => {
     queueMicrotask(async () => {
       if (!user) return
@@ -143,33 +150,73 @@ A história deve conter:
         dbFirestore,
       )
       setShowSaveButton(false)
+      setIsFavorite(true)
+      console.info("SAVE STORY")
+      console.info("userCredits::::::::::::::: ", userCredits)
+      console.info("user::::::::::::::: ", user )
+      console.info("showSaveButton::::::::::::::: ", showSaveButton)
+      // console.info("prompt::::::::::::::: ", prompt)
+
     })
   }, [prompt, response, user, userCredits, showSaveButton])
 
   const endRead = useCallback(() => {
     queueMicrotask(async () => {
       if (!user) return
-      const now = new Date()
       if (userCredits > 0) {
         await updateUserCredits(user.email, -1, dbFirestore)
-        setUserCredits((prevCredits) => prevCredits - 1)
+        setUserCredits(() => user?.credits.value)
+        setShowTemplateSelector(true)
+        setShowNewStoryButton(true)
       }
+      setLocalContent(false)
+      setGenerateContent(true)
+      setShowSaveButton(true)
+
+      if(userCredits <= 0) {
+        setShowTemplateSelector(false)
+        setShowNewStoryButton(false)
+        setShowAddCreditsButton(true)
+      }
+
+
+      setShowLoading(false)
+      setShowReader(true)
+      console.info("END READ")
+      console.info("userCredits::::::::::::::: ", userCredits)
+      console.info("user::::::::::::::: ", user )
+      console.info("response::::::::::::::: ", response)
+      // console.info("prompt::::::::::::::: ", prompt)
+
     })
-  }, [prompt, response, user, userCredits])
+  }, [generateContent, prompt, response, user, userCredits])
 
   const handleSaveClick = useCallback(() => {
     console.log("TAMANHO DA RESPOSTA ", response?.length)
     if (response && response.length > 300) {
       saveStory()
+      setShowSaveButton(false)
+      setIsFavorite(true)
     }
-  }, [saveStory])
+  }, [response, saveStory])
 
   const handleGenerateStory = useCallback(() => {
+    
     setLocalContent(false)
     setGenerateContent(true)
     setShowSaveButton(true)
+    setShowTemplateSelector(false)
+    setShowNewStoryButton(false)
+    setShowAddCreditsButton(false)
+    setShowLoading(true)
+    setShowReader(true)
     endRead()
-  }, [generateContent, localContent, showSaveButton])
+    console.info("handleGenerateStory")
+    console.info("generateContent::::::::::::::: ", generateContent)
+    console.info("localContent::::::::::::::: ", localContent )
+    console.info("response::::::::::::::: ", response)
+    
+  }, [generateContent, localContent, showAddCreditsButton, showLoading, showNewStoryButton, showReader, showSaveButton, showTemplateSelector])
 
   if (authLoading) {
     return (
@@ -192,48 +239,56 @@ A história deve conter:
                 handleLogout={handleLogout}
               />
 
-              {userCredits > 0 ? (
+              {loading && (
+                <div className="flex justify-center items-center max-w-full">
+                  <Loading />
+                </div>
+              )}
+                        
+              {error && <p className="text-red-500">{error}</p>}
+
+              {userCredits > 0 && !loading ? (
                   <>
                     {!loading &&(
                       <>
-                        <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden">
-                          <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
-                          <StoryGeneratorModal user={user} />
-                        </div>
-                        <div className="flex justify-center items-center max-w-full m-10">
-                          <Button className="text-primary hover:scale-110 hover:animate-pulse  active:scale-95" onClick={handleGenerateStory}>
-                            <Image
-                              src="/images/buttons/new_story.png"
-                              alt="Play"
-                              width={277}
-                              height={87}
-                              className="mt-4"
-                            />
-                          </Button>
-                        </div>
+                        {showTemplateSelector && showNewStoryButton && (
+                          <>
+                            <div className="flex justify-center items-center max-w-full space-x-2 overflow-hidden">
+                              <TemplateSelector user={user} onTemplateSelect={handlePrompt} />
+                              <StoryGeneratorModal user={user} />
+                            </div>
+                            <div className="flex justify-center items-center max-w-full m-10">
+                              <Button className="text-primary hover:scale-110 hover:animate-pulse  active:scale-95" onClick={handleGenerateStory}>
+                                <Image
+                                  src="/images/buttons/new_story.png"
+                                  alt="Play"
+                                  width={277}
+                                  height={87}
+                                  className="mt-4"
+                                />
+                              </Button>
+                            </div>
+                          </>
+                        )}
                       </>
                     )}
-                    {loading && (
-                      <div className="flex justify-center items-center max-w-full">
-                        <Loading />
-                      </div>
-                    )}
-                        
-                    {error && <p className="text-red-500">{error}</p>}
                   </>
                 
               ) : (
                 <></>
               )}
 
-              {userCredits <= 0 && !loading ? (
+              {userCredits <= 0 && !loading && showAddCreditsButton ? (
                 <>
                   <div className="flex flex-col text-primary mb-4 bg-baclkground rounded-lg">
                     <div className="grid grid-cols-[1fr,auto] items-center gap-2">
                       <Button
                         onClick={async () => {
                           await updateUserCredits(user.email, 1, dbFirestore)
-                          setUserCredits((prevCredits) => prevCredits + 1)
+                          setUserCredits(() => user?.credits.value)
+                          setShowAddCreditsButton(false)
+                          setShowTemplateSelector(true)
+                          setShowNewStoryButton(true)
                         }}
                         variant="default"
                         className="hover:scale-110 hover:animate-pulse  active:scale-95"
@@ -253,8 +308,7 @@ A história deve conter:
                 <> </>
               )}
 
-            {!localContent &&
-                !selectedStory ? (
+            {!localContent && !selectedStory && showReader ? (
                   <>
                     {response && response.length > 300 && showSaveButton ? <StoryControls handleSaveClick={handleSaveClick} /> : <></>}
                     <StoryReader
@@ -270,9 +324,6 @@ A história deve conter:
                 ) : (
                 <></>
               )}
-
-
-
 
               {selectedStory && (
                 <>
@@ -348,20 +399,20 @@ A história deve conter:
               )}
 
  
-                  {status === "loading" ? (
-                    <p>Loading...</p>
-                  ) : (
-                    <Stories
-                      storiesData={
-                        user?.story?.map((story) => ({
-                          ...story,
-                          id: story.id,
-                          date: story.date instanceof Date ? story.date.toISOString() : story.date,
-                        })) || null
-                      }
-                      onRowClick={setSelectedStory}
-                    />
-                  )}
+              {status === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <Stories
+                  storiesData={
+                    user?.story?.map((story) => ({
+                      ...story,
+                      id: story.id,
+                      date: story.date instanceof Date ? story.date.toISOString() : story.date,
+                    })) || null
+                  }
+                  onRowClick={setSelectedStory}
+                />
+              )}
             </div>
           </main>
           <Footer />
