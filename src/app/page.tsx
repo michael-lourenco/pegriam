@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer"
 import Image from "next/image"
 import { LoadingDefault } from "@/components/LoadingDefault"
 import { Icon, type IconName } from "@/components/icons"
+import Link from "next/link"
 
 export default function Home() {
   const navigationService = useNavigation()
@@ -43,7 +44,7 @@ export default function Home() {
 
               {/* Play Button - Featured */}
               <div className="flex flex-col justify-center items-center text-center">
-                <p>Ah, viajante! Tenho histórias de todos os cantos do mundo… Mas me diga, que tipo de história você quer ouvir hoje?</p>
+                <p className="text-lg mb-4">Ah, viajante! Tenho histórias épicas de todos os cantos de Kontempler…</p>
                 <Image
                   src="/images/pegriam/pegriam-avatar.png"
                   alt="Avatar Pegriam"
@@ -52,34 +53,40 @@ export default function Home() {
                   className="mt-4"
                 />
 
-                <Button
-                  onClick={handleNavigation("/story")}
-                  className="hover:text-primary font-bold m-5 transform transition-all duration-300 animate-pulse hover:scale-105 hover:shadow-xl hover:shadow-chart-4/50"
-                  
-                >
-                  <Image
-                    src="/images/buttons/iniciar.png"
-                    alt="Play"
-                    width={188}
-                    height={92}
-                    className="mt-4"
-                  />
-                </Button>
+                <div className="flex flex-col md:flex-row gap-4 mt-6">
+                  <Link href="/stories">
+                    <Button
+                      className="hover:text-primary font-bold transform transition-all duration-300 animate-pulse hover:scale-105 hover:shadow-xl hover:shadow-chart-4/50"
+                      size="lg"
+                    >
+                      Explorar Histórias
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
-              {/* Secondary Actions */}
-              {/* <div className="space-y-4 mt-12">
+              {/* Quick Links */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <Link href="/stories">
+                  <Card className="hover:bg-accent transition-colors cursor-pointer">
+                    <CardContent className="py-4 text-center">
+                      <h3 className="font-semibold text-primary mb-2">A Lenda de Nix</h3>
+                      <p className="text-sm text-muted-foreground">
+                        A épica jornada de Nix Volstein
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
 
-                
-                <Button
-                  onClick={() => window.open("https://buy.stripe.com/00g02GeSnaJC12g5kk", "_blank")}
-                  variant="outline"
-                  className="w-full border-chart-4/50 text-purple-400 hover:bg-chart-4/10 hover:border-purple-400 group transition-all duration-300"
-                >
-                  <Icon name="LuHeart" className="w-5 h-5 mr-2 text-chart-4 group-hover:text-purple-400" />                  
-                  <span>Apoiar o Projeto</span>
-                </Button>
-              </div> */}
+                <Card className="opacity-50">
+                  <CardContent className="py-4 text-center">
+                    <h3 className="font-semibold text-muted-foreground mb-2">Em breve...</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Mais histórias estão chegando
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -88,4 +95,3 @@ export default function Home() {
     </div>
   )
 }
-
