@@ -14,6 +14,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
+import { BookCover } from '@/presentation/components/shared/BookCover';
 
 export default function NewStoryPage() {
   const { isAdmin, user } = useRequireAdmin();
@@ -148,15 +150,32 @@ export default function NewStoryPage() {
                 </div>
               </div>
 
-              <div className={cn("space-y-2")}>
-                <Label htmlFor="coverImage">URL da Imagem de Capa</Label>
-                <Input
-                  id="coverImage"
-                  type="url"
-                  value={coverImage}
-                  onChange={(e) => setCoverImage(e.target.value)}
-                  disabled={loading}
-                />
+              <div className={cn("space-y-4")}>
+                <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6")}>
+                  <div className={cn("space-y-2")}>
+                    <ImageUpload
+                      label="Imagem de Capa"
+                      value={coverImage}
+                      onChange={setCoverImage}
+                      disabled={loading}
+                      folder="stories/covers"
+                    />
+                    <p className={cn("text-xs text-muted-foreground")}>
+                      Proporção recomendada: 2:3 (capa de livro)
+                    </p>
+                  </div>
+                  <div className={cn("space-y-2")}>
+                    <Label>Preview da Capa</Label>
+                    <div className={cn("flex justify-center p-4 bg-muted rounded-lg")}>
+                      <BookCover
+                        src={coverImage || undefined}
+                        alt={title || 'Preview'}
+                        size="md"
+                        className={cn("shadow-md")}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4")}>

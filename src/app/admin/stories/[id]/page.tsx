@@ -18,6 +18,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
+import { BookCover } from '@/presentation/components/shared/BookCover';
 
 export default function EditStoryPage() {
   const params = useParams();
@@ -34,6 +36,7 @@ export default function EditStoryPage() {
   // Form state
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState('');
   const [status, setStatus] = useState<'draft' | 'publishing' | 'completed'>('draft');
   const [freeChapters, setFreeChapters] = useState(0);
   const [pdfPrice, setPdfPrice] = useState(0);
@@ -59,6 +62,7 @@ export default function EditStoryPage() {
         setStory(storyData);
         setTitle(storyData.title);
         setDescription(storyData.description);
+        setCoverImage(storyData.coverImage || '');
         setStatus(storyData.status);
         setFreeChapters(storyData.freeChapters);
         setPdfPrice(storyData.pdfPrice);
@@ -95,6 +99,7 @@ export default function EditStoryPage() {
       await updateStory.execute(user, story.id, {
         title,
         description,
+        coverImage: coverImage || undefined,
         status,
         freeChapters,
         pdfPrice,
@@ -224,6 +229,34 @@ export default function EditStoryPage() {
                       className={cn("w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50")}
                       disabled={saving}
                     />
+                  </div>
+
+                  <div className={cn("space-y-4")}>
+                    <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-6")}>
+                      <div className={cn("space-y-2")}>
+                        <ImageUpload
+                          label="Imagem de Capa"
+                          value={coverImage}
+                          onChange={setCoverImage}
+                          disabled={saving}
+                          folder="stories/covers"
+                        />
+                        <p className={cn("text-xs text-muted-foreground")}>
+                          Proporção recomendada: 2:3 (capa de livro)
+                        </p>
+                      </div>
+                      <div className={cn("space-y-2")}>
+                        <Label>Preview da Capa</Label>
+                        <div className={cn("flex justify-center p-4 bg-muted rounded-lg")}>
+                          <BookCover
+                            src={coverImage || undefined}
+                            alt={title || 'Preview'}
+                            size="md"
+                            className={cn("shadow-md")}
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4")}>

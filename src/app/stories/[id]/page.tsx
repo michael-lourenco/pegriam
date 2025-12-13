@@ -14,6 +14,7 @@ import { chapterRoute } from '@/shared/utils/routes';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { BookCover } from '@/presentation/components/shared/BookCover';
 
 export default function StoryPage() {
   const params = useParams();
@@ -87,17 +88,8 @@ export default function StoryPage() {
           ← Voltar para Histórias
         </Button>
 
+        {/* Cabeçalho da História */}
         <div className={cn("mb-8")}>
-          {story.coverImage && (
-            <div className={cn("w-full h-64 md:h-96 bg-muted rounded-lg overflow-hidden mb-6")}>
-              <img
-                src={story.coverImage}
-                alt={story.title}
-                className={cn("w-full h-full object-cover")}
-              />
-            </div>
-          )}
-          
           <h1 className={cn("text-4xl md:text-5xl font-bold text-foreground mb-4")}>
             {story.title}
           </h1>
@@ -113,18 +105,29 @@ export default function StoryPage() {
             ))}
           </div>
           
-          <p className={cn("text-lg text-muted-foreground mb-6")}>
-            {story.description}
-          </p>
-          
-          <div className={cn("flex flex-wrap gap-4 text-sm text-muted-foreground")}>
+          <div className={cn("flex flex-wrap gap-4 text-sm text-muted-foreground mb-6")}>
             <span>Autor: <strong>{story.author}</strong></span>
             <span>{story.metadata.totalChapters} capítulos</span>
             <span>{story.metadata.estimatedReadTime} min de leitura</span>
             <span>{story.freeChapters} capítulos gratuitos</span>
           </div>
+          
+          <p className={cn("text-lg text-muted-foreground")}>
+            {story.description}
+          </p>
         </div>
 
+        {/* Imagem de Capa - Separada */}
+        <div className={cn("mb-12 flex justify-center")}>
+          <BookCover
+            src={story.coverImage}
+            alt={story.title}
+            size="xl"
+            className={cn("shadow-lg")}
+          />
+        </div>
+
+        {/* Seção de Capítulos */}
         <div className={cn("mb-8")}>
           <h2 className={cn("text-2xl font-bold text-foreground mb-4")}>
             Capítulos

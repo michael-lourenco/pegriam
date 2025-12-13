@@ -13,6 +13,7 @@ import { storyRoute } from '@/shared/utils/routes';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { BookCover } from '@/presentation/components/shared/BookCover';
 
 export default function StoriesPage() {
   const { user } = useAuth();
@@ -87,15 +88,14 @@ export default function StoriesPage() {
             {stories.map((story) => (
               <Link key={story.id} href={storyRoute(String(story.id)) as any}>
                 <Card className={cn("h-full hover:shadow-lg transition-shadow cursor-pointer")}>
-                  {story.coverImage && (
-                    <div className={cn("w-full h-48 bg-muted overflow-hidden rounded-t-lg")}>
-                      <img
-                        src={story.coverImage}
-                        alt={story.title}
-                        className={cn("w-full h-full object-cover")}
-                      />
-                    </div>
-                  )}
+                  <div className={cn("w-full flex justify-center p-4 bg-muted rounded-t-lg")}>
+                    <BookCover
+                      src={story.coverImage}
+                      alt={story.title}
+                      size="lg"
+                      className={cn("shadow-md")}
+                    />
+                  </div>
                   <CardHeader>
                     <CardTitle className={cn("line-clamp-2")}>{story.title}</CardTitle>
                     <CardDescription className={cn("line-clamp-2")}>
