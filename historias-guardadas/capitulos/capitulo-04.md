@@ -129,21 +129,21 @@ Nix não conseguiu responder. Ela estava tremendo, não apenas de medo, mas de r
 
 "Você está suspensa das aulas práticas por uma semana", continuou Eldora. "E quando voltar, você começará do básico novamente. Controle antes de poder, Nix. Sempre."
 
-### A Conversa Difícil
+    ### A Conversa Difícil
 
-Naquela noite, Nix não conseguiu dormir. Ela havia falhado. Não apenas falhado, mas perdido o controle completamente. E havia machucado alguém. Mesmo que fosse Theron, mesmo que ele tivesse provocado, ela não deveria ter reagido assim.
+    Naquela noite, Nix não conseguiu dormir. Ela havia falhado. Não apenas falhado, mas perdido o controle completamente. E havia machucado alguém. Mesmo que fosse Theron, mesmo que ele tivesse provocado, ela não deveria ter reagido assim.
 
-"Você está bem?", perguntou Kira, sentando-se na cama ao lado dela.
+    "Você está bem?", perguntou Kira, sentando-se na cama ao lado dela.
 
-"Eu não sei", admitiu Nix. "Eu perdi o controle. Eu poderia ter machucado alguém seriamente."
+    "Eu não sei", admitiu Nix. "Eu perdi o controle. Eu poderia ter machucado alguém seriamente."
 
-"Mas você não machucou", disse Lyra, que também estava acordada. "E Theron estava provocando você. Ele mereceu."
+    "Mas você não machucou", disse Lyra, que também estava acordada. "E Theron estava provocando você. Ele mereceu."
 
-"Mas isso não justifica", respondeu Nix. "Emmantor sempre disse que controle vem antes de poder. E eu perdi o controle."
+    "Mas isso não justifica", respondeu Nix. "Emmantor sempre disse que controle vem antes de poder. E eu perdi o controle."
 
-"Você é humana, Nix", disse Zara, levantando-se também. "Você vai cometer erros. O importante é aprender com eles."
+    "Você é humana, Nix", disse Zara, levantando-se também. "Você vai cometer erros. O importante é aprender com eles."
 
-Mas Nix não conseguia aceitar isso. Ela havia se acostumado a ser boa em magia, a receber elogios. Fracassar assim, publicamente, foi devastador.
+    Mas Nix não conseguia aceitar isso. Ela havia se acostumado a ser boa em magia, a receber elogios. Fracassar assim, publicamente, foi devastador.
 
 ### A Decisão
 
