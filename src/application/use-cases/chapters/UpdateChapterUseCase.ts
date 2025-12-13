@@ -10,6 +10,7 @@ import { IChapterRenderedRepository } from '@/domain/repositories/IChapterRender
 import { IStoryRepository } from '@/domain/repositories/IStoryRepository';
 import { Permission, User } from '@/domain/value-objects/Permission';
 import { MarkdownRendererService } from '@/application/services/MarkdownRendererService';
+import { ContentBlock } from '@/domain/entities/ContentBlock';
 
 export interface UpdateChapterDTO {
   title?: string;
@@ -76,6 +77,10 @@ export class UpdateChapterUseCase {
         })
         .sort((a, b) => a.order - b.order);
 
+      // Recalcular wordCount e estimatedReadTime baseado nos novos blocos
+      const wordCount = this.calculateWordCount(blocks);
+      const estimatedReadTime = Math.ceil(wordCount / 200);
+
       updatedChapter = new Chapter(
         updatedChapter.id,
         updatedChapter.storyId,
@@ -84,8 +89,8 @@ export class UpdateChapterUseCase {
         blocks,
         updatedChapter.publishedAt,
         dto.isFree !== undefined ? dto.isFree : updatedChapter.isFree,
-        updatedChapter.estimatedReadTime,
-        updatedChapter.wordCount,
+        estimatedReadTime,
+        wordCount,
         updatedChapter.order,
         updatedChapter.createdAt,
         new Date()
@@ -132,6 +137,20 @@ export class UpdateChapterUseCase {
   private renderChapter(chapter: Chapter): string {
     const fullMarkdown = chapter.toMarkdown();
     return MarkdownRendererService.renderWithProse(fullMarkdown);
+  }
+
+  /**
+   * Calcula a contagem de palavras dos blocos de texto
+   */
+  private calculateWordCount(blocks: ContentBlock[]): number {
+    return blocks.reduce((count, block) => {
+      if (block.type === 'text') {
+        const textBlock = block as import('@/domain/entities/ContentBlock').TextBlock;
+        const words = textBlock.content.trim().split(/\s+/).filter(w => w.length > 0);
+        return count + words.length;
+      }
+      return count;
+    }, 0);
   }
 }
 
