@@ -26,16 +26,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar usuário atual
-    const currentUser = firebaseAuthService.getCurrentUser();
-    setUser(currentUser);
-    setLoading(false);
-
     // Observar mudanças no estado de autenticação
+    // O Firebase Auth já gerencia o estado, então vamos apenas observar
     const unsubscribe = firebaseAuthService.onAuthStateChange((user) => {
       setUser(user);
       setLoading(false);
     });
+
+    // Verificar usuário atual imediatamente (pode retornar null se ainda não carregou)
+    const currentUser = firebaseAuthService.getCurrentUser();
+    if (currentUser) {
+      setUser(currentUser);
+      setLoading(false);
+    }
 
     return () => unsubscribe();
   }, []);

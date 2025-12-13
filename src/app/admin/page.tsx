@@ -15,7 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 
 export default function AdminDashboardPage() {
-  const { user, isAdmin } = useRequireAdmin();
+  const { user, isAdmin, loading: authLoading } = useRequireAdmin();
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -26,6 +26,7 @@ export default function AdminDashboardPage() {
   });
 
   useEffect(() => {
+    if (authLoading) return;
     if (!isAdmin) return;
 
     async function loadData() {
@@ -62,6 +63,14 @@ export default function AdminDashboardPage() {
 
     loadData();
   }, [isAdmin]);
+
+  if (authLoading) {
+    return (
+      <div className={cn("min-h-screen flex items-center justify-center")}>
+        <p className={cn("text-muted-foreground")}>Verificando autenticação...</p>
+      </div>
+    );
+  }
 
   if (!isAdmin) {
     return null; // Será redirecionado automaticamente

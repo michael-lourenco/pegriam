@@ -12,4 +12,6 @@ export { DeleteStoryUseCase } from './stories/DeleteStoryUseCase';
 // Chapters
 export { CreateChapterUseCase } from './chapters/CreateChapterUseCase';
 export { GetChapterUseCase } from './chapters/GetChapterUseCase';
+export { UpdateChapterUseCase } from './chapters/UpdateChapterUseCase';
+export { DeleteChapterUseCase } from './chapters/DeleteChapterUseCase';
 

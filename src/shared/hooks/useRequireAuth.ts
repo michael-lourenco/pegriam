@@ -22,19 +22,36 @@ export function useRequireAuth(options: UseRequireAuthOptions = {}) {
   const { requireAdmin = false, redirectTo = '/login' } = options;
 
   useEffect(() => {
+    // Aguardar o Firebase Auth terminar de carregar
     if (loading) return;
 
+    // Se não há usuário após o carregamento, redirecionar
     if (!user) {
-      router.push(redirectTo as any);
+      const currentPath = window.location.pathname;
+      const loginUrl = redirectTo.includes('?') 
+        ? redirectTo 
+        : `${redirectTo}?redirect=${encodeURIComponent(currentPath)}`;
+      router.push(loginUrl as any);
       return;
     }
 
+    // Se requer admin mas não é admin, redirecionar
     if (requireAdmin && !Permission.canAccessAdmin(user)) {
       router.push('/' as any);
       return;
     }
   }, [user, loading, requireAdmin, redirectTo, router]);
 
-  return { user, loading, isAuthenticated: !!user, isAdmin: user ? Permission.isAdmin(user) : false };
+  // Retornar loading enquanto verifica autenticação
+  if (loading) {
+    return { user: null, loading: true, isAuthenticated: false, isAdmin: false };
+  }
+
+  return { 
+    user, 
+    loading: false, 
+    isAuthenticated: !!user, 
+    isAdmin: user ? Permission.isAdmin(user) : false 
+  };
 }
 
