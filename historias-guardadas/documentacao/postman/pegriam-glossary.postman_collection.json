@@ -1,0 +1,550 @@
+{
+  "info": {
+    "name": "Pegriam - Glossário Firestore",
+    "description": "Collection para popular o glossário do projeto Pegriam no Firestore",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Personagens",
+      "item": [
+        {
+          "name": "Nix Volstein",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Nix Volstein\",\n  \"aliases\": [\"Nix\", \"A Fênix\", \"Feiticeira dos Elementos\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"A futura primeira Fênix de Kontempler, uma feiticeira poderosa que domina os elementos.\",\n  \"fullDescription\": \"Nix Volstein é a protagonista de 'Contos de Pegriam: A Lenda de Nix'. Começou como uma jovem tímida e insegura, mas ao longo de sua jornada se transformou em uma Feiticeira dos Elementos confiante e respeitada. Ela é uma multiclasse de Feiticeira e Maga, com afinidade especial pelos elementos da água, sombra e fogo. Nix desconhecia seus poderes no início, mas com o tempo descobriu sua linhagem única ligada aos Aumar e desenvolveu habilidades mágicas extraordinárias. Sua aparência evoluiu de uma jovem de cabelos escuros para uma mulher com pele dourada, cabelos em tons vermelhos e dourados, e olhos que brilham como brasas.\",\n  \"relatedTerms\": [\"emmantor\", \"galneon\", \"einor\", \"pegriam\", \"denver\", \"rain\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [\n    {\n      \"storyId\": \"lenda-de-nix\",\n      \"chapterId\": \"capitulo-01\",\n      \"context\": \"Nix Volstein veio ao mundo em tempos tumultuados, quando a memória da queda dos Aumar era apenas um eco distante.\"\n    }\n  ],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=nix-volstein",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "nix-volstein"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Emmantor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Emmantor\",\n  \"aliases\": [\"O Mentor\", \"O Protetor\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"Mago sábio e mentor de Nix, conhecedor dos segredos das linhagens Aumar.\",\n  \"fullDescription\": \"Emmantor é um mago sábio que apareceu no momento crucial para proteger Nix quando ela foi atacada por um Guerreiro Feiticeiro aos 5 anos de idade. Ele se tornou o mentor e protetor de Nix, guiando-a em seu desenvolvimento mágico. Emmantor conhece os segredos das linhagens Aumar e entende o peso da herança mágica única de Nix. Ele a treinou por anos em seu refúgio na Floresta de Eldoria, ensinando-lhe a filosofia de 'convitar, não forçar' a magia. Mais tarde, enviou Nix para estudar na Arcanis Librarium em Sylvandor.\",\n  \"relatedTerms\": [\"nix-volstein\", \"sylvandor\", \"arcanis-librarium\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=emmantor",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "emmantor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Galneon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Galneon\",\n  \"aliases\": [\"O Guerreiro\", \"O Renascido\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"Guerreiro destemido e um dos maiores amigos de Nix, ressuscitado pelas Lágrimas de Nix.\",\n  \"fullDescription\": \"Galneon é um guerreiro habilidoso que se tornou um dos maiores amigos e relacionamentos de Nix. Ele conheceu Nix na escola de magia da cidade em 1020. Em um momento crucial da história, Galneon morreu durante uma batalha contra Nareth, a Ceifadora Carmesim. No entanto, Nix, inconscientemente, o reviveu através de suas lágrimas - um ato que deveria ser impossível. Esta ressurreição vinculou Galneon a Nix de formas que ambos só descobririam no futuro. Galneon também recebeu poderes que foi descobrindo ao longo de sua vida como resultado dessa ressurreição milagrosa.\",\n  \"relatedTerms\": [\"nix-volstein\", \"lagrimas-de-nix\", \"nareth\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-03\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=galneon",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "galneon"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pegriam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Pegriam\",\n  \"aliases\": [\"O Bardo\", \"O Bardo Multiversal\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"O maior e melhor bardo da multi-realidade, narrador das histórias de Nix.\",\n  \"fullDescription\": \"Pegriam é o bardo carismático que narra as histórias de Nix. Ele é um viajante entre realidades, tendo vivido inúmeras realidades onde é um ser diferente: às vezes um homem, outras uma mulher, em algumas um gato ou até uma criatura única. Como bardo, Pegriam tem excelentes habilidades de comunicação, sendo carismático, astuto, dramático e sempre cativante. Ele é parte ativa da história, não apenas um narrador distante - conhece os personagens, sente os perigos, viveu as missões e carrega cicatrizes e memórias. Pegriam entoou a poderosa 'Canção do Imperador' durante o Torneio de Tron em 1025, que teve um impacto profundo em Galneon.\",\n  \"relatedTerms\": [\"nix-volstein\", \"galneon\", \"canção-do-imperador\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-03\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=pegriam",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "pegriam"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Einar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Einar\",\n  \"aliases\": [\"A Guerreira\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"Guerreira destemida e leal, membro do grupo de Nix.\",\n  \"fullDescription\": \"Einar é uma guerreira destemida que se juntou ao grupo de Nix. Ela é conhecida por sua coragem inabalável e lealdade. Einar usa uma armadura imponente que reflete sua natureza guerreira, e sua determinação inspirou Nix a abraçar mais plenamente seu próprio caminho. Ela entrou para o grupo em 1023, junto com Galneon, Pegriam e Denver.\",\n  \"relatedTerms\": [\"nix-volstein\", \"galneon\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-04\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=einar",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "einar"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Denver",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Denver\",\n  \"aliases\": [\"O Enigmático\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"Personagem enigmático que começou como algoz de Nix, mas se tornou aliado.\",\n  \"fullDescription\": \"Denver é um personagem complexo e enigmático. No início da jornada de Nix, ele foi um de seus algozes, tendo motivos pessoais para isso. No entanto, após um confronto, Denver surpreendeu a todos ao optar por se unir ao grupo. Suas habilidades mundanas e astúcia são impressionantes, e ele traz uma perspectiva única para a equipe. É aquele personagem que ninguém confia totalmente - de vez em quando some, mas sempre no momento decisivo está lá para apoiar e tem feitos impressionantes para alguém 'comum' ou mundano.\",\n  \"relatedTerms\": [\"nix-volstein\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-04\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=denver",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "denver"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Rain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Rain\",\n  \"aliases\": [\"O Clérigo\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"Clérigo sábio e dedicado, cujas bênçãos divinas iluminam os caminhos do grupo.\",\n  \"fullDescription\": \"Rain é um clérigo sábio e dedicado que se juntou ao grupo de Nix. Suas bênçãos divinas iluminam os caminhos do grupo, oferecendo suporte espiritual e curativo quando necessário. Rain entrou para o grupo em 1023, completando a formação inicial da equipe.\",\n  \"relatedTerms\": [\"nix-volstein\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-04\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=rain",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "rain"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Vorax",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Vorax\",\n  \"aliases\": [\"O Grande Mal\"],\n  \"category\": \"character\",\n  \"shortDescription\": \"O grande mal que liga todos os personagens aliados, operando nas sombras.\",\n  \"fullDescription\": \"Vorax é o grande mal que, de alguma forma ruim, liga todos os personagens aliados. No início até metade da história, apenas são deixados pequenos acontecimentos ou detalhes em segundo plano que deixam a entender que ele agiu por ali. Não atua diretamente até metade da história. Do meio pro final ele fica sendo conhecido, mas não é o vilão principal desta história - um de seus subordinados é o vilão desta história. Vorax governa o Castelo Sem Fim, um castelo gigantesco que se estende por múltiplas dimensões.\",\n  \"relatedTerms\": [\"castelo-sem-fim\", \"nix-volstein\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-05\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=vorax",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "vorax"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lugares",
+      "item": [
+        {
+          "name": "Kontempler",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Kontempler\",\n  \"aliases\": [\"O Reino\", \"O Mundo\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"O reino onde se passa a história de Nix, um mundo de fantasia épica.\",\n  \"fullDescription\": \"Kontempler é o reino principal onde se passa a história de Nix. É um mundo de fantasia épica, repleto de magia, criaturas místicas, reinos antigos e guildas. O reino é dividido em várias regiões distintas, cada uma com suas próprias características e desafios: Lorium, Liftén, Rendant, Gruftall, Memphit, Colina Ardente, Henrraina, Solavoltir e o Castelo Sem Fim.\",\n  \"relatedTerms\": [\"lorium\", \"liftén\", \"rendant\", \"sylvandor\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=kontempler",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "kontempler"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Lorium",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Lorium\",\n  \"aliases\": [\"A Região da Floresta\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"Região repleta de paisagens naturais e mágicas, lar de Nix e dos Sacis.\",\n  \"fullDescription\": \"Lorium é uma vasta região repleta de diversas paisagens naturais e mágicas. Entre suas características mais marcantes está a Floresta de Eldoria, uma floresta encantada que abriga criaturas mágicas e segredos antigos. A região é também lar de Nix e dos Sacis, sendo conhecida por sua forte conexão com a magia natural que permeia todo o território. Lendas dizem que o coração da Floresta de Eldoria guarda um portal para outros planos.\",\n  \"relatedTerms\": [\"floresta-de-eldoria\", \"sylvandor\", \"nix-volstein\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=lorium",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "lorium"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Floresta de Eldoria",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Floresta de Eldoria\",\n  \"aliases\": [\"Eldoria\", \"A Floresta Encantada\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"Floresta encantada que abriga criaturas mágicas e segredos antigos.\",\n  \"fullDescription\": \"A Floresta de Eldoria é uma floresta encantada localizada em Lorium. Ela abriga criaturas mágicas e segredos antigos. A magia natural é intensa nesta floresta, afetando aqueles que entram sem o devido respeito pela vida local. Lendas dizem que o coração da Floresta de Eldoria guarda um portal para outros planos. É aqui que Nix cresceu e onde Emmantor mantém seu refúgio.\",\n  \"relatedTerms\": [\"lorium\", \"nix-volstein\", \"emmantor\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=floresta-de-eldoria",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "floresta-de-eldoria"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sylvandor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Sylvandor\",\n  \"aliases\": [\"A Capital do Conhecimento Arcano\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"Cidade imponente erguida nas bordas da Floresta de Eldoria, centro de aprendizado arcano.\",\n  \"fullDescription\": \"Sylvandor é uma cidade imponente, erguida nas bordas da vasta Floresta de Eldoria, dentro da região de Lorium. É conhecida como a Capital do Conhecimento Arcano. Enquanto os habitantes das profundezas de Eldoria se conectam à magia através da natureza, a população de Sylvandor se dedica ao estudo metódico e à experimentação da magia, moldando suas habilidades a partir de textos antigos, pergaminhos raros e experimentos alquímicos. A cidade é um centro de aprendizado e progresso, onde o saber arcano é tratado como ciência. Suas torres são adornadas com telescópios, laboratórios de alquimia e bibliotecas vastas.\",\n  \"relatedTerms\": [\"arcanis-librarium\", \"lorium\", \"nix-volstein\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-02\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=sylvandor",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "sylvandor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Arcanis Librarium",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Arcanis Librarium\",\n  \"aliases\": [\"A Escola de Magia\", \"A Escola\"],\n  \"category\": \"organization\",\n  \"shortDescription\": \"A instituição de ensino mais respeitada de Sylvandor, famosa por formar os maiores magos do reino.\",\n  \"fullDescription\": \"Arcanis Librarium é a instituição de ensino mais respeitada de Sylvandor, famosa por formar os maiores magos do reino de Kontempler. A escola é dedicada à prática arcana por meio de pesquisa e estudo disciplinado. Aqui, a magia é desvendada por meio de fórmulas, encantamentos e longos anos de prática. Os estudantes são submetidos a rigorosos testes teóricos e práticos. Para progredir, cada aprendiz deve dominar não só as artes arcanas, mas também os fundamentos da alquimia, da escrita mágica e das energias elementais. Nix foi enviada para estudar aqui por Emmantor.\",\n  \"relatedTerms\": [\"sylvandor\", \"nix-volstein\", \"emmantor\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-02\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=arcanis-librarium",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "arcanis-librarium"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Rendant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Rendant\",\n  \"aliases\": [\"A Terra dos Cavaleiros\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"A terra dos Cavaleiros de Randal, conhecida por seus imponentes castelos e torneios.\",\n  \"fullDescription\": \"Rendant é a terra dos Cavaleiros de Randal, conhecida por seus imponentes castelos, vales profundos e sua história repleta de batalhas. Uma das maiores tradições da região é o Grande Circuito dos Cavaleiros, uma série de torneios disputados em oito cidades espalhadas por todo o território. Esses torneios são o ponto alto da cultura guerreira local, atraindo competidores de todas as partes de Kontempler. O campeonato final, a Provação do Conquistador, acontece na imponente Fortaleza de Randal.\",\n  \"relatedTerms\": [\"cavaleiros-de-randal\", \"provação-do-conquistador\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-05\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=rendant",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "rendant"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Castelo Sem Fim",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Castelo Sem Fim\",\n  \"aliases\": [\"Endless Castle\", \"O Castelo\"],\n  \"category\": \"location\",\n  \"shortDescription\": \"Castelo gigantesco que se estende por múltiplas dimensões, governado por Vorax.\",\n  \"fullDescription\": \"O Castelo Sem Fim é um castelo gigantesco que se estende por múltiplas dimensões. Suas salas e corredores parecem não ter fim, sempre mudando de forma e conectando diferentes realidades. Governado por Vorax, o Castelo Sem Fim é um desafio para qualquer aventureiro, pois o espaço e o tempo são distorcidos. Portais para outras dimensões estão escondidos nas profundezas do castelo. Muitos aventureiros entram, mas poucos retornam com suas sanidades intactas.\",\n  \"relatedTerms\": [\"vorax\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-05\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=castelo-sem-fim",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "castelo-sem-fim"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Conceitos Mágicos",
+      "item": [
+        {
+          "name": "Feiticeira dos Elementos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Feiticeira dos Elementos\",\n  \"aliases\": [\"Feiticeira Elemental\", \"Domadora dos Elementos\"],\n  \"category\": \"magic\",\n  \"shortDescription\": \"Título dado a Nix, uma feiticeira que domina múltiplos elementos mágicos.\",\n  \"fullDescription\": \"Feiticeira dos Elementos é o título dado a Nix Volstein. Diferente de uma Feiticeira Elemental do Fogo, Nix é uma Feiticeira dos Elementos, capaz de dominar múltiplos elementos. Ela começou demonstrando afinidade com água e sombra, mas eventualmente desenvolveu habilidades com fogo e outros elementos. Seus poderes são únicos e confundem as definições convencionais de magia, sendo ligados à sua linhagem especial dos Aumar.\",\n  \"relatedTerms\": [\"nix-volstein\", \"aumar\", \"magia-elemental\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-02\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=feiticeira-dos-elementos",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "feiticeira-dos-elementos"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Lágrimas de Nix",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Lágrimas de Nix\",\n  \"aliases\": [\"O Milagre\", \"A Ressurreição\"],\n  \"category\": \"concept\",\n  \"shortDescription\": \"Evento histórico onde Nix ressuscitou Galneon através de suas lágrimas.\",\n  \"fullDescription\": \"As Lágrimas de Nix é uma passagem histórica que conta a história de como Nix ressuscitou Galneon com suas lágrimas. Em 1033, durante uma batalha na fortaleza de Kaedor, Galneon foi morto por Nareth, a Ceifadora Carmesim. Nix, inconscientemente, usou uma magia de nível altíssimo sem saber, apenas com seu grande instinto e afinidade com a magia, junto com um sentimento de perda imenso naquele momento. Esta magia ressuscitou Galneon e o vinculou a Nix, dando-lhe poderes que ele foi conhecendo ao longo da vida. Nix não tinha consciência do milagre que havia realizado.\",\n  \"relatedTerms\": [\"nix-volstein\", \"galneon\", \"nareth\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-06\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=lagrimas-de-nix",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "lagrimas-de-nix"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Aumar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Aumar\",\n  \"aliases\": [\"A Queda dos Aumar\", \"A Linhagem\"],\n  \"category\": \"concept\",\n  \"shortDescription\": \"Linhagem ancestral perdida à qual Nix pertence, ligada a poderes mágicos únicos.\",\n  \"fullDescription\": \"Os Aumar são uma linhagem ancestral perdida de Kontempler. Nix Volstein pertence a esta linhagem, o que explica seus poderes mágicos únicos e extraordinários. A queda dos Aumar é mencionada como um evento histórico distante, ocorrido antes do nascimento de Nix em 1003. Emmantor conhece os segredos desta linhagem e protegeu Nix por causa de sua herança Aumar. Os poderes de Nix estão ligados a esta linhagem especial, confundindo as definições convencionais de magia.\",\n  \"relatedTerms\": [\"nix-volstein\", \"emmantor\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-01\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=aumar",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "aumar"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Canção do Imperador",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"term\": \"Canção do Imperador\",\n  \"aliases\": [\"A Canção Poderosa\"],\n  \"category\": \"magic\",\n  \"shortDescription\": \"Canção poderosa entoada por Pegriam durante o Torneio de Tron.\",\n  \"fullDescription\": \"A Canção do Imperador é uma canção poderosa entoada por Pegriam durante o Torneio de Tron em 1025. A voz de Pegriam era como melodia dos deuses, e suas palavras ressoaram por todo o estádio. A música não apenas levantou a moral da multidão, mas também teve um impacto profundo em Galneon, que estava enfrentando um momento particularmente difícil em sua luta. Sob a influência da música de Pegriam, Galneon encontrou uma força interior que ele nunca soube que possuía, emergindo vitorioso.\",\n  \"relatedTerms\": [\"pegriam\", \"galneon\", \"torneio-de-tron\"],\n  \"firstAppearance\": {\n    \"storyId\": \"lenda-de-nix\",\n    \"chapterId\": \"capitulo-05\"\n  },\n  \"appearances\": [],\n  \"createdAt\": \"2025-01-01T00:00:00Z\",\n  \"updatedAt\": \"2025-01-01T00:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{firebase_url}}/glossary?documentId=cancao-do-imperador",
+              "host": ["{{firebase_url}}"],
+              "path": ["glossary"],
+              "query": [
+                {
+                  "key": "documentId",
+                  "value": "cancao-do-imperador"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "firebase_url",
+      "value": "http://localhost:8080/v1/projects/{{project_id}}/databases/(default)/documents",
+      "type": "string"
+    },
+    {
+      "key": "project_id",
+      "value": "SEU_PROJECT_ID",
+      "type": "string"
+    }
+  ]
+}
+
