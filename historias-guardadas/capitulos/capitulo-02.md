@@ -3,7 +3,7 @@
 
 ---
 
-*Meus caros ouvintes, após o despertar das chamas adormecidas, muitos pensariam que a jornada de Nix se tornaria mais simples. Ah, como estão enganados! Os primeiros anos de aprendizado foram tão desafiantes quanto qualquer batalha. Deixem-me contar sobre a forja onde uma menina tímida começou a se transformar na mulher que um dia se tornaria uma lenda.*
+*Meus caros ouvintes, após o despertar, muitos pensariam que a jornada de Nix se tornaria mais simples. Ah, como estão enganados! Os primeiros anos de aprendizado foram tão desafiantes quanto qualquer batalha. Deixem-me contar sobre a forja onde uma menina tímida começou a aprender quem ela era. Ou talvez apenas quem ela poderia ser.*
 
 ---
 
@@ -23,7 +23,7 @@ Nix olhou para Emmantor, que esperava pacientemente a alguns passos de distânci
 
 Nix se despediu de seus pais com um último abraço, e então pegou a mão de Emmantor. Juntos, eles começaram a caminhar para fora da vila, seguindo um caminho que levava para as profundezas da Floresta de Eldoria.
 
-Ela olhou para trás uma última vez, vendo sua mãe e seu pai ainda na porta, acenando com um sorriso triste. Aquele seria o último vislumbre que ela teria de sua casa por muitos anos.
+Ela olhou para trás uma última vez, vendo sua mãe e seu pai ainda na porta, acenando com um sorriso triste. Aquele seria o último vislumbre que ela teria de sua casa por muitos anos. Ou talvez para sempre.
 
 ### O Refúgio de Emmantor
 
@@ -109,15 +109,15 @@ Mas dominar as sombras era ainda mais difícil do que dominar a água. As sombra
 
 "O poder das sombras é sedutor, Nix", alertou ele. "Ele pode consumir aqueles que não têm disciplina. Você deve sempre manter o controle, sempre lembrar quem você é."
 
-### O Anel Perdido
+### O Pingente Perdido
 
-Uma noite, durante o terceiro ano de treinamento, Nix acordou de um sonho inquietante. No sonho, ela via um anel, um anel dourado com uma pedra vermelha que pulsava com uma luz suave. O anel parecia importante, crucial, mas ela não conseguia se lembrar de tê-lo visto antes.
+Uma noite, durante o terceiro ano de treinamento, Nix acordou de um sonho inquietante. No sonho, ela via um pingente, um pingente dourado com uma pedra vermelha que pulsava com uma luz suave. O pingente parecia importante, crucial, mas ela não conseguia se lembrar de tê-lo visto antes.
 
 Quando mencionou o sonho para Emmantor na manhã seguinte, o mago sábio ficou sério, sua expressão carregada de preocupação.
 
-"O anel de sua família", disse ele finalmente. "Você sonhou com ele. Isso significa que ele está chamando por você, ou que você está finalmente pronta para começar a entender sua verdadeira herança."
+"O pingente de sua família", disse ele finalmente. "Você sonhou com ele. Isso significa que ele está chamando por você, ou que você está finalmente pronta para começar a entender sua verdadeira herança."
 
-"O anel de minha família?", perguntou Nix, confusa. "Eu nunca vi esse anel."
+"O pingente de minha família?", perguntou Nix, confusa. "Eu nunca vi esse pingente."
 
 "Você era muito jovem quando ele foi perdido", explicou Emmantor. "Mas ele existe, e ele pertence a você por direito. É um artefato poderoso, Nix, ligado à linhagem dos Aumar. Um dia, você precisará recuperá-lo. Mas não ainda. Você ainda não está pronta."
 
@@ -127,7 +127,7 @@ Nix sentiu uma pontada de frustração. Ela queria respostas, queria entender ma
 
 Emmantor olhou para ela, e seus olhos carregavam uma mistura de orgulho e tristeza.
 
-"Quando você conseguir dominar não apenas a água e as sombras, mas também quando você entender que a magia não é sobre poder. É sobre responsabilidade. Quando você estiver pronta para carregar o peso de seu destino, então você estará pronta para o anel."
+"Quando você conseguir dominar não apenas a água e as sombras, mas também quando você entender que a magia não é sobre poder. É sobre responsabilidade. Quando você estiver pronta para carregar o peso de suas escolhas, então você estará pronta para o pingente."
 
 ### Preparando-se para a Escola
 
@@ -159,7 +159,7 @@ Nix pegou o amuleto, segurando-o com cuidado. "Obrigada, Emmantor. Por tudo."
 
 "De nada, pequena. Agora vá. Sylvandor te espera."
 
-Juntos, eles começaram a caminhar, deixando o refúgio para trás. Mas desta vez, ao contrário de sete anos antes, Nix não estava sendo levada para a segurança. Ela estava sendo enviada para crescer, para se tornar quem estava destinada a ser.
+Juntos, eles começaram a caminhar, deixando o refúgio para trás. Mas desta vez, ao contrário de sete anos antes, Nix não estava sendo levada para a segurança. Ela estava sendo enviada para crescer, para descobrir quem ela era. Ou talvez apenas para tentar.
 
 ### A Cidade do Conhecimento
 
@@ -175,7 +175,7 @@ Ela se agarrou ao manto de Emmantor, sua timidez natural vindo à tona diante de
 
 A Arcanis Librarium ficava no centro da cidade, uma estrutura ainda mais impressionante do que o resto de Sylvandor. Suas torres pareciam tocar as nuvens, e a energia mágica que emanava do edifício era quase palpável.
 
-"Bem-vinda à Arcanis Librarium, Nix", disse Emmantor, parando diante dos portões principais. "Este será seu novo lar pelos próximos anos. E eu tenho certeza de que você vai se destacar."
+"Bem-vinda à Arcanis Librarium, Nix", disse Emmantor, parando diante dos portões principais. "Este será seu novo lar pelos próximos anos. E eu tenho certeza de que você vai se dar bem."
 
 ### O Início de uma Nova Jornada
 
@@ -187,7 +187,7 @@ No interior da escola, Nix foi apresentada a Maestra Eldora, uma mulher de meia-
 
 Maestra Eldora acenou com a cabeça, aparentemente satisfeita. "Muito bem. Nix, você começará no nível iniciante, como todos os novos estudantes. Mas com base nas recomendações de Emmantor, você pode progredir rapidamente se demonstrar habilidade suficiente."
 
-Nix balançou a cabeça em confirmação, muito nervosa para falar. Ela estava no Arcanis Librarium, uma das escolas de magia mais prestigiadas de Kontempler. Era um sonho que ela nunca havia imaginado possível quando era apenas uma criança tímida em uma vila remota.
+Nix balançou a cabeça em confirmação, muito nervosa para falar. Ela estava no Arcanis Librarium, uma das escolas de magia mais prestigiadas de Kontempler. Era algo que ela nunca havia imaginado possível quando era apenas uma criança tímida em uma vila remota.
 
 Emmantor se despediu dela com um último abraço, prometendo visitá-la quando possível. E então, Nix foi deixada sozinha, cercada por corredores vastos, bibliotecas repletas de conhecimento e outros estudantes que pareciam tão perdidos quanto ela.
 
@@ -195,19 +195,18 @@ Mas havia algo diferente. Nix não estava mais apenas assustada. Ela estava dete
 
 Ela olhou ao redor, observando os outros estudantes, os professores que caminhavam pelos corredores, e os artefatos mágicos que brilhavam nas vitrines. Este era um novo começo, uma nova fase de sua jornada.
 
-E ela estava pronta para enfrentá-la.
+E ela estava pronta para enfrentá-la. Ou pelo menos, ela esperava estar.
 
 ---
 
-*E assim, meus caros ouvintes, termina o segundo capítulo desta grande saga. Nix Volstein havia crescido de uma criança assustada em uma jovem maga habilidosa. Ela havia dominado a água e as sombras, havia aprendido disciplina e controle, e agora estava pronta para enfrentar os desafios da escola de magia.*
+*E assim, meus caros ouvintes, termina o segundo capítulo desta história. Nix Volstein havia crescido de uma criança assustada em uma jovem maga habilidosa. Ela havia dominado a água e as sombras, havia aprendido disciplina e controle, e agora estava pronta para enfrentar os desafios da escola de magia. Ou talvez apenas para tentar enfrentá-los.*
 
-*Mas como vocês devem saber, a jornada de uma heroína nunca é simples. Sylvandor guardava mistérios, desafios e pessoas que mudariam o curso da vida de Nix para sempre. O verdadeiro teste estava apenas começando.*
+*Mas como vocês devem saber, a jornada de uma pessoa nunca é simples. Sylvandor guardava mistérios, desafios e pessoas que mudariam o curso da vida de Nix. O que viria depois? Bem, isso é uma pergunta que nem mesmo eu posso responder com certeza.*
 
-*Mas isso, meus amigos, é uma história para o próximo capítulo. Por agora, deixem-me apenas dizer que as sementes plantadas por Emmantor estavam começando a florescer, e a futura Fênix de Kontempler estava se preparando para alçar voo.*
+*Mas isso, meus amigos, é uma história para o próximo capítulo. Por agora, deixem-me apenas dizer que uma jovem maga havia chegado à escola, e o que aconteceria depois... bem, isso é algo que ainda está para ser visto.*
 
 *Até a próxima vez, quando continuarei a contar os Contos de Pegriam: A Lenda de Nix.*
 
 ---
 
 **Fim do Capítulo 2**
-

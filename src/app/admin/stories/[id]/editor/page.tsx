@@ -8,8 +8,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useRequireAdmin } from '@/shared/hooks/useRequireAdmin';
 import { useAuth } from '@/presentation/providers/AuthProvider';
 import { GetStoryUseCase, CreateChapterUseCase, UpdateChapterUseCase, GetChapterUseCase } from '@/application/use-cases';
-import { SupabaseStoryRepository } from '@/infrastructure/database/supabase';
-import { SupabaseChapterRepository } from '@/infrastructure/database/supabase';
+import { SupabaseStoryRepository, SupabaseChapterRepository, SupabaseChapterRenderedRepository } from '@/infrastructure/database/supabase';
 import { Story, StoryId } from '@/domain/entities/Story';
 import { Chapter, ChapterId } from '@/domain/entities/Chapter';
 import { ContentBlock, ContentBlockDTO, TextBlock, ImageBlock, QuoteBlock, SeparatorBlock, ContentBlockFactory } from '@/domain/entities/ContentBlock';
@@ -22,6 +21,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ContentBlockRenderer } from '@/presentation/components/reader/ContentBlockRenderer';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
+import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
+import { MarkdownEditor } from '@/presentation/components/editor/MarkdownEditor';
 
 export default function ChapterEditorPage() {
   const params = useParams();
@@ -144,7 +145,7 @@ export default function ChapterEditorPage() {
         editingBlock?.id || `block-${Date.now()}`,
         editingBlock?.order ?? blocks.length,
         textContent,
-        'plain'
+        'markdown' // Sempre markdown
       );
     } else if (blockType === 'image') {
       if (!imageUrl.trim() || !imageAlt.trim()) {
@@ -247,7 +248,8 @@ export default function ChapterEditorPage() {
 
       if (chapter) {
         // Atualizar capítulo existente
-        const updateChapter = new UpdateChapterUseCase(chapterRepository, storyRepository);
+        const chapterRenderedRepository = new SupabaseChapterRenderedRepository();
+        const updateChapter = new UpdateChapterUseCase(chapterRepository, storyRepository, chapterRenderedRepository);
         await updateChapter.execute(user, chapter.id, {
           title: chapterTitle,
           blocks: blocksDTO,
@@ -255,7 +257,8 @@ export default function ChapterEditorPage() {
         });
       } else {
         // Criar novo capítulo
-        const createChapter = new CreateChapterUseCase(chapterRepository, storyRepository);
+        const chapterRenderedRepository = new SupabaseChapterRenderedRepository();
+        const createChapter = new CreateChapterUseCase(chapterRepository, storyRepository, chapterRenderedRepository);
         await createChapter.execute(user, {
           storyId: story.id,
           number: chapterNumber,
@@ -472,8 +475,8 @@ export default function ChapterEditorPage() {
 
         {/* Dialog para Adicionar/Editar Bloco */}
         <Dialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>
-          <DialogContent className={cn("max-w-2xl")}>
-            <DialogHeader>
+          <DialogContent className={cn("max-w-2xl max-h-[90vh] flex flex-col")}>
+            <DialogHeader className={cn("flex-shrink-0")}>
               <DialogTitle>
                 {editingBlock ? 'Editar Bloco' : 'Adicionar Bloco'}
               </DialogTitle>
@@ -482,7 +485,8 @@ export default function ChapterEditorPage() {
               </DialogDescription>
             </DialogHeader>
 
-            <div className={cn("space-y-4")}>
+            {/* Conteúdo scrollável */}
+            <div className={cn("flex-1 overflow-y-auto space-y-4 pr-2")}>
               {!editingBlock && (
                 <div className={cn("space-y-2")}>
                   <Label>Tipo de Bloco</Label>
@@ -501,29 +505,26 @@ export default function ChapterEditorPage() {
 
               {blockType === 'text' && (
                 <div className={cn("space-y-2")}>
-                  <Label htmlFor="textContent">Conteúdo do Texto *</Label>
-                  <Textarea
-                    id="textContent"
+                  <Label htmlFor="textContent">Conteúdo do Texto (Markdown) *</Label>
+                  <MarkdownEditor
                     value={textContent}
-                    onChange={(e) => setTextContent(e.target.value)}
-                    rows={8}
-                    placeholder="Digite o conteúdo do texto..."
+                    onChange={setTextContent}
+                    placeholder="Digite seu texto em Markdown... Use # para títulos, ** para negrito, * para itálico, etc."
+                    disabled={saving}
+                    className={cn("max-h-[60vh]")}
                   />
                 </div>
               )}
 
               {blockType === 'image' && (
                 <div className={cn("space-y-4")}>
-                  <div className={cn("space-y-2")}>
-                    <Label htmlFor="imageUrl">URL da Imagem *</Label>
-                    <Input
-                      id="imageUrl"
-                      type="url"
-                      value={imageUrl}
-                      onChange={(e) => setImageUrl(e.target.value)}
-                      placeholder="https://exemplo.com/imagem.jpg"
-                    />
-                  </div>
+                  <ImageUpload
+                    label="Imagem *"
+                    value={imageUrl}
+                    onChange={setImageUrl}
+                    disabled={saving}
+                    folder="stories/images"
+                  />
                   <div className={cn("space-y-2")}>
                     <Label htmlFor="imageAlt">Texto Alternativo *</Label>
                     <Input
@@ -531,7 +532,11 @@ export default function ChapterEditorPage() {
                       value={imageAlt}
                       onChange={(e) => setImageAlt(e.target.value)}
                       placeholder="Descrição da imagem"
+                      disabled={saving}
                     />
+                    <p className={cn("text-xs text-muted-foreground")}>
+                      Texto descritivo da imagem para acessibilidade
+                    </p>
                   </div>
                   <div className={cn("space-y-2")}>
                     <Label htmlFor="imageCaption">Legenda (opcional)</Label>
@@ -540,7 +545,11 @@ export default function ChapterEditorPage() {
                       value={imageCaption}
                       onChange={(e) => setImageCaption(e.target.value)}
                       placeholder="Legenda da imagem"
+                      disabled={saving}
                     />
+                    <p className={cn("text-xs text-muted-foreground")}>
+                      Texto que aparecerá abaixo da imagem
+                    </p>
                   </div>
                 </div>
               )}
@@ -574,21 +583,22 @@ export default function ChapterEditorPage() {
                   Um separador visual será adicionado ao capítulo.
                 </p>
               )}
+            </div>
 
-              <div className={cn("flex justify-end gap-2")}>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setBlockDialogOpen(false);
-                    resetBlockForm();
-                  }}
-                >
-                  Cancelar
-                </Button>
-                <Button onClick={handleSaveBlock}>
-                  {editingBlock ? 'Atualizar' : 'Adicionar'}
-                </Button>
-              </div>
+            {/* Botões fixos na parte inferior */}
+            <div className={cn("flex justify-end gap-2 pt-4 border-t flex-shrink-0")}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setBlockDialogOpen(false);
+                  resetBlockForm();
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button onClick={handleSaveBlock}>
+                {editingBlock ? 'Atualizar' : 'Adicionar'}
+              </Button>
             </div>
           </DialogContent>
         </Dialog>

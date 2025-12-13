@@ -64,7 +64,7 @@ export class TextBlock extends ContentBlock {
     id: string,
     order: number,
     public readonly content: string,
-    public readonly format?: 'plain' | 'markdown',
+    public readonly format: 'markdown' = 'markdown', // Sempre markdown agora
     createdAt?: Date,
     updatedAt?: Date
   ) {
@@ -82,9 +82,15 @@ export class TextBlock extends ContentBlock {
   }
 
   toHTML(): string {
-    // Por enquanto retorna o conteúdo como está
-    // Futuramente pode usar um parser de Markdown
-    return `<p>${this.content.replace(/\n/g, '<br>')}</p>`;
+    // Usar MarkdownRendererService para renderizar markdown
+    // Importação dinâmica para evitar dependência circular
+    try {
+      const { MarkdownRendererService } = require('@/application/services/MarkdownRendererService');
+      return MarkdownRendererService.render(this.content);
+    } catch (error) {
+      // Fallback se o serviço não estiver disponível
+      return `<p>${this.content.replace(/\n/g, '<br>')}</p>`;
+    }
   }
 
   toDTO(): ContentBlockDTO {
@@ -94,7 +100,7 @@ export class TextBlock extends ContentBlock {
       order: this.order,
       data: {
         content: this.content,
-        format: this.format || 'plain',
+        format: this.format || 'markdown', // Sempre markdown
       },
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -102,11 +108,14 @@ export class TextBlock extends ContentBlock {
   }
 
   protected createCopyWith(changes: Partial<ContentBlockDTO>): ContentBlock {
+    const data = changes.data as { content?: string; format?: 'plain' | 'markdown' } | undefined;
+    // Sempre usar 'markdown' (migração automática de 'plain')
+    const format: 'markdown' = 'markdown';
     return new TextBlock(
       changes.id || this.id,
       changes.order ?? this.order,
-      (changes.data as { content?: string })?.content || this.content,
-      (changes.data as { format?: 'plain' | 'markdown' })?.format || this.format,
+      data?.content || this.content,
+      format,
       changes.createdAt || this.createdAt,
       changes.updatedAt || new Date()
     );
@@ -315,11 +324,13 @@ export class ContentBlockFactory {
     switch (dto.type) {
       case 'text': {
         const data = dto.data as { content: string; format?: 'plain' | 'markdown' };
+        // Migração automática: se format for 'plain' ou ausente, usar 'markdown'
+        const format = (data.format === 'plain' || !data.format) ? 'markdown' : data.format;
         return new TextBlock(
           dto.id,
           dto.order,
           data.content,
-          data.format,
+          format,
           dto.createdAt,
           dto.updatedAt
         );

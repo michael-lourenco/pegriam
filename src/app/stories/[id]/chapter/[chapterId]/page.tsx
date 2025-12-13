@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { GetChapterUseCase } from '@/application/use-cases';
 import { SupabaseChapterRepository } from '@/infrastructure/database/supabase';
 import { SupabaseStoryRepository } from '@/infrastructure/database/supabase';
+import { SupabaseChapterRenderedRepository } from '@/infrastructure/database/supabase';
 import { Chapter, ChapterId } from '@/domain/entities/Chapter';
 import { Story, StoryId } from '@/domain/entities/Story';
 import { useAuth } from '@/presentation/providers/AuthProvider';
@@ -28,6 +29,7 @@ export default function ChapterReaderPage() {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [story, setStory] = useState<Story | null>(null);
   const [allChapters, setAllChapters] = useState<Chapter[]>([]);
+  const [renderedHtml, setRenderedHtml] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,8 +39,19 @@ export default function ChapterReaderPage() {
         setLoading(true);
         const chapterRepository = new SupabaseChapterRepository();
         const storyRepository = new SupabaseStoryRepository();
+        const chapterRenderedRepository = new SupabaseChapterRenderedRepository();
         
-        // Carregar capítulo
+        // Tentar carregar versão renderizada primeiro
+        console.log('🔍 Buscando versão renderizada para chapterId:', chapterId);
+        const rendered = await chapterRenderedRepository.findByChapterId(chapterId as ChapterId);
+        if (rendered) {
+          console.log('✅ Versão renderizada encontrada! Usando HTML pré-processado.');
+          setRenderedHtml(rendered.renderedHtml);
+        } else {
+          console.log('⚠️ Versão renderizada NÃO encontrada. Usando fallback (renderização on-the-fly).');
+        }
+        
+        // Carregar capítulo (para metadados e navegação)
         const getChapter = new GetChapterUseCase(chapterRepository, storyRepository);
         const chapterData = await getChapter.execute(user, chapterId as ChapterId);
         
@@ -48,6 +61,15 @@ export default function ChapterReaderPage() {
         }
 
         setChapter(chapterData);
+        
+        // Se não houver versão renderizada, renderizar on-the-fly (fallback)
+        if (!rendered) {
+          console.log('🔄 Renderizando on-the-fly como fallback...');
+          const { MarkdownRendererService } = await import('@/application/services/MarkdownRendererService');
+          const fallbackHtml = MarkdownRendererService.renderWithProse(chapterData.toMarkdown());
+          setRenderedHtml(fallbackHtml);
+          console.log('✅ Fallback renderizado com sucesso.');
+        }
 
         // Carregar história
         const storyData = await storyRepository.findById(storyId as StoryId);
@@ -123,11 +145,18 @@ export default function ChapterReaderPage() {
 
       {/* Conteúdo */}
       <article className={cn("container mx-auto px-4 py-8 max-w-4xl")}>
-        <div className={cn("prose prose-lg max-w-none dark:prose-invert")}>
-          {sortedBlocks.map((block) => (
-            <ContentBlockRenderer key={block.id} block={block} />
-          ))}
-        </div>
+        {renderedHtml ? (
+          <div 
+            className={cn("prose prose-lg max-w-none dark:prose-invert")}
+            dangerouslySetInnerHTML={{ __html: renderedHtml }}
+          />
+        ) : (
+          <div className={cn("prose prose-lg max-w-none dark:prose-invert")}>
+            {sortedBlocks.map((block) => (
+              <ContentBlockRenderer key={block.id} block={block} />
+            ))}
+          </div>
+        )}
       </article>
 
       {/* Navegação */}

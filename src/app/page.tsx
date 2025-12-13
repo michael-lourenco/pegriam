@@ -59,9 +59,6 @@ export default function HomePage() {
                   Gerenciar Histórias
                 </Button>
               </Link>
-              <p className={cn("text-sm text-muted-foreground")}>
-                Requer login com email: kontempler@gmail.com
-              </p>
             </CardContent>
           </Card>
 
@@ -87,33 +84,6 @@ export default function HomePage() {
               <p className={cn("text-sm text-muted-foreground")}>
                 Acesse sua conta ou cadastre-se para começar.
               </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className={cn("mt-12 text-center")}>
-          <Card className={cn("max-w-2xl mx-auto")}>
-            <CardHeader>
-              <CardTitle>Como Começar</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className={cn("space-y-4 text-left")}>
-                <div>
-                  <h3 className={cn("font-semibold mb-2")}>1. Para Testar o Editor (Admin)</h3>
-                  <ol className={cn("list-decimal list-inside space-y-1 text-sm text-muted-foreground ml-4")}>
-                    <li>Faça login em <Link href="/login" className={cn("text-primary hover:underline")}>/login</Link> com: <code className={cn("bg-muted px-1 rounded")}>kontempler@gmail.com</code></li>
-                    <li>Acesse o <Link href="/admin" className={cn("text-primary hover:underline")}>Painel Admin</Link></li>
-                    <li>Clique em "Nova História" para criar uma história</li>
-                    <li>Depois clique em "Editor de Capítulos" para criar capítulos com blocos modulares</li>
-                  </ol>
-                </div>
-                <div>
-                  <h3 className={cn("font-semibold mb-2")}>2. Para Ver Histórias (Público)</h3>
-                  <p className={cn("text-sm text-muted-foreground ml-4")}>
-                    Acesse <Link href="/stories" className={cn("text-primary hover:underline")}>/stories</Link> para ver todas as histórias disponíveis.
-                  </p>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>

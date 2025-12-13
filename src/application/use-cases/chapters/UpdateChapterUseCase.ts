@@ -6,8 +6,10 @@
 
 import { Chapter, ChapterId } from '@/domain/entities/Chapter';
 import { IChapterRepository } from '@/domain/repositories/IChapterRepository';
+import { IChapterRenderedRepository } from '@/domain/repositories/IChapterRenderedRepository';
 import { IStoryRepository } from '@/domain/repositories/IStoryRepository';
 import { Permission, User } from '@/domain/value-objects/Permission';
+import { MarkdownRendererService } from '@/application/services/MarkdownRendererService';
 
 export interface UpdateChapterDTO {
   title?: string;
@@ -23,7 +25,8 @@ export interface UpdateChapterDTO {
 export class UpdateChapterUseCase {
   constructor(
     private readonly chapterRepository: IChapterRepository,
-    private readonly storyRepository: IStoryRepository
+    private readonly storyRepository: IStoryRepository,
+    private readonly chapterRenderedRepository: IChapterRenderedRepository
   ) {}
 
   async execute(user: User, chapterId: ChapterId, dto: UpdateChapterDTO): Promise<Chapter> {
@@ -110,7 +113,25 @@ export class UpdateChapterUseCase {
     // Salvar atualização
     await this.chapterRepository.save(updatedChapter);
 
+    // Renderizar e salvar versão renderizada
+    try {
+      const renderedHtml = this.renderChapter(updatedChapter);
+      await this.chapterRenderedRepository.save(updatedChapter.id, renderedHtml);
+    } catch (error) {
+      console.error('Erro ao renderizar capítulo:', error);
+      // Não falhar a atualização se a renderização falhar
+      // O capítulo pode ser renderizado depois
+    }
+
     return updatedChapter;
+  }
+
+  /**
+   * Renderiza um capítulo completo em HTML
+   */
+  private renderChapter(chapter: Chapter): string {
+    const fullMarkdown = chapter.toMarkdown();
+    return MarkdownRendererService.renderWithProse(fullMarkdown);
   }
 }
 

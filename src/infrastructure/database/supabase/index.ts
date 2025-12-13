@@ -4,4 +4,5 @@
 
 export { SupabaseStoryRepository } from './SupabaseStoryRepository';
 export { SupabaseChapterRepository } from './SupabaseChapterRepository';
+export { SupabaseChapterRenderedRepository } from './SupabaseChapterRenderedRepository';
 
