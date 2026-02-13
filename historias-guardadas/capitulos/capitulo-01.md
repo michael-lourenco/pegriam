@@ -29,21 +29,13 @@ A cascata era um ponto de encontro para as crianças da vila, um lugar onde a á
 
 De repente, sem que ela soubesse o que estava fazendo, a água começou a responder ao seu toque de uma forma que desafiava as leis naturais. Pequenas gotas se elevaram do riacho, flutuando no ar como pérolas líquidas. Nix estendeu a mão, e as gotas dançaram em torno de seus dedos, formando padrões complexos que refletiam a luz de forma hipnotizante.
 
-Ela não tinha consciência do que estava fazendo. Para ela, era apenas um jogo, uma brincadeira natural como qualquer outra. Mas para qualquer observador treinado, aquilo era magia pura, manifestada de forma instintiva e poderosa.
+Ela não tinha consciência do que estava fazendo. Para ela, era apenas um jogo, uma brincadeira natural como qualquer outra. Mas para qualquer observador treinado, aquilo era magia pura, manifestada de forma instintiva.
 
 Foi nesse momento que os olhos de Nix, normalmente castanhos e profundos, se iluminaram com uma tonalidade dourada que durou apenas um instante. E então, como se algo respondesse ao chamado da água, pequenas faíscas douradas dançaram em seus olhos, como brasas que talvez sempre tivessem estado ali, apenas esperando.
 
 Nix não percebeu. Ela estava muito concentrada na dança da água ao seu redor. Mas alguém estava observando.
 
-### A Sombra que Observava
 
-Nas profundezas da Floresta de Eldoria, longe dos olhos dos habitantes da vila, uma figura sombria observava a pequena Nix através de um espelho mágico. O Guerreiro Feiticeiro, cujo nome verdadeiro seria revelado apenas anos depois, sentiu a pulsação da magia que emanava da criança.
-
-Ele havia sido enviado por forças que operavam nas sombras, forças que temiam o que Nix poderia se tornar. Ou talvez apenas o que ela representava. A linhagem dos Aumar não deveria renascer. O poder que dormia no sangue de Nix era uma ameaça aos planos cuidadosamente tecidos ao longo de décadas.
-
-O Guerreiro Feiticeiro era um homem de meia-idade, com cicatrizes de batalhas antigas marcando seu rosto severo. Seu manto escuro estava bordado com runas proibidas, símbolos de uma magia que havia sido banida de Kontempler. Ele havia subestimado a criança, acreditando que poderia eliminá-la facilmente antes que seus poderes se manifestassem completamente.
-
-Mas ele não contava com a proteção que já cercava Nix, mesmo que ela não soubesse disso. Ou talvez ele simplesmente não soubesse o que esperar.
 
 ### O Ano do Despertar
 
@@ -71,6 +63,16 @@ Ela não sabia o que estava acontecendo. Sentia apenas uma sensação de poder, 
 
 Mas o despertar de seus poderes não passou despercebido.
 
+### A Sombra que Observava
+
+Nas profundezas da Floresta de Eldoria, longe dos olhos dos habitantes da vila, uma figura sombria observava a pequena Nix através de um espelho mágico. Um Guerreiro Feiticeiro que estava a espreita, sentiu a pulsação da magia que emanava da criança.
+
+Ele havia sido enviado por forças que operavam nas sombras, que não queriam que a linhagem dos Aumar renascesse. Era uma ameaça aos planos cuidadosamente tecidos ao longo de décadas.
+
+O Guerreiro Feiticeiro era um homem de meia-idade, com cicatrizes de batalhas antigas marcando seu rosto severo. Seu manto escuro estava bordado com runas proibidas, símbolos de uma magia que havia sido banida de Kontempler. Ele havia subestimado a criança, acreditando que poderia eliminá-la facilmente antes que seus poderes se manifestassem completamente.
+
+Mas ele não contava com a proteção que já cercava Nix, mesmo que ela não soubesse disso. Ou talvez ele simplesmente não soubesse o que esperar.
+
 ### O Ataque
 
 A sombra que havia observado Nix por tanto tempo finalmente se moveu. O Guerreiro Feiticeiro emergiu das profundezas da floresta, seu manto escuro se misturando com as sombras das árvores. Ele havia esperado o momento perfeito, quando a criança estivesse sozinha e vulnerável.
@@ -91,15 +93,14 @@ O Guerreiro Feiticeiro ficou surpreso, mas não desistiu. Ele conjurou mais feit
 
 "Você não pode se proteger para sempre, criança", gritou o Guerreiro Feiticeiro, sua voz cheia de raiva e frustração. "Sua linhagem será extinta hoje!"
 
-Mas ele havia subestimado não apenas Nix, mas também aqueles que a protegiam. Ou talvez ele simplesmente não soubesse o que estava enfrentando.
-
+Mas ele havia subestimado não apenas Nix, mas também aqueles que a protegiam. 
 ### A Chegada do Mentor
 
 No momento em que o Guerreiro Feiticeiro se preparava para lançar seu ataque mais poderoso, uma figura apareceu entre as árvores. Era um homem de aparência sábia, vestindo um longo manto adornado com símbolos arcanos que brilhavam com uma luz suave. Seus olhos eram profundos e perspicazes, e ele carregava um cajado de madeira antiga que parecia pulsar com poder.
 
 Era Emmantor.
 
-O mago sábio havia sentido a perturbação na magia, a explosão de poder que ocorrera quando os dons de Nix se manifestaram. Ele havia viajado por dias, seguindo os rastros mágicos que o levaram até a clareira. E agora, no momento crucial, ele havia chegado. Ou talvez apenas no momento certo.
+O mago sábio havia sentido a perturbação na magia, a explosão de poder que ocorrera quando os dons de Nix se manifestaram. Ele havia viajado por dias, seguindo os rastros mágicos que o levaram até a clareira. E agora, no momento crucial, ele havia chegado.
 
 "Você não tocará nela", disse Emmantor, sua voz calma mas firme, carregada de uma autoridade que fez o Guerreiro Feiticeiro hesitar.
 

@@ -1,91 +1,55 @@
-import Link from 'next/link';
+/**
+ * Página Inicial — Contos de Pegriam
+ * 
+ * Composição contextual baseada no estado de autenticação:
+ * 
+ * - Visitante: Hero com apresentação + Histórias em destaque + CTA de cadastro
+ * - Usuário autenticado: Saudação personalizada + Histórias em destaque
+ * - Admin autenticado: Saudação + Acesso rápido admin + Histórias em destaque
+ * 
+ * Segue o princípio Open/Closed: novas seções podem ser adicionadas
+ * sem modificar os componentes existentes.
+ */
+
+'use client';
+
+import { useAuth } from '@/presentation/providers/AuthProvider';
+import { Permission } from '@/domain/value-objects/Permission';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { HeroSection } from '@/presentation/components/home/HeroSection';
+import { FeaturedStories } from '@/presentation/components/home/FeaturedStories';
+import { AdminQuickAccess } from '@/presentation/components/home/AdminQuickAccess';
+import { AuthCallToAction } from '@/presentation/components/home/AuthCallToAction';
 
 export default function HomePage() {
+  const { user, loading } = useAuth();
+
+  const isAuthenticated = !!user;
+  const isAdmin = user ? Permission.isAdmin(user) : false;
+
+  if (loading) {
+    return (
+      <div className={cn("min-h-screen flex items-center justify-center")}>
+        <p className={cn("text-muted-foreground")}>Carregando...</p>
+      </div>
+    );
+  }
+
   return (
     <div className={cn("min-h-screen bg-background")}>
-      <div className={cn("container mx-auto px-4 py-16")}>
-        <div className={cn("text-center mb-12")}>
-          <h1 className={cn("text-5xl font-bold text-foreground mb-4")}>
-            Contos de Pegriam
-          </h1>
-          <p className={cn("text-xl text-muted-foreground mb-2")}>
-            Sistema Editorial Avançado
-          </p>
-          <p className={cn("text-muted-foreground")}>
-            O Bardo Multiversal
-          </p>
-        </div>
+      <div className={cn("container mx-auto px-4 py-8")}>
+        <HeroSection
+          isAuthenticated={isAuthenticated}
+          userName={user?.name}
+          isAdmin={isAdmin}
+        />
 
-        <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto")}>
-          {/* Área Pública */}
-          <Card className={cn("hover:shadow-lg transition-shadow")}>
-            <CardHeader>
-              <CardTitle>Área Pública</CardTitle>
-              <CardDescription>
-                Explore as histórias disponíveis
-              </CardDescription>
-            </CardHeader>
-            <CardContent className={cn("space-y-4")}>
-              <Link href="/stories" className={cn("block")}>
-                <Button className={cn("w-full")} variant="default">
-                  Ver Histórias
-                </Button>
-              </Link>
-              <p className={cn("text-sm text-muted-foreground")}>
-                Acesse todas as histórias publicadas e leia os capítulos gratuitos.
-              </p>
-            </CardContent>
-          </Card>
+        <div className={cn("max-w-6xl mx-auto space-y-12")}>
+          {isAdmin && <AdminQuickAccess />}
 
-          {/* Área Admin */}
-          <Card className={cn("hover:shadow-lg transition-shadow")}>
-            <CardHeader>
-              <CardTitle>Área Administrativa</CardTitle>
-              <CardDescription>
-                Gerencie histórias e capítulos
-              </CardDescription>
-            </CardHeader>
-            <CardContent className={cn("space-y-4")}>
-              <Link href="/admin" className={cn("block")}>
-                <Button className={cn("w-full")} variant="default">
-                  Painel Admin
-                </Button>
-              </Link>
-              <Link href="/admin/stories" className={cn("block")}>
-                <Button className={cn("w-full")} variant="outline">
-                  Gerenciar Histórias
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <FeaturedStories />
 
-          {/* Autenticação */}
-          <Card className={cn("hover:shadow-lg transition-shadow")}>
-            <CardHeader>
-              <CardTitle>Autenticação</CardTitle>
-              <CardDescription>
-                Faça login ou crie uma conta
-              </CardDescription>
-            </CardHeader>
-            <CardContent className={cn("space-y-4")}>
-              <Link href="/login" className={cn("block")}>
-                <Button className={cn("w-full")} variant="default">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/signup" className={cn("block")}>
-                <Button className={cn("w-full")} variant="outline">
-                  Criar Conta
-                </Button>
-              </Link>
-              <p className={cn("text-sm text-muted-foreground")}>
-                Acesse sua conta ou cadastre-se para começar.
-              </p>
-            </CardContent>
-          </Card>
+          {!isAuthenticated && <AuthCallToAction />}
         </div>
       </div>
     </div>
