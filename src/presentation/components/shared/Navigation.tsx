@@ -16,9 +16,21 @@ export function Navigation() {
       <div className={cn("container mx-auto px-4")}>
         <div className={cn("flex items-center justify-between h-16")}>
           <div className={cn("flex items-center gap-6")}>
-            <Link href="/" className={cn("text-xl font-bold text-foreground")}>
-              Contos de Pegriam
-            </Link>
+            <div className={cn("flex items-center gap-2")}>
+              <Link href="/" className={cn("text-xl font-bold text-foreground")}>
+                Contos de Pegriam
+              </Link>
+              <Link
+                href="/beta"
+                className={cn(
+                  "text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded",
+                  "bg-yellow-500/20 text-yellow-600 border border-yellow-500/30",
+                  "hover:bg-yellow-500/30 transition-colors"
+                )}
+              >
+                Beta
+              </Link>
+            </div>
             <div className={cn("hidden md:flex items-center gap-4")}>
               <Link
                 href="/stories"
@@ -26,6 +38,14 @@ export function Navigation() {
               >
                 Histórias
               </Link>
+              {user && (
+                <Link
+                  href="/purchases"
+                  className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
+                >
+                  Minhas Compras
+                </Link>
+              )}
               {isAdmin && (
                 <>
                   <Link

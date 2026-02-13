@@ -10,21 +10,30 @@ import { SupabaseStoryRepository } from '@/infrastructure/database/supabase';
 import { SupabaseChapterRepository } from '@/infrastructure/database/supabase';
 import { Story, StoryId } from '@/domain/entities/Story';
 import { Chapter } from '@/domain/entities/Chapter';
+import { useAuth } from '@/presentation/providers/AuthProvider';
+import { useStoryAccess } from '@/shared/hooks/useStoryAccess';
 import { chapterRoute } from '@/shared/utils/routes';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BookCover } from '@/presentation/components/shared/BookCover';
+import { PurchaseCard } from '@/presentation/components/purchase/PurchaseCard';
 
 export default function StoryPage() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useAuth();
   const storyId = params.id as string;
   
   const [story, setStory] = useState<Story | null>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { hasFullAccess, reason: accessReason, loading: accessLoading } = useStoryAccess(
+    storyId,
+    story?.pdfPrice ?? 0
+  );
 
   useEffect(() => {
     async function loadStory() {
@@ -77,6 +86,8 @@ export default function StoryPage() {
     );
   }
 
+  const hasPaidContent = story.pdfPrice > 0;
+
   return (
     <div className={cn("min-h-screen bg-background")}>
       <div className={cn("container mx-auto px-4 py-8")}>
@@ -85,7 +96,7 @@ export default function StoryPage() {
           onClick={() => router.push('/stories')}
           className={cn("mb-6")}
         >
-          ← Voltar para Histórias
+          &larr; Voltar para Histórias
         </Button>
 
         {/* Cabeçalho da História */}
@@ -109,7 +120,9 @@ export default function StoryPage() {
             <span>Autor: <strong>{story.author}</strong></span>
             <span>{story.metadata.totalChapters} capítulos</span>
             <span>{story.metadata.estimatedReadTime} min de leitura</span>
-            <span>{story.freeChapters} capítulos gratuitos</span>
+            {story.freeChapters > 0 && (
+              <span>{story.freeChapters} capítulos gratuitos</span>
+            )}
           </div>
           
           <p className={cn("text-lg text-muted-foreground")}>
@@ -117,7 +130,7 @@ export default function StoryPage() {
           </p>
         </div>
 
-        {/* Imagem de Capa - Separada */}
+        {/* Imagem de Capa */}
         <div className={cn("mb-12 flex justify-center")}>
           <BookCover
             src={story.coverImage}
@@ -126,6 +139,18 @@ export default function StoryPage() {
             className={cn("shadow-lg")}
           />
         </div>
+
+        {/* Card de Compra — só aparece quando há conteúdo pago e o usuário não tem acesso */}
+        {hasPaidContent && !accessLoading && (
+          <div className={cn("mb-8")}>
+            <PurchaseCard
+              story={story}
+              hasAccess={hasFullAccess}
+              accessReason={accessReason}
+              isAuthenticated={!!user}
+            />
+          </div>
+        )}
 
         {/* Seção de Capítulos */}
         <div className={cn("mb-8")}>
@@ -139,35 +164,18 @@ export default function StoryPage() {
             </p>
           ) : (
             <div className={cn("space-y-2")}>
-              {chapters.map((chapter) => (
-                <Link
-                  key={chapter.id}
-                  href={chapterRoute(String(storyId), String(chapter.id)) as any}
-                >
-                  <Card className={cn("hover:shadow-md transition-shadow cursor-pointer")}>
-                    <CardContent className={cn("p-4")}>
-                      <div className={cn("flex items-center justify-between")}>
-                        <div>
-                          <h3 className={cn("font-semibold text-foreground")}>
-                            Capítulo {chapter.number}: {chapter.title}
-                          </h3>
-                          <p className={cn("text-sm text-muted-foreground mt-1")}>
-                            {chapter.wordCount} palavras • {chapter.estimatedReadTime} min
-                          </p>
-                        </div>
-                        <div className={cn("flex items-center gap-2")}>
-                          {chapter.isFree && (
-                            <span className={cn("text-xs px-2 py-1 rounded bg-primary/10 text-primary")}>
-                              Grátis
-                            </span>
-                          )}
-                          <span className={cn("text-muted-foreground")}>→</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+              {chapters.map((chapter) => {
+                const isAccessible = chapter.isFree || hasFullAccess;
+                
+                return (
+                  <ChapterListItem
+                    key={chapter.id}
+                    chapter={chapter}
+                    storyId={storyId}
+                    isAccessible={isAccessible}
+                  />
+                );
+              })}
             </div>
           )}
         </div>
@@ -176,3 +184,65 @@ export default function StoryPage() {
   );
 }
 
+/**
+ * Item da lista de capítulos com indicação visual de acesso
+ */
+function ChapterListItem({
+  chapter,
+  storyId,
+  isAccessible,
+}: {
+  chapter: Chapter;
+  storyId: string;
+  isAccessible: boolean;
+}) {
+  const content = (
+    <Card className={cn(
+      "transition-shadow",
+      isAccessible
+        ? "hover:shadow-md cursor-pointer"
+        : "opacity-75"
+    )}>
+      <CardContent className={cn("p-4")}>
+        <div className={cn("flex items-center justify-between")}>
+          <div>
+            <h3 className={cn("font-semibold text-foreground")}>
+              Capítulo {chapter.number}: {chapter.title}
+            </h3>
+            <p className={cn("text-sm text-muted-foreground mt-1")}>
+              {chapter.wordCount} palavras &bull; {chapter.estimatedReadTime} min
+            </p>
+          </div>
+          <div className={cn("flex items-center gap-2")}>
+            {chapter.isFree ? (
+              <span className={cn("text-xs px-2 py-1 rounded bg-primary/10 text-primary")}>
+                Grátis
+              </span>
+            ) : !isAccessible ? (
+              <span className={cn("text-xs px-2 py-1 rounded bg-muted text-muted-foreground")}>
+                🔒 Pago
+              </span>
+            ) : (
+              <span className={cn("text-xs px-2 py-1 rounded bg-green-500/10 text-green-600")}>
+                Liberado
+              </span>
+            )}
+            {isAccessible && (
+              <span className={cn("text-muted-foreground")}>&rarr;</span>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  if (isAccessible) {
+    return (
+      <Link href={chapterRoute(storyId, String(chapter.id)) as string}>
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
+}

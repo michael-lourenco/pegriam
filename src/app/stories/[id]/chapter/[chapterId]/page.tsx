@@ -6,9 +6,12 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { GetChapterUseCase } from '@/application/use-cases';
-import { SupabaseChapterRepository } from '@/infrastructure/database/supabase';
-import { SupabaseStoryRepository } from '@/infrastructure/database/supabase';
-import { SupabaseChapterRenderedRepository } from '@/infrastructure/database/supabase';
+import {
+  SupabaseChapterRepository,
+  SupabaseStoryRepository,
+  SupabaseChapterRenderedRepository,
+  SupabasePurchaseRepository,
+} from '@/infrastructure/database/supabase';
 import { Chapter, ChapterId } from '@/domain/entities/Chapter';
 import { Story, StoryId } from '@/domain/entities/Story';
 import { useAuth } from '@/presentation/providers/AuthProvider';
@@ -16,7 +19,7 @@ import { ContentBlockRenderer } from '@/presentation/components/reader/ContentBl
 import { storyRoute, chapterRoute } from '@/shared/utils/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function ChapterReaderPage() {
   const params = useParams();
@@ -32,27 +35,35 @@ export default function ChapterReaderPage() {
   const [renderedHtml, setRenderedHtml] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [accessDenied, setAccessDenied] = useState(false);
 
   useEffect(() => {
     async function loadChapter() {
       try {
         setLoading(true);
+        setAccessDenied(false);
+
         const chapterRepository = new SupabaseChapterRepository();
         const storyRepository = new SupabaseStoryRepository();
         const chapterRenderedRepository = new SupabaseChapterRenderedRepository();
+        const purchaseRepository = new SupabasePurchaseRepository();
         
+        // Carregar história primeiro (para info de navegação)
+        const storyData = await storyRepository.findById(storyId as StoryId);
+        setStory(storyData);
+
         // Tentar carregar versão renderizada primeiro
-        console.log('🔍 Buscando versão renderizada para chapterId:', chapterId);
         const rendered = await chapterRenderedRepository.findByChapterId(chapterId as ChapterId);
         if (rendered) {
-          console.log('✅ Versão renderizada encontrada! Usando HTML pré-processado.');
           setRenderedHtml(rendered.renderedHtml);
-        } else {
-          console.log('⚠️ Versão renderizada NÃO encontrada. Usando fallback (renderização on-the-fly).');
         }
         
-        // Carregar capítulo (para metadados e navegação)
-        const getChapter = new GetChapterUseCase(chapterRepository, storyRepository);
+        // Carregar capítulo com verificação de acesso (inclui purchaseRepository)
+        const getChapter = new GetChapterUseCase(
+          chapterRepository,
+          storyRepository,
+          purchaseRepository
+        );
         const chapterData = await getChapter.execute(user, chapterId as ChapterId);
         
         if (!chapterData) {
@@ -64,22 +75,21 @@ export default function ChapterReaderPage() {
         
         // Se não houver versão renderizada, renderizar on-the-fly (fallback)
         if (!rendered) {
-          console.log('🔄 Renderizando on-the-fly como fallback...');
           const { MarkdownRendererService } = await import('@/application/services/MarkdownRendererService');
           const fallbackHtml = MarkdownRendererService.renderWithProse(chapterData.toMarkdown());
           setRenderedHtml(fallbackHtml);
-          console.log('✅ Fallback renderizado com sucesso.');
         }
-
-        // Carregar história
-        const storyData = await storyRepository.findById(storyId as StoryId);
-        setStory(storyData);
 
         // Carregar todos os capítulos para navegação
         const chaptersList = await chapterRepository.findByStoryId(storyId as StoryId);
         setAllChapters(chaptersList);
       } catch (err: any) {
-        setError(err.message || 'Erro ao carregar capítulo');
+        // Verificar se é erro de acesso negado
+        if (err.message?.includes('Compre o acesso') || err.message?.includes('não disponível')) {
+          setAccessDenied(true);
+        } else {
+          setError(err.message || 'Erro ao carregar capítulo');
+        }
       } finally {
         setLoading(false);
       }
@@ -94,6 +104,46 @@ export default function ChapterReaderPage() {
     return (
       <div className={cn("min-h-screen flex items-center justify-center")}>
         <p className={cn("text-muted-foreground")}>Carregando capítulo...</p>
+      </div>
+    );
+  }
+
+  // Acesso negado: mostrar CTA de compra
+  if (accessDenied) {
+    return (
+      <div className={cn("min-h-screen bg-background flex items-center justify-center")}>
+        <div className={cn("max-w-md w-full px-4")}>
+          <Card className={cn("border-primary/20")}>
+            <CardHeader className={cn("text-center")}>
+              <div className={cn("text-4xl mb-2")}>🔒</div>
+              <CardTitle>Capítulo Bloqueado</CardTitle>
+              <CardDescription>
+                Este capítulo faz parte do conteúdo pago.
+                Compre o acesso completo à história para continuar lendo.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className={cn("space-y-3")}>
+              {user ? (
+                <Link href={`/stories/${storyId}/checkout`}>
+                  <Button size="lg" className={cn("w-full")}>
+                    Comprar Acesso Completo
+                  </Button>
+                </Link>
+              ) : (
+                <Link href={`/login?redirect=/stories/${storyId}`}>
+                  <Button size="lg" className={cn("w-full")}>
+                    Entrar para Comprar
+                  </Button>
+                </Link>
+              )}
+              <Link href={`/stories/${storyId}`}>
+                <Button variant="outline" className={cn("w-full")}>
+                  Voltar para a História
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
@@ -127,17 +177,17 @@ export default function ChapterReaderPage() {
           <div className={cn("flex items-center justify-between")}>
             <div>
               <Link
-                href={storyRoute(String(storyId)) as any}
+                href={storyRoute(String(storyId)) as string}
                 className={cn("text-sm text-muted-foreground hover:text-foreground")}
               >
-                ← {story.title}
+                &larr; {story.title}
               </Link>
               <h1 className={cn("text-2xl font-bold text-foreground mt-2")}>
                 Capítulo {chapter.number}: {chapter.title}
               </h1>
             </div>
             <div className={cn("text-sm text-muted-foreground")}>
-              {chapter.wordCount} palavras • {chapter.estimatedReadTime} min
+              {chapter.wordCount} palavras &bull; {chapter.estimatedReadTime} min
             </div>
           </div>
         </div>
@@ -164,23 +214,23 @@ export default function ChapterReaderPage() {
         <div className={cn("container mx-auto px-4 py-6")}>
           <div className={cn("flex items-center justify-between")}>
             {previousChapter ? (
-              <Link href={chapterRoute(String(storyId), String(previousChapter.id)) as any}>
+              <Link href={chapterRoute(String(storyId), String(previousChapter.id)) as string}>
                 <Button variant="outline">
-                  ← Capítulo {previousChapter.number}: {previousChapter.title}
+                  &larr; Capítulo {previousChapter.number}: {previousChapter.title}
                 </Button>
               </Link>
             ) : (
               <div />
             )}
 
-            <Link href={storyRoute(String(storyId)) as any}>
+            <Link href={storyRoute(String(storyId)) as string}>
               <Button variant="ghost">Índice</Button>
             </Link>
 
             {nextChapter ? (
-              <Link href={chapterRoute(String(storyId), String(nextChapter.id)) as any}>
+              <Link href={chapterRoute(String(storyId), String(nextChapter.id)) as string}>
                 <Button variant="outline">
-                  Capítulo {nextChapter.number}: {nextChapter.title} →
+                  Capítulo {nextChapter.number}: {nextChapter.title} &rarr;
                 </Button>
               </Link>
             ) : (
@@ -192,4 +242,3 @@ export default function ChapterReaderPage() {
     </div>
   );
 }
-

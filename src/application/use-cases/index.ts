@@ -15,3 +15,9 @@ export { GetChapterUseCase } from './chapters/GetChapterUseCase';
 export { UpdateChapterUseCase } from './chapters/UpdateChapterUseCase';
 export { DeleteChapterUseCase } from './chapters/DeleteChapterUseCase';
 
+// Purchases
+export { CreatePurchaseUseCase } from './purchases/CreatePurchaseUseCase';
+export { ConfirmPurchaseUseCase } from './purchases/ConfirmPurchaseUseCase';
+export { CheckStoryAccessUseCase } from './purchases/CheckStoryAccessUseCase';
+export { GetUserPurchasesUseCase } from './purchases/GetUserPurchasesUseCase';
+

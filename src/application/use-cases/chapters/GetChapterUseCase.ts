@@ -2,17 +2,20 @@
  * Use Case: Buscar Capítulo
  * 
  * Implementa a lógica de negócio para buscar um capítulo por ID.
+ * Verifica permissão de acesso: gratuito, admin ou compra confirmada.
  */
 
 import { Chapter, ChapterId } from '@/domain/entities/Chapter';
 import { IChapterRepository } from '@/domain/repositories/IChapterRepository';
 import { IStoryRepository } from '@/domain/repositories/IStoryRepository';
-import { User } from '@/domain/value-objects/Permission';
+import { IPurchaseRepository } from '@/domain/repositories/IPurchaseRepository';
+import { Permission, User } from '@/domain/value-objects/Permission';
 
 export class GetChapterUseCase {
   constructor(
     private readonly chapterRepository: IChapterRepository,
-    private readonly storyRepository: IStoryRepository
+    private readonly storyRepository: IStoryRepository,
+    private readonly purchaseRepository?: IPurchaseRepository
   ) {}
 
   async execute(user: User | null, chapterId: ChapterId): Promise<Chapter | null> {
@@ -22,23 +25,29 @@ export class GetChapterUseCase {
       return null;
     }
 
-    // Verificar se o capítulo é gratuito ou se o usuário tem acesso
+    // Capítulo gratuito: acesso livre
     if (chapter.isFree) {
       return chapter;
     }
 
-    // Se não é gratuito, verificar se o usuário tem acesso
-    // TODO: Implementar lógica de verificação de compra/acesso
-    // Por enquanto, apenas admin pode ver capítulos pagos
-    if (user) {
-      const { Permission } = require('@/domain/value-objects/Permission');
-      if (Permission.isAdmin(user)) {
+    // Admin: acesso total
+    if (user && Permission.isAdmin(user)) {
+      return chapter;
+    }
+
+    // Usuário autenticado com compra confirmada
+    if (user && this.purchaseRepository) {
+      const purchase = await this.purchaseRepository.findByUserAndStory(
+        user.id,
+        chapter.storyId
+      );
+
+      if (purchase && purchase.isAccessGranted()) {
         return chapter;
       }
     }
 
-    // Usuário não tem acesso
-    throw new Error('Capítulo não disponível. Faça login ou compre o acesso.');
+    // Sem acesso
+    throw new Error('Capítulo não disponível. Compre o acesso completo à história para continuar lendo.');
   }
 }
-
