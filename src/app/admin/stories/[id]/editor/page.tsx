@@ -23,6 +23,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
 import { MarkdownEditor } from '@/presentation/components/editor/MarkdownEditor';
+import { ConfirmDialog } from '@/presentation/components/shared/ConfirmDialog';
+import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
 
 export default function ChapterEditorPage() {
   const params = useParams();
@@ -56,6 +58,18 @@ export default function ChapterEditorPage() {
   const [imageCaption, setImageCaption] = useState('');
   const [quoteText, setQuoteText] = useState('');
   const [quoteAuthor, setQuoteAuthor] = useState('');
+
+  // Modal state
+  const [feedbackDialog, setFeedbackDialog] = useState<{
+    open: boolean;
+    type: 'success' | 'error' | 'warning' | 'info';
+    title: string;
+    description: string;
+  }>({ open: false, type: 'warning', title: '', description: '' });
+  const [confirmRemoveBlock, setConfirmRemoveBlock] = useState<{
+    open: boolean;
+    blockId: string | null;
+  }>({ open: false, blockId: null });
 
   useEffect(() => {
     if (!isAdmin || !user) return;
@@ -138,7 +152,7 @@ export default function ChapterEditorPage() {
 
     if (blockType === 'text') {
       if (!textContent.trim()) {
-        alert('O conteúdo do texto é obrigatório');
+        setFeedbackDialog({ open: true, type: 'warning', title: 'Campo obrigatório', description: 'O conteúdo do texto é obrigatório.' });
         return;
       }
       newBlock = new TextBlock(
@@ -149,7 +163,7 @@ export default function ChapterEditorPage() {
       );
     } else if (blockType === 'image') {
       if (!imageUrl.trim() || !imageAlt.trim()) {
-        alert('URL e texto alternativo são obrigatórios');
+        setFeedbackDialog({ open: true, type: 'warning', title: 'Campos obrigatórios', description: 'URL e texto alternativo são obrigatórios.' });
         return;
       }
       newBlock = new ImageBlock(
@@ -161,7 +175,7 @@ export default function ChapterEditorPage() {
       );
     } else if (blockType === 'quote') {
       if (!quoteText.trim()) {
-        alert('O texto da citação é obrigatório');
+        setFeedbackDialog({ open: true, type: 'warning', title: 'Campo obrigatório', description: 'O texto da citação é obrigatório.' });
         return;
       }
       newBlock = new QuoteBlock(
@@ -203,12 +217,15 @@ export default function ChapterEditorPage() {
   };
 
   const handleRemoveBlock = (blockId: string) => {
-    if (confirm('Tem certeza que deseja remover este bloco?')) {
-      const updatedBlocks = blocks
-        .filter(b => b.id !== blockId)
-        .map((b, index) => b.updateOrder(index));
-      setBlocks(updatedBlocks);
-    }
+    setConfirmRemoveBlock({ open: true, blockId });
+  };
+
+  const executeRemoveBlock = () => {
+    if (!confirmRemoveBlock.blockId) return;
+    const updatedBlocks = blocks
+      .filter(b => b.id !== confirmRemoveBlock.blockId)
+      .map((b, index) => b.updateOrder(index));
+    setBlocks(updatedBlocks);
   };
 
   const handleMoveBlock = (blockId: string, direction: 'up' | 'down') => {
@@ -229,11 +246,11 @@ export default function ChapterEditorPage() {
   const handleSaveChapter = async () => {
     if (!user || !story) return;
     if (!chapterTitle.trim()) {
-      alert('O título do capítulo é obrigatório');
+      setFeedbackDialog({ open: true, type: 'warning', title: 'Campo obrigatório', description: 'O título do capítulo é obrigatório.' });
       return;
     }
     if (blocks.length === 0) {
-      alert('O capítulo deve ter pelo menos um bloco');
+      setFeedbackDialog({ open: true, type: 'warning', title: 'Conteúdo necessário', description: 'O capítulo deve ter pelo menos um bloco de conteúdo.' });
       return;
     }
 
@@ -472,6 +489,26 @@ export default function ChapterEditorPage() {
             </Card>
           </div>
         </div>
+
+        {/* Modal de Feedback (substitui alert) */}
+        <FeedbackDialog
+          open={feedbackDialog.open}
+          onOpenChange={(open) => setFeedbackDialog((prev) => ({ ...prev, open }))}
+          type={feedbackDialog.type}
+          title={feedbackDialog.title}
+          description={feedbackDialog.description}
+        />
+
+        {/* Modal de Confirmação para Remover Bloco (substitui confirm) */}
+        <ConfirmDialog
+          open={confirmRemoveBlock.open}
+          onOpenChange={(open) => setConfirmRemoveBlock((prev) => ({ ...prev, open }))}
+          title="Remover bloco"
+          description="Tem certeza que deseja remover este bloco? Esta ação não pode ser desfeita."
+          confirmLabel="Remover"
+          variant="destructive"
+          onConfirm={executeRemoveBlock}
+        />
 
         {/* Dialog para Adicionar/Editar Bloco */}
         <Dialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>

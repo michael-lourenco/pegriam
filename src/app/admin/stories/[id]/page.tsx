@@ -20,6 +20,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
 import { BookCover } from '@/presentation/components/shared/BookCover';
+import { ConfirmDialog } from '@/presentation/components/shared/ConfirmDialog';
+import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
 
 export default function EditStoryPage() {
   const params = useParams();
@@ -41,6 +43,10 @@ export default function EditStoryPage() {
   const [freeChapters, setFreeChapters] = useState(0);
   const [pdfPrice, setPdfPrice] = useState(0);
   const [tags, setTags] = useState('');
+
+  // Modal state
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     if (!isAdmin || !user) return;
@@ -113,7 +119,7 @@ export default function EditStoryPage() {
         setStory(updatedStory);
       }
 
-      alert('História atualizada com sucesso!');
+      setShowSuccessDialog(true);
     } catch (err: any) {
       setError(err.message || 'Erro ao atualizar história');
     } finally {
@@ -121,11 +127,12 @@ export default function EditStoryPage() {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDeleteRequest = () => {
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDeleteConfirm = async () => {
     if (!user || !story) return;
-    if (!confirm('Tem certeza que deseja deletar esta história? Esta ação não pode ser desfeita.')) {
-      return;
-    }
 
     try {
       const storyRepository = new SupabaseStoryRepository();
@@ -181,7 +188,7 @@ export default function EditStoryPage() {
             <Link href={adminStoryRoute(String(story.id)) + '/editor' as any}>
               <Button>Editor de Capítulos</Button>
             </Link>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button variant="destructive" onClick={handleDeleteRequest}>
               Deletar
             </Button>
           </div>
@@ -375,6 +382,26 @@ export default function EditStoryPage() {
             </Card>
           </div>
         </div>
+
+        {/* Modal de Sucesso */}
+        <FeedbackDialog
+          open={showSuccessDialog}
+          onOpenChange={setShowSuccessDialog}
+          type="success"
+          title="Salvo com sucesso"
+          description="A história foi atualizada com sucesso."
+        />
+
+        {/* Modal de Confirmação para Deletar */}
+        <ConfirmDialog
+          open={showDeleteConfirm}
+          onOpenChange={setShowDeleteConfirm}
+          title="Deletar história"
+          description="Tem certeza que deseja deletar esta história? Todos os capítulos associados também serão removidos. Esta ação não pode ser desfeita."
+          confirmLabel="Deletar"
+          variant="destructive"
+          onConfirm={handleDeleteConfirm}
+        />
       </div>
     </div>
   );
