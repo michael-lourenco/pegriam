@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
     }
 
     loadData();
-  }, [isAdmin]);
+  }, [isAdmin, authLoading]);
 
   if (authLoading) {
     return (
@@ -141,6 +141,9 @@ export default function AdminDashboardPage() {
                 </Link>
                 <Link href="/admin/stories">
                   <Button variant="outline">Gerenciar Histórias</Button>
+                </Link>
+                <Link href="/admin/glossario">
+                  <Button variant="outline">Gerenciar Glossário</Button>
                 </Link>
               </div>
             </CardContent>

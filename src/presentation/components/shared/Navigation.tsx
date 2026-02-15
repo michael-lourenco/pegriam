@@ -5,20 +5,22 @@ import { useAuth } from '@/presentation/providers/AuthProvider';
 import { Permission } from '@/domain/value-objects/Permission';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from './ThemeToggle';
+import { MobileMenu } from './MobileMenu';
+import { APP_NAME } from '@/shared/constants';
 
 export function Navigation() {
   const { user, signOut } = useAuth();
-
   const isAdmin = user ? Permission.isAdmin(user) : false;
 
   return (
-    <nav className={cn("border-b border-border bg-card")}>
+    <nav className={cn("border-b border-border bg-card sticky top-0 z-30")} role="navigation" aria-label="Principal">
       <div className={cn("container mx-auto px-4")}>
         <div className={cn("flex items-center justify-between h-16")}>
           <div className={cn("flex items-center gap-6")}>
             <div className={cn("flex items-center gap-2")}>
               <Link href="/" className={cn("text-xl font-bold text-foreground")}>
-                Contos de Pegriam
+                {APP_NAME}
               </Link>
               <Link
                 href="/beta"
@@ -32,41 +34,25 @@ export function Navigation() {
               </Link>
             </div>
             <div className={cn("hidden md:flex items-center gap-4")}>
-              <Link
-                href="/stories"
-                className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
-              >
-                Histórias
-              </Link>
-              {user && (
-                <Link
-                  href="/minha-conta"
-                  className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
-                >
-                  Minha Conta
-                </Link>
-              )}
+              <NavLink href="/stories">Historias</NavLink>
+              <NavLink href="/glossario">Glossario</NavLink>
+              <NavLink href="/sobre">Sobre</NavLink>
+              {user && <NavLink href="/minha-conta">Minha Conta</NavLink>}
               {isAdmin && (
                 <>
-                  <Link
-                    href="/admin"
-                    className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
-                  >
-                    Admin
-                  </Link>
-                  <Link
-                    href="/admin/stories"
-                    className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
-                  >
-                    Gerenciar
-                  </Link>
+                  <NavLink href="/admin">Admin</NavLink>
+                  <NavLink href="/admin/stories">Gerenciar</NavLink>
                 </>
               )}
             </div>
           </div>
-          <div className={cn("flex items-center gap-4")}>
+
+          <div className={cn("flex items-center gap-2")}>
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
             {user ? (
-              <>
+              <div className={cn("hidden md:flex items-center gap-3")}>
                 <Link
                   href="/minha-conta"
                   className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
@@ -81,17 +67,18 @@ export function Navigation() {
                 <Button variant="ghost" size="sm" onClick={() => signOut()}>
                   Sair
                 </Button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className={cn("hidden md:flex items-center gap-2")}>
                 <Link href="/login">
                   <Button variant="ghost" size="sm">Login</Button>
                 </Link>
                 <Link href="/signup">
                   <Button size="sm">Cadastrar</Button>
                 </Link>
-              </>
+              </div>
             )}
+            <MobileMenu />
           </div>
         </div>
       </div>
@@ -99,3 +86,13 @@ export function Navigation() {
   );
 }
 
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
+    >
+      {children}
+    </Link>
+  );
+}

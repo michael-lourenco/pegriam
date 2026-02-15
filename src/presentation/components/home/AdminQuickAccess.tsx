@@ -37,6 +37,9 @@ export function AdminQuickAccess() {
           <Link href="/admin/stories/new">
             <Button variant="outline" size="sm">Nova História</Button>
           </Link>
+          <Link href="/admin/glossario">
+            <Button variant="outline" size="sm">Glossário</Button>
+          </Link>
         </div>
       </CardContent>
     </Card>
