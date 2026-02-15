@@ -21,6 +21,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, name?: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  updateName: (name: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -108,6 +109,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await firebaseAuthService.resetPassword(email);
   };
 
+  const updateName = async (name: string) => {
+    try {
+      const updatedUser = await firebaseAuthService.updateUserName(name);
+      setUser(updatedUser);
+      await syncUserToDatabase(updatedUser);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const value: AuthContextType = {
     user,
     loading,
@@ -115,6 +126,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signUp,
     signOut,
     resetPassword,
+    updateName,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

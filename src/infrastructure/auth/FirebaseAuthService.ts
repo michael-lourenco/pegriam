@@ -86,6 +86,25 @@ export class FirebaseAuthService {
   }
 
   /**
+   * Atualizar nome do usuário
+   */
+  async updateUserName(name: string): Promise<User> {
+    const auth = getFirebaseAuth();
+    const firebaseUser = auth.currentUser;
+
+    if (!firebaseUser) {
+      throw new Error('Nenhum usuário autenticado');
+    }
+
+    try {
+      await updateProfile(firebaseUser, { displayName: name });
+      return this.firebaseUserToDomainUser(firebaseUser);
+    } catch (error: any) {
+      throw new Error(`Erro ao atualizar nome: ${error.message}`);
+    }
+  }
+
+  /**
    * Obter usuário atual
    */
   getCurrentUser(): User | null {

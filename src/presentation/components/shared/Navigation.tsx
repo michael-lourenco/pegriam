@@ -40,10 +40,10 @@ export function Navigation() {
               </Link>
               {user && (
                 <Link
-                  href="/purchases"
+                  href="/minha-conta"
                   className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
                 >
-                  Minhas Compras
+                  Minha Conta
                 </Link>
               )}
               {isAdmin && (
@@ -67,9 +67,12 @@ export function Navigation() {
           <div className={cn("flex items-center gap-4")}>
             {user ? (
               <>
-                <span className={cn("text-sm text-muted-foreground")}>
+                <Link
+                  href="/minha-conta"
+                  className={cn("text-sm text-muted-foreground hover:text-foreground transition-colors")}
+                >
                   {user.name || user.email.getValue()}
-                </span>
+                </Link>
                 {isAdmin && (
                   <span className={cn("text-xs px-2 py-1 rounded bg-primary/10 text-primary")}>
                     Admin
