@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
 import { ConfirmDialog } from '@/presentation/components/shared/ConfirmDialog';
+import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
 
 export default function EditarTermoPage() {
   const params = useParams();
@@ -294,17 +295,13 @@ export default function EditarTermoPage() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="imageUrl">URL da Imagem (opcional)</Label>
-                <Input
-                  id="imageUrl"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="https://..."
-                  type="url"
-                  disabled={saving}
-                />
-              </div>
+              <ImageUpload
+                value={imageUrl}
+                onChange={setImageUrl}
+                label="Imagem do Termo (opcional)"
+                folder="glossary/images"
+                disabled={saving}
+              />
 
               <div className="space-y-2">
                 <Label htmlFor="relatedTerms">IDs de Termos Relacionados (separados por virgula)</Label>

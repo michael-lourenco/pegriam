@@ -12,6 +12,7 @@ import { Breadcrumbs } from '@/presentation/components/shared/Breadcrumbs';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { SafeImage } from '@/presentation/components/shared/SafeImage';
 
 export default function GlossaryTermPage() {
   const params = useParams();
@@ -93,9 +94,20 @@ export default function GlossaryTermPage() {
           )}
         </div>
 
-        {/* Description */}
+        {/* Image + Description */}
         <Card className="mb-8">
           <CardContent className="py-6">
+            {term.imageUrl && (
+              <div className="mb-6">
+                <div className="relative w-full max-w-md mx-auto overflow-hidden rounded-lg border border-border">
+                  <SafeImage
+                    src={term.imageUrl}
+                    alt={term.term}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            )}
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="text-lg text-muted-foreground mb-4">{term.shortDescription}</p>
               <div className="whitespace-pre-wrap text-foreground">{term.fullDescription}</div>

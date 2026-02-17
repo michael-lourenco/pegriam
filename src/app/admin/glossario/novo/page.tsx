@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
+import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
 
 export default function NovoTermoPage() {
   const router = useRouter();
@@ -202,18 +203,14 @@ export default function NovoTermoPage() {
                 />
               </div>
 
-              {/* Image URL */}
-              <div className="space-y-2">
-                <Label htmlFor="imageUrl">URL da Imagem (opcional)</Label>
-                <Input
-                  id="imageUrl"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="https://..."
-                  type="url"
-                  disabled={saving}
-                />
-              </div>
+              {/* Image Upload */}
+              <ImageUpload
+                value={imageUrl}
+                onChange={setImageUrl}
+                label="Imagem do Termo (opcional)"
+                folder="glossary/images"
+                disabled={saving}
+              />
 
               {/* Related Terms IDs */}
               <div className="space-y-2">
