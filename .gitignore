@@ -55,3 +55,6 @@ ui-debug.log
 .supabase/
 
 
+
+# Cursor
+.cursor/

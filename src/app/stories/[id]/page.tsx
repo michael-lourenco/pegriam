@@ -16,7 +16,7 @@ import { chapterRoute } from '@/shared/utils/routes';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BookCover } from '@/presentation/components/shared/BookCover';
+import { FeaturedCover } from '@/presentation/components/home/FeaturedCover';
 import { PurchaseCard } from '@/presentation/components/purchase/PurchaseCard';
 
 export default function StoryPage() {
@@ -130,13 +130,12 @@ export default function StoryPage() {
           </p>
         </div>
 
-        {/* Imagem de Capa */}
-        <div className={cn("mb-12 flex justify-center")}>
-          <BookCover
+        {/* Imagem de Capa — proporção 16:9, largura total do container */}
+        <div className={cn("mb-12 w-full")}>
+          <FeaturedCover
             src={story.coverImage}
             alt={story.title}
-            size="xl"
-            className={cn("shadow-lg")}
+            className={cn("rounded-lg shadow-lg")}
           />
         </div>
 

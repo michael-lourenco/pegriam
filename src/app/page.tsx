@@ -1,14 +1,8 @@
 /**
  * Página Inicial — Contos de Pegriam
- * 
- * Composição contextual baseada no estado de autenticação:
- * 
- * - Visitante: Hero com apresentação + Histórias em destaque + CTA de cadastro
- * - Usuário autenticado: Saudação personalizada + Histórias em destaque
- * - Admin autenticado: Saudação + Acesso rápido admin + Histórias em destaque
- * 
- * Segue o princípio Open/Closed: novas seções podem ser adicionadas
- * sem modificar os componentes existentes.
+ *
+ * Layout full-bleed alinhado ao mockup:
+ * Hero → Categorias → Destaques → Bloco secundário (+ admin se aplicável)
  */
 
 'use client';
@@ -17,9 +11,10 @@ import { useAuth } from '@/presentation/providers/AuthProvider';
 import { Permission } from '@/domain/value-objects/Permission';
 import { cn } from '@/lib/utils';
 import { HeroSection } from '@/presentation/components/home/HeroSection';
+import { CategoryStrip } from '@/presentation/components/home/CategoryStrip';
 import { FeaturedStories } from '@/presentation/components/home/FeaturedStories';
+import { HomeSecondary } from '@/presentation/components/home/HomeSecondary';
 import { AdminQuickAccess } from '@/presentation/components/home/AdminQuickAccess';
-import { AuthCallToAction } from '@/presentation/components/home/AuthCallToAction';
 
 export default function HomePage() {
   const { user, loading } = useAuth();
@@ -29,29 +24,33 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className={cn("min-h-screen flex items-center justify-center")}>
-        <p className={cn("text-muted-foreground")}>Carregando...</p>
+      <div className={cn('min-h-screen flex items-center justify-center bg-[hsl(var(--navy-deep))]')}>
+        <p className={cn('text-white/60')}>Carregando...</p>
       </div>
     );
   }
 
   return (
-    <div className={cn("min-h-screen bg-background")}>
-      <div className={cn("container mx-auto px-4 py-8")}>
-        <HeroSection
-          isAuthenticated={isAuthenticated}
-          userName={user?.name}
-          isAdmin={isAdmin}
-        />
+    <div className={cn('min-h-screen bg-[hsl(var(--navy-deep))]')}>
+      <HeroSection
+        isAuthenticated={isAuthenticated}
+        userName={user?.name}
+        isAdmin={isAdmin}
+      />
 
-        <div className={cn("max-w-6xl mx-auto space-y-12")}>
-          {isAdmin && <AdminQuickAccess />}
+      <CategoryStrip />
 
-          <FeaturedStories />
+      <FeaturedStories />
 
-          {!isAuthenticated && <AuthCallToAction />}
+      {isAdmin && (
+        <div className={cn('bg-parchment pb-10')}>
+          <div className={cn('container mx-auto px-4')}>
+            <AdminQuickAccess />
+          </div>
         </div>
-      </div>
+      )}
+
+      <HomeSecondary />
     </div>
   );
 }

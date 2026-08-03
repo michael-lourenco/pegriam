@@ -404,7 +404,7 @@ export default function ChapterEditorPage() {
               <CardContent>
                 {blocks.length === 0 ? (
                   <p className={cn("text-sm text-muted-foreground text-center py-8")}>
-                    Nenhum bloco ainda. Clique em "Adicionar Bloco" para começar.
+                    Nenhum bloco ainda. Clique em &quot;Adicionar Bloco&quot; para começar.
                   </p>
                 ) : (
                   <div className={cn("space-y-4")}>
@@ -510,10 +510,15 @@ export default function ChapterEditorPage() {
           onConfirm={executeRemoveBlock}
         />
 
-        {/* Dialog para Adicionar/Editar Bloco */}
+        {/* Dialog para Adicionar/Editar Bloco — quase tela cheia para o editor Markdown */}
         <Dialog open={blockDialogOpen} onOpenChange={setBlockDialogOpen}>
-          <DialogContent className={cn("max-w-2xl max-h-[90vh] flex flex-col")}>
-            <DialogHeader className={cn("flex-shrink-0")}>
+          <DialogContent
+            className={cn(
+              'max-w-[98vw] w-[98vw] h-[96vh] max-h-[96vh]',
+              'flex flex-col gap-3 p-4 sm:rounded-lg'
+            )}
+          >
+            <DialogHeader className={cn('flex-shrink-0 space-y-1')}>
               <DialogTitle>
                 {editingBlock ? 'Editar Bloco' : 'Adicionar Bloco'}
               </DialogTitle>
@@ -522,15 +527,19 @@ export default function ChapterEditorPage() {
               </DialogDescription>
             </DialogHeader>
 
-            {/* Conteúdo scrollável */}
-            <div className={cn("flex-1 overflow-y-auto space-y-4 pr-2")}>
+            <div
+              className={cn(
+                'flex-1 min-h-0 flex flex-col gap-3',
+                blockType === 'text' ? 'overflow-hidden' : 'overflow-y-auto pr-2'
+              )}
+            >
               {!editingBlock && (
-                <div className={cn("space-y-2")}>
+                <div className={cn('space-y-2 flex-shrink-0')}>
                   <Label>Tipo de Bloco</Label>
                   <select
                     value={blockType}
                     onChange={(e) => setBlockType(e.target.value as any)}
-                    className={cn("w-full rounded-md border border-input bg-background px-3 py-2 text-sm")}
+                    className={cn('w-full rounded-md border border-input bg-background px-3 py-2 text-sm')}
                   >
                     <option value="text">Texto</option>
                     <option value="image">Imagem</option>
@@ -541,20 +550,23 @@ export default function ChapterEditorPage() {
               )}
 
               {blockType === 'text' && (
-                <div className={cn("space-y-2")}>
-                  <Label htmlFor="textContent">Conteúdo do Texto (Markdown) *</Label>
+                <div className={cn('flex-1 min-h-0 flex flex-col gap-2')}>
+                  <Label htmlFor="textContent" className={cn('flex-shrink-0')}>
+                    Conteúdo do Texto (Markdown) *
+                  </Label>
                   <MarkdownEditor
                     value={textContent}
                     onChange={setTextContent}
                     placeholder="Digite seu texto em Markdown... Use # para títulos, ** para negrito, * para itálico, etc."
                     disabled={saving}
-                    className={cn("max-h-[60vh]")}
+                    fillHeight
+                    className={cn('flex-1 min-h-0')}
                   />
                 </div>
               )}
 
               {blockType === 'image' && (
-                <div className={cn("space-y-4")}>
+                <div className={cn('space-y-4')}>
                   <ImageUpload
                     label="Imagem *"
                     value={imageUrl}
@@ -562,7 +574,7 @@ export default function ChapterEditorPage() {
                     disabled={saving}
                     folder="stories/images"
                   />
-                  <div className={cn("space-y-2")}>
+                  <div className={cn('space-y-2')}>
                     <Label htmlFor="imageAlt">Texto Alternativo *</Label>
                     <Input
                       id="imageAlt"
@@ -571,11 +583,11 @@ export default function ChapterEditorPage() {
                       placeholder="Descrição da imagem"
                       disabled={saving}
                     />
-                    <p className={cn("text-xs text-muted-foreground")}>
+                    <p className={cn('text-xs text-muted-foreground')}>
                       Texto descritivo da imagem para acessibilidade
                     </p>
                   </div>
-                  <div className={cn("space-y-2")}>
+                  <div className={cn('space-y-2')}>
                     <Label htmlFor="imageCaption">Legenda (opcional)</Label>
                     <Input
                       id="imageCaption"
@@ -584,7 +596,7 @@ export default function ChapterEditorPage() {
                       placeholder="Legenda da imagem"
                       disabled={saving}
                     />
-                    <p className={cn("text-xs text-muted-foreground")}>
+                    <p className={cn('text-xs text-muted-foreground')}>
                       Texto que aparecerá abaixo da imagem
                     </p>
                   </div>
@@ -592,8 +604,8 @@ export default function ChapterEditorPage() {
               )}
 
               {blockType === 'quote' && (
-                <div className={cn("space-y-4")}>
-                  <div className={cn("space-y-2")}>
+                <div className={cn('space-y-4')}>
+                  <div className={cn('space-y-2')}>
                     <Label htmlFor="quoteText">Citação *</Label>
                     <Textarea
                       id="quoteText"
@@ -603,7 +615,7 @@ export default function ChapterEditorPage() {
                       placeholder="Texto da citação..."
                     />
                   </div>
-                  <div className={cn("space-y-2")}>
+                  <div className={cn('space-y-2')}>
                     <Label htmlFor="quoteAuthor">Autor (opcional)</Label>
                     <Input
                       id="quoteAuthor"
@@ -616,14 +628,13 @@ export default function ChapterEditorPage() {
               )}
 
               {blockType === 'separator' && (
-                <p className={cn("text-sm text-muted-foreground")}>
+                <p className={cn('text-sm text-muted-foreground')}>
                   Um separador visual será adicionado ao capítulo.
                 </p>
               )}
             </div>
 
-            {/* Botões fixos na parte inferior */}
-            <div className={cn("flex justify-end gap-2 pt-4 border-t flex-shrink-0")}>
+            <div className={cn('flex justify-end gap-2 pt-3 border-t flex-shrink-0')}>
               <Button
                 variant="outline"
                 onClick={() => {

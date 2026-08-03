@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
-import { BookCover } from '@/presentation/components/shared/BookCover';
+import { FeaturedCover } from '@/presentation/components/home/FeaturedCover';
 import { ConfirmDialog } from '@/presentation/components/shared/ConfirmDialog';
 import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
 
@@ -249,19 +249,16 @@ export default function EditStoryPage() {
                           folder="stories/covers"
                         />
                         <p className={cn("text-xs text-muted-foreground")}>
-                          Proporção recomendada: 2:3 (capa de livro)
+                          Proporção recomendada: 16:9 (1920×1080)
                         </p>
                       </div>
                       <div className={cn("space-y-2")}>
                         <Label>Preview da Capa</Label>
-                        <div className={cn("flex justify-center p-4 bg-muted rounded-lg")}>
-                          <BookCover
-                            src={coverImage || undefined}
-                            alt={title || 'Preview'}
-                            size="md"
-                            className={cn("shadow-md")}
-                          />
-                        </div>
+                        <FeaturedCover
+                          src={coverImage || undefined}
+                          alt={title || 'Preview'}
+                          className={cn("rounded-lg shadow-md")}
+                        />
                       </div>
                     </div>
                   </div>

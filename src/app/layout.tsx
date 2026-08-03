@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Merriweather } from 'next/font/google';
+import { Source_Sans_3, Merriweather } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/presentation/providers/AuthProvider';
@@ -9,7 +9,12 @@ import { Footer } from '@/presentation/components/shared/Footer';
 import { Toaster } from '@/presentation/components/shared/Toaster';
 import { APP_NAME, APP_DESCRIPTION, APP_URL } from '@/shared/constants';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: ['400', '500', '600', '700'],
+});
+
 const merriweather = Merriweather({
   subsets: ['latin'],
   weight: ['300', '400', '700', '900'],
@@ -48,18 +53,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={cn(inter.variable, merriweather.variable, inter.className, "antialiased bg-background text-foreground min-h-screen flex flex-col")}>
+      <body
+        className={cn(
+          sourceSans.variable,
+          merriweather.variable,
+          sourceSans.className,
+          'antialiased bg-background text-foreground min-h-screen flex flex-col'
+        )}
+      >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <AuthProvider>
             <Navigation />
-            <main className="flex-1">
-              {children}
-            </main>
+            <main className="flex-1">{children}</main>
             <Footer />
             <Toaster />
           </AuthProvider>
