@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useRequireAdmin } from '@/shared/hooks/useRequireAdmin';
 import { Container } from '@/shared/container';
 import { GlossaryTerm, CreateGlossaryTermDTO } from '@/domain/entities/GlossaryTerm';
@@ -16,6 +15,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FeedbackDialog } from '@/presentation/components/shared/FeedbackDialog';
 import { ImageUpload } from '@/presentation/components/shared/ImageUpload';
+import {
+  AdminLoadingState,
+  AdminPageHeader,
+  AdminShell,
+} from '@/presentation/components/admin/AdminShell';
+import {
+  adminCard,
+  adminInput,
+  adminLabel,
+  adminMuted,
+  adminOutlineBtn,
+  adminPrimaryBtn,
+  adminSelect,
+  adminTextarea,
+} from '@/presentation/components/admin/adminUi';
 
 export default function NovoTermoPage() {
   const router = useRouter();
@@ -83,11 +97,7 @@ export default function NovoTermoPage() {
   }
 
   if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Verificando autenticacao...</p>
-      </div>
-    );
+    return <AdminLoadingState message="Verificando autenticacao..." />;
   }
 
   if (!isAdmin) return null;
@@ -95,164 +105,151 @@ export default function NovoTermoPage() {
   const categories = Object.entries(GLOSSARY_CATEGORIES) as [GlossaryCategory, string][];
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <div className="mb-8">
-          <Link href="/admin/glossario" className="text-sm text-muted-foreground hover:text-foreground">
-            &larr; Voltar para Glossario
-          </Link>
-          <h1 className="text-4xl font-bold text-foreground mt-2">
-            Novo Termo
-          </h1>
-        </div>
+    <AdminShell maxWidth="3xl">
+      <AdminPageHeader
+        backHref="/admin/glossario"
+        backLabel="Voltar para Glossario"
+        title="Novo Termo"
+      />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Informacoes do Termo</CardTitle>
-            <CardDescription>
-              Preencha os dados do novo termo do glossario.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Nome */}
-              <div className="space-y-2">
-                <Label htmlFor="term">Nome do Termo *</Label>
-                <Input
-                  id="term"
-                  value={term}
-                  onChange={(e) => setTerm(e.target.value)}
-                  placeholder="Ex: Nix, Pegriam, Espada Dimensional"
-                  required
-                  disabled={saving}
-                />
-              </div>
+      <Card className={cn(adminCard)}>
+        <CardHeader>
+          <CardTitle className={cn('font-display text-gold')}>
+            Informacoes do Termo
+          </CardTitle>
+          <CardDescription className={cn(adminMuted)}>
+            Preencha os dados do novo termo do glossario.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className={cn('space-y-6')}>
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="term" className={cn(adminLabel)}>Nome do Termo *</Label>
+              <Input
+                id="term"
+                value={term}
+                onChange={(e) => setTerm(e.target.value)}
+                placeholder="Ex: Nix, Pegriam, Espada Dimensional"
+                required
+                disabled={saving}
+                className={cn(adminInput)}
+              />
+            </div>
 
-              {/* Aliases */}
-              <div className="space-y-2">
-                <Label htmlFor="aliases">Nomes alternativos (separados por virgula)</Label>
-                <Input
-                  id="aliases"
-                  value={aliases}
-                  onChange={(e) => setAliases(e.target.value)}
-                  placeholder="Ex: O Escolhido, O Bardo"
-                  disabled={saving}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Variacoes do nome que tambem serao reconhecidas.
-                </p>
-              </div>
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="aliases" className={cn(adminLabel)}>
+                Nomes alternativos (separados por virgula)
+              </Label>
+              <Input
+                id="aliases"
+                value={aliases}
+                onChange={(e) => setAliases(e.target.value)}
+                placeholder="Ex: O Escolhido, O Bardo"
+                disabled={saving}
+                className={cn(adminInput)}
+              />
+              <p className={cn('text-xs', adminMuted)}>
+                Variacoes do nome que tambem serao reconhecidas.
+              </p>
+            </div>
 
-              {/* Category */}
-              <div className="space-y-2">
-                <Label htmlFor="category">Categoria *</Label>
-                <select
-                  id="category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value as GlossaryCategory)}
-                  className={cn(
-                    "w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-                    "ring-offset-background focus-visible:outline-none focus-visible:ring-2",
-                    "focus-visible:ring-ring focus-visible:ring-offset-2"
-                  )}
-                  disabled={saving}
-                >
-                  {categories.map(([key, label]) => (
-                    <option key={key} value={key}>{label}</option>
-                  ))}
-                </select>
-              </div>
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="category" className={cn(adminLabel)}>Categoria *</Label>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value as GlossaryCategory)}
+                className={cn(adminSelect)}
+                disabled={saving}
+              >
+                {categories.map(([key, label]) => (
+                  <option key={key} value={key}>{label}</option>
+                ))}
+              </select>
+            </div>
 
-              {/* Short Description */}
-              <div className="space-y-2">
-                <Label htmlFor="shortDescription">Descricao Curta * (para tooltips e cards)</Label>
-                <textarea
-                  id="shortDescription"
-                  value={shortDescription}
-                  onChange={(e) => setShortDescription(e.target.value)}
-                  placeholder="Uma frase que resume o termo..."
-                  required
-                  rows={2}
-                  className={cn(
-                    "w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-                    "ring-offset-background placeholder:text-muted-foreground",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    "disabled:cursor-not-allowed disabled:opacity-50"
-                  )}
-                  disabled={saving}
-                />
-              </div>
-
-              {/* Full Description */}
-              <div className="space-y-2">
-                <Label htmlFor="fullDescription">Descricao Completa * (pagina do termo)</Label>
-                <textarea
-                  id="fullDescription"
-                  value={fullDescription}
-                  onChange={(e) => setFullDescription(e.target.value)}
-                  placeholder="Descricao detalhada, historia, caracteristicas..."
-                  required
-                  rows={8}
-                  className={cn(
-                    "w-full rounded-md border border-input bg-background px-3 py-2 text-sm",
-                    "ring-offset-background placeholder:text-muted-foreground",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    "disabled:cursor-not-allowed disabled:opacity-50"
-                  )}
-                  disabled={saving}
-                />
-              </div>
-
-              {/* Image Upload */}
-              <ImageUpload
-                value={imageUrl}
-                onChange={setImageUrl}
-                label="Imagem do Termo (opcional)"
-                folder="glossary/images"
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="shortDescription" className={cn(adminLabel)}>
+                Descricao Curta * (para tooltips e cards)
+              </Label>
+              <textarea
+                id="shortDescription"
+                value={shortDescription}
+                onChange={(e) => setShortDescription(e.target.value)}
+                placeholder="Uma frase que resume o termo..."
+                required
+                rows={2}
+                className={cn(adminTextarea)}
                 disabled={saving}
               />
+            </div>
 
-              {/* Related Terms IDs */}
-              <div className="space-y-2">
-                <Label htmlFor="relatedTerms">IDs de Termos Relacionados (separados por virgula)</Label>
-                <Input
-                  id="relatedTerms"
-                  value={relatedTermsInput}
-                  onChange={(e) => setRelatedTermsInput(e.target.value)}
-                  placeholder="glossary-xxx, glossary-yyy"
-                  disabled={saving}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Cole os IDs dos termos que tem relacao com este. Voce pode adicionar depois.
-                </p>
-              </div>
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="fullDescription" className={cn(adminLabel)}>
+                Descricao Completa * (pagina do termo)
+              </Label>
+              <textarea
+                id="fullDescription"
+                value={fullDescription}
+                onChange={(e) => setFullDescription(e.target.value)}
+                placeholder="Descricao detalhada, historia, caracteristicas..."
+                required
+                rows={8}
+                className={cn(adminTextarea)}
+                disabled={saving}
+              />
+            </div>
 
-              {/* Actions */}
-              <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={saving}>
-                  {saving ? 'Salvando...' : 'Criar Termo'}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => router.push('/admin/glossario')}
-                  disabled={saving}
-                >
-                  Cancelar
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+            <ImageUpload
+              value={imageUrl}
+              onChange={setImageUrl}
+              label="Imagem do Termo (opcional)"
+              folder="glossary/images"
+              disabled={saving}
+            />
 
-        <FeedbackDialog
-          open={feedback.open}
-          onOpenChange={(open) => setFeedback(prev => ({ ...prev, open }))}
-          type={feedback.type}
-          title={feedback.title}
-          description={feedback.description}
-        />
-      </div>
-    </div>
+            <div className={cn('space-y-2')}>
+              <Label htmlFor="relatedTerms" className={cn(adminLabel)}>
+                IDs de Termos Relacionados (separados por virgula)
+              </Label>
+              <Input
+                id="relatedTerms"
+                value={relatedTermsInput}
+                onChange={(e) => setRelatedTermsInput(e.target.value)}
+                placeholder="glossary-xxx, glossary-yyy"
+                disabled={saving}
+                className={cn(adminInput)}
+              />
+              <p className={cn('text-xs', adminMuted)}>
+                Cole os IDs dos termos que tem relacao com este. Voce pode adicionar depois.
+              </p>
+            </div>
+
+            <div className={cn('flex gap-4 pt-4')}>
+              <Button type="submit" disabled={saving} className={cn(adminPrimaryBtn)}>
+                {saving ? 'Salvando...' : 'Criar Termo'}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push('/admin/glossario')}
+                disabled={saving}
+                className={cn(adminOutlineBtn)}
+              >
+                Cancelar
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+
+      <FeedbackDialog
+        open={feedback.open}
+        onOpenChange={(open) => setFeedback(prev => ({ ...prev, open }))}
+        type={feedback.type}
+        title={feedback.title}
+        description={feedback.description}
+      />
+    </AdminShell>
   );
 }

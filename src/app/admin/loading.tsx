@@ -2,22 +2,30 @@
  * Loading State — Painel Admin
  */
 
+import { cn } from '@/lib/utils';
+
 export default function AdminLoading() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="h-10 w-56 bg-muted animate-pulse rounded mb-2" />
-          <div className="h-5 w-72 bg-muted animate-pulse rounded" />
+    <div className={cn('min-h-screen bg-[hsl(var(--navy-deep))]')}>
+      <div className={cn('container mx-auto px-4 py-8')}>
+        <div className={cn('mb-8')}>
+          <div className={cn('h-10 w-56 bg-white/10 animate-pulse rounded mb-2')} />
+          <div className={cn('h-5 w-72 bg-white/10 animate-pulse rounded')} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className={cn('grid grid-cols-1 md:grid-cols-4 gap-4 mb-8')}>
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-24 bg-muted animate-pulse rounded-lg border border-border" />
+            <div
+              key={i}
+              className={cn('h-24 bg-navy animate-pulse rounded-lg border border-gold/20')}
+            />
           ))}
         </div>
-        <div className="space-y-4">
+        <div className={cn('space-y-4')}>
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-20 w-full bg-muted animate-pulse rounded-lg border border-border" />
+            <div
+              key={i}
+              className={cn('h-20 w-full bg-navy animate-pulse rounded-lg border border-gold/20')}
+            />
           ))}
         </div>
       </div>

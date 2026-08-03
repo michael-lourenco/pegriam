@@ -27,8 +27,8 @@ export function MarkdownEditor({
 
   useEffect(() => {
     if (value.trim()) {
-      const rendered = MarkdownRendererService.renderWithProse(value);
-      setPreview(rendered);
+      // HTML puro — o container prose-parchment cuida das cores
+      setPreview(MarkdownRendererService.render(value));
     } else {
       setPreview('');
     }
@@ -42,8 +42,14 @@ export function MarkdownEditor({
         className
       )}
     >
+      {/* Editor — fundo escuro, texto claro (código) */}
       <div className={cn('flex flex-col min-h-0', fillHeight && 'h-full')}>
-        <label className={cn('text-sm font-medium mb-2 text-foreground flex-shrink-0')}>
+        <label
+          className={cn(
+            'text-sm font-medium mb-2 flex-shrink-0',
+            'text-[hsl(var(--parchment))]'
+          )}
+        >
           Editor Markdown
         </label>
         {fillHeight ? (
@@ -55,7 +61,9 @@ export function MarkdownEditor({
               disabled={disabled}
               className={cn(
                 'absolute inset-0 h-full font-mono text-sm resize-none',
-                'focus-visible:ring-2 focus-visible:ring-ring'
+                'bg-[hsl(var(--navy))] border-gold/30',
+                'text-[hsl(var(--parchment))] placeholder:text-white/35',
+                'focus-visible:ring-gold/40'
               )}
             />
           </div>
@@ -67,33 +75,43 @@ export function MarkdownEditor({
             disabled={disabled}
             className={cn(
               'flex-1 font-mono text-sm resize-none min-h-[300px] max-h-[60vh]',
-              'focus-visible:ring-2 focus-visible:ring-ring'
+              'bg-[hsl(var(--navy))] border-gold/30',
+              'text-[hsl(var(--parchment))] placeholder:text-white/35',
+              'focus-visible:ring-gold/40'
             )}
           />
         )}
-        <p className={cn('text-xs text-muted-foreground mt-2 flex-shrink-0')}>
+        <p className={cn('text-xs text-white/45 mt-2 flex-shrink-0')}>
           Use sintaxe Markdown: # para títulos, ** para negrito, * para itálico, etc.
         </p>
       </div>
 
+      {/* Preview — pergaminho como no leitor público */}
       <div className={cn('flex flex-col min-h-0', fillHeight && 'h-full')}>
-        <label className={cn('text-sm font-medium mb-2 text-foreground flex-shrink-0')}>
-          Preview
+        <label
+          className={cn(
+            'text-sm font-medium mb-2 flex-shrink-0',
+            'text-[hsl(var(--parchment))]'
+          )}
+        >
+          Preview (como o leitor verá)
         </label>
         <div
           className={cn(
-            'border rounded-md p-4 overflow-y-auto bg-background',
-            'prose prose-lg dark:prose-invert max-w-none',
+            'border border-gold/35 rounded-md p-4 overflow-y-auto',
+            'reader-parchment prose-parchment max-w-none',
             fillHeight
               ? 'flex-1 min-h-0'
               : 'flex-1 min-h-[300px] max-h-[60vh]',
-            preview ? '' : 'text-muted-foreground flex items-center justify-center'
+            !preview && 'flex items-center justify-center'
           )}
         >
           {preview ? (
             <div dangerouslySetInnerHTML={{ __html: preview }} />
           ) : (
-            <p className={cn('text-sm')}>Preview aparecerá aqui...</p>
+            <p className={cn('text-sm text-[hsl(215_30%_40%)]')}>
+              Preview aparecerá aqui...
+            </p>
           )}
         </div>
       </div>

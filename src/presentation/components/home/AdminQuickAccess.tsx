@@ -1,11 +1,7 @@
 /**
  * Componente: AdminQuickAccess
- * 
- * Painel de acesso rápido às funcionalidades administrativas.
- * Exibido exclusivamente para usuários com permissão de admin.
- * 
- * Segue o princípio de responsabilidade única (SRP):
- * apenas fornece atalhos para as áreas administrativas.
+ *
+ * Painel de acesso rápido às funcionalidades administrativas na home.
  */
 
 'use client';
@@ -14,31 +10,45 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import {
+  adminCard,
+  adminMuted,
+  adminOutlineBtn,
+  adminPrimaryBtn,
+} from '@/presentation/components/admin/adminUi';
 
 export function AdminQuickAccess() {
   return (
-    <Card className={cn("border-primary/20 bg-primary/5")}>
+    <Card className={cn(adminCard, 'border-gold/35')}>
       <CardHeader>
-        <CardTitle className={cn("text-lg")}>
+        <CardTitle className={cn('font-display text-lg text-gold')}>
           Acesso Rápido — Administração
         </CardTitle>
-        <CardDescription>
+        <CardDescription className={cn(adminMuted)}>
           Gerencie histórias, capítulos e conteúdo do sistema
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className={cn("flex flex-wrap gap-3")}>
+        <div className={cn('flex flex-wrap gap-3')}>
           <Link href="/admin">
-            <Button size="sm">Painel Admin</Button>
+            <Button size="sm" className={cn(adminPrimaryBtn)}>
+              Painel Admin
+            </Button>
           </Link>
           <Link href="/admin/stories">
-            <Button variant="outline" size="sm">Gerenciar Histórias</Button>
+            <Button variant="outline" size="sm" className={cn(adminOutlineBtn)}>
+              Gerenciar Histórias
+            </Button>
           </Link>
           <Link href="/admin/stories/new">
-            <Button variant="outline" size="sm">Nova História</Button>
+            <Button variant="outline" size="sm" className={cn(adminOutlineBtn)}>
+              Nova História
+            </Button>
           </Link>
           <Link href="/admin/glossario">
-            <Button variant="outline" size="sm">Glossário</Button>
+            <Button variant="outline" size="sm" className={cn(adminOutlineBtn)}>
+              Glossário
+            </Button>
           </Link>
         </div>
       </CardContent>

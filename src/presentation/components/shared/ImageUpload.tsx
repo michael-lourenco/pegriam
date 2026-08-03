@@ -96,25 +96,31 @@ export function ImageUpload({
   };
 
   return (
-    <div className={cn("space-y-2")}>
-      <Label>{label}</Label>
-      
+    <div className={cn('space-y-2')}>
+      <Label className={cn('text-[hsl(var(--parchment))]/90')}>{label}</Label>
+
       {preview ? (
-        <div className={cn("space-y-2")}>
-          <div className={cn("relative w-full h-48 bg-muted rounded-md overflow-hidden border border-border")}>
+        <div className={cn('space-y-2')}>
+          <div
+            className={cn(
+              'relative w-full h-48 rounded-md overflow-hidden',
+              'bg-[hsl(var(--navy-deep))] border border-gold/30'
+            )}
+          >
             <img
               src={preview}
               alt="Preview"
-              className={cn("w-full h-full object-cover")}
+              className={cn('w-full h-full object-cover')}
             />
           </div>
-          <div className={cn("flex gap-2")}>
+          <div className={cn('flex gap-2')}>
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading || disabled}
+              className={cn('border-gold/40 text-gold hover:bg-gold/10')}
             >
               {uploading ? 'Enviando...' : 'Trocar Imagem'}
             </Button>
@@ -124,24 +130,23 @@ export function ImageUpload({
               size="sm"
               onClick={handleRemove}
               disabled={uploading || disabled}
+              className={cn('border-gold/40 text-gold hover:bg-gold/10')}
             >
               Remover
             </Button>
           </div>
           {value && (
-            <p className={cn("text-xs text-muted-foreground break-all")}>
-              URL: {value}
-            </p>
+            <p className={cn('text-xs text-white/45 break-all')}>URL: {value}</p>
           )}
         </div>
       ) : (
-        <div className={cn("space-y-2")}>
+        <div className={cn('space-y-2')}>
           <div
             className={cn(
-              "border-2 border-dashed border-border rounded-md p-8 text-center cursor-pointer",
-              "hover:border-primary transition-colors",
-              uploading && "opacity-50 cursor-not-allowed",
-              disabled && "opacity-50 cursor-not-allowed"
+              'border-2 border-dashed border-gold/30 rounded-md p-8 text-center cursor-pointer',
+              'hover:border-gold/60 transition-colors bg-navy/40',
+              uploading && 'opacity-50 cursor-not-allowed',
+              disabled && 'opacity-50 cursor-not-allowed'
             )}
             onClick={() => !disabled && !uploading && fileInputRef.current?.click()}
           >
@@ -151,18 +156,16 @@ export function ImageUpload({
               accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
               onChange={handleFileSelect}
               disabled={uploading || disabled}
-              className={cn("hidden")}
+              className={cn('hidden')}
             />
             {uploading ? (
-              <p className={cn("text-sm text-muted-foreground")}>
-                Enviando imagem...
-              </p>
+              <p className={cn('text-sm text-white/55')}>Enviando imagem...</p>
             ) : (
               <>
-                <p className={cn("text-sm text-muted-foreground mb-2")}>
+                <p className={cn('text-sm text-white/55 mb-2')}>
                   Clique para fazer upload ou arraste uma imagem aqui
                 </p>
-                <p className={cn("text-xs text-muted-foreground")}>
+                <p className={cn('text-xs text-white/40')}>
                   JPEG, PNG, WebP ou GIF (máx. 5MB)
                 </p>
               </>
@@ -171,14 +174,13 @@ export function ImageUpload({
         </div>
       )}
 
-      {error && (
-        <p className={cn("text-sm text-destructive")}>{error}</p>
-      )}
+      {error && <p className={cn('text-sm text-destructive')}>{error}</p>}
 
-      {/* Input oculto para URL manual (fallback) */}
       {!preview && (
-        <div className={cn("space-y-2")}>
-          <Label htmlFor="imageUrl">Ou cole a URL da imagem</Label>
+        <div className={cn('space-y-2')}>
+          <Label htmlFor="imageUrl" className={cn('text-[hsl(var(--parchment))]/90')}>
+            Ou cole a URL da imagem
+          </Label>
           <Input
             id="imageUrl"
             type="url"
@@ -186,6 +188,10 @@ export function ImageUpload({
             onChange={(e) => onChange(e.target.value)}
             placeholder="https://exemplo.com/imagem.jpg"
             disabled={uploading || disabled}
+            className={cn(
+              'bg-[hsl(var(--navy-deep))] border-gold/25',
+              'text-[hsl(var(--parchment))] placeholder:text-white/35'
+            )}
           />
         </div>
       )}

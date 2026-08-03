@@ -33,18 +33,32 @@ function formatPrice(price: number): string {
 
 function AccessGrantedCard({ accessReason }: { accessReason: string }) {
   return (
-    <Card className={cn("border-green-500/30 bg-green-500/5")}>
-      <CardHeader>
-        <CardTitle className={cn("text-lg text-green-600")}>
+    <div
+      className={cn(
+        'flex items-start gap-3 rounded-lg border border-emerald-500/35',
+        'bg-emerald-950/40 px-4 py-4 text-[hsl(var(--parchment))]'
+      )}
+    >
+      <span className={cn('text-emerald-400 mt-0.5')} aria-hidden>
+        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <rect x="5" y="11" width="14" height="10" rx="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+        </svg>
+      </span>
+      <div className={cn('flex-1 min-w-0')}>
+        <p className={cn('font-display font-semibold text-emerald-300')}>
           Acesso Completo Liberado
-        </CardTitle>
-        <CardDescription>
+        </p>
+        <p className={cn('text-sm text-white/65 mt-1')}>
           {accessReason === 'admin'
-            ? 'Você tem acesso administrativo a todo o conteúdo.'
+            ? 'Você tem acesso administrativo a todo o conteúdo desta história.'
             : 'Você já possui acesso completo a todos os capítulos desta história.'}
-        </CardDescription>
-      </CardHeader>
-    </Card>
+        </p>
+      </div>
+      <span className={cn('text-gold flex-shrink-0')} aria-hidden>
+        ✓
+      </span>
+    </div>
   );
 }
 

@@ -76,8 +76,9 @@ export class MarkdownRendererService {
    */
   static renderWithProse(markdown: string): string {
     const html = this.render(markdown);
-    
-    // Envolver em div com classes do Tailwind Typography
-    return `<div class="prose prose-lg dark:prose-invert max-w-none">${html}</div>`;
+
+    // Sem dark:prose-invert — o tema do texto fica a cargo do container
+    // (pergaminho claro no leitor, ou prose-invert no admin quando necessário).
+    return `<div class="prose prose-lg max-w-none">${html}</div>`;
   }
 }
